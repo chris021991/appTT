@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "appttdb": {
+      "hosting": {
+        "app": [
+          "appttdb"
+        ]
+      }
+    }
+  }
+}

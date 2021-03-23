@@ -1,0 +1,65 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Álbumes</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="presentModal()">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-toolbar>
+  <ion-searchbar placeholder="Buscar" 
+                 (ionChange)="search( $event )"
+                 animated
+                 decounce="700"></ion-searchbar>
+</ion-toolbar>
+
+<ion-grid fixed *ngIf="collections.length === 0">
+  <ion-row>
+    <ion-col size="6" *ngFor="let i of [1,1,1,1,1,1,1]">
+      <ion-card>
+       <ion-skeleton-text animated style="width: 200px; height: 200px"></ion-skeleton-text>
+       <ion-card-header>
+         <ion-card-subtitle><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></ion-card-subtitle>
+         <ion-card-title><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></ion-card-title>
+       </ion-card-header>
+       <ion-card-content><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<ion-grid fixed *ngIf="collections.length > 0">
+  <ion-row>
+    <ion-col size="12" size-lg="2" size-md="3" size-sm="4" size-xs="6"
+             *ngFor="let collection of collections | orderBy: 'date':'desc' | search: textSearch">
+              
+      <ion-card> 
+        <ion-img (click)="openCollection(collection)" class="image-card" [src]="collection.photos[0]"></ion-img>
+        <ion-card-header style="margin-top: -20px; margin-bottom: -15px">
+          <ion-card-subtitle style="font-size: 14px" class="ion-margin-top">{{collection.date}}</ion-card-subtitle>
+          <ion-card-title style="font-size: 16px;">{{collection.name}}</ion-card-title>
+        </ion-card-header>
+        
+        <ion-card-content style="font-size: 13px; margin-bottom: -15px">
+          <ion-toolbar>  
+            
+            <ion-label *ngIf="collection.photos.length === 1">{{collection.photos.length}} Foto</ion-label>
+            <ion-label *ngIf="collection.photos.length > 1">{{collection.photos.length}} Fotos</ion-label>
+            
+            <ion-buttons  slot="end">
+              <ion-button (click)="presentActionSheet(collection)">
+                <ion-icon slot="icon-only" name="ellipsis-horizontal"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+            
+          </ion-toolbar>
+        </ion-card-content>
+      </ion-card>
+      
+      
+    </ion-col>
+  </ion-row>
+</ion-grid>
