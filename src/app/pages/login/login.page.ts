@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides, MenuController, NavController } from '@ionic/angular';
+import { IonSlides, MenuController, NavController, ModalController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Roles } from '../../models/interfaces';
 import { UIServicesService } from '../../services/ui-services.service';
+import { ForgotPasswordComponent } from '../../components/forgot-password/forgot-password.component';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +27,8 @@ export class LoginPage implements OnInit {
   constructor(private authSvc: AuthService,
               private uiService: UIServicesService,
               private navCtrl: NavController,
-              public menu: MenuController) { }
+              public menu: MenuController,
+              private modalCtrl: ModalController) { }
 
   ngOnInit() {
     //inhabilitar el menú
@@ -85,6 +87,12 @@ export class LoginPage implements OnInit {
     } catch (error) {
       console.error(error)
     }
+  }
+
+  onReset(){
+    this.modalCtrl.create({
+      component: ForgotPasswordComponent
+    }).then(m => m.present());
   }
 
    //método para redireccionar a DASHBOARD si el usuario se encuentra verificado
