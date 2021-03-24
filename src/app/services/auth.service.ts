@@ -46,25 +46,25 @@ export class AuthService extends RoleValidator{
   }
 
   //método para login con cuenta de Google
-  async loginGoogle(roleSelected?: Roles): Promise<User> {
-    try {
-      const { user } = await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-      console.log(user);
-      this.updateUserData(user, roleSelected);
-      return user;
-    } catch (error) {
-      console.log('LoginGoogle error->', error)
-    }
-  }
-
-  // async loginGoogle(): Promise<User> {
-  //   const googleUser = await Plugins.GoogleAuth.signIn();   
-  //   const idToken = googleUser.authentication.idToken;
-  //   const accessToken = googleUser.authentication.accessToken;
-  //   const { user } = await this.afAuth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(idToken,accessToken));
-  //   this.updateUserData(user); 
-  //   return user;
+  // async loginGoogle(roleSelected?: Roles): Promise<User> {
+  //   try {
+  //     const { user } = await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  //     console.log(user);
+  //     this.updateUserData(user, roleSelected);
+  //     return user;
+  //   } catch (error) {
+  //     console.log('LoginGoogle error->', error)
+  //   }
   // }
+
+  async loginGoogle(): Promise<User> {
+    const googleUser = await Plugins.GoogleAuth.signIn();   
+    const idToken = googleUser.authentication.idToken;
+    const accessToken = googleUser.authentication.accessToken;
+    const { user } = await this.afAuth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(idToken,accessToken));
+    this.updateUserData(user); 
+    return user;
+  }
 
   //método para logout
   async logout(): Promise<void> {
