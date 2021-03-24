@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSlides, MenuController, NavController, ModalController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { Roles } from '../../models/interfaces';
 import { UIServicesService } from '../../services/ui-services.service';
 import { ForgotPasswordComponent } from '../../components/forgot-password/forgot-password.component';
 
@@ -59,8 +58,10 @@ export class LoginPage implements OnInit {
   async onLoginGoogle(){
     try{
       const user = await this.authSvc.loginGoogle();
+      console.log(user);
+      
       if (user) {
-        const isVerified = this.authSvc.isEmailVerified(user);
+        const isVerified = true;
         this.redirectUser(isVerified);
       }
       else{

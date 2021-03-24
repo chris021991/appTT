@@ -1,0 +1,17 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "appTT",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {},
+  "server": {
+    "url": "http://192.168.99.33:8100",
+    "cleartext": true
+  }
+}

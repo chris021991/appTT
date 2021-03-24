@@ -8,6 +8,9 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import { RoleValidator } from '../helpers/role-validator';
 
+import { Plugins } from '@capacitor/core';
+import '@codetrix-studio/capacitor-google-auth';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -35,7 +38,7 @@ export class AuthService extends RoleValidator{
     try {
       const { user } = await this.afAuth.signInWithEmailAndPassword(email, password);
       //actualiza la información del Usuario logueado
-      // this.updateUserData(user);    
+      this.updateUserData(user);    
       return user;
     } catch (error) {
       console.log('Login error -->', error)
@@ -46,12 +49,22 @@ export class AuthService extends RoleValidator{
   async loginGoogle(roleSelected?: Roles): Promise<User> {
     try {
       const { user } = await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+      console.log(user);
       this.updateUserData(user, roleSelected);
       return user;
     } catch (error) {
       console.log('LoginGoogle error->', error)
     }
   }
+
+  // async loginGoogle(): Promise<User> {
+  //   const googleUser = await Plugins.GoogleAuth.signIn();   
+  //   const idToken = googleUser.authentication.idToken;
+  //   const accessToken = googleUser.authentication.accessToken;
+  //   const { user } = await this.afAuth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(idToken,accessToken));
+  //   this.updateUserData(user); 
+  //   return user;
+  // }
 
   //método para logout
   async logout(): Promise<void> {
@@ -67,24 +80,21 @@ export class AuthService extends RoleValidator{
     try {
       const { user } = await this.afAuth.createUserWithEmailAndPassword(email, password);
       this.sendVerificationEmail();
-      this.updateUserData(user, role, true);      
+      this.updateUserData(user);      
       return user;
     } catch (error) {
         console.log('Error->', error)
     }
   }
 
-  //método para actualizar datos de los usuarios registrados
-  private updateUserData(user: User , roleSelected?: Roles, firstLogin1?: boolean) {
+  private updateUserData(user: User , roleSelected?: Roles) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
     const data: User = {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
       emailVerified: user.emailVerified,
-      firstLogin: firstLogin1,
-      photoURL: user.photoURL,
-      role: roleSelected,
+      photoURL: user.photoURL
     };
     
     return userRef.set(data, { merge: true })
