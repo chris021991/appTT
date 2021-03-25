@@ -3,7 +3,6 @@ import { IonSlides, MenuController, NavController, ModalController } from '@ioni
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { UIServicesService } from '../../services/ui-services.service';
-import { ForgotPasswordComponent } from '../../components/forgot-password/forgot-password.component';
 
 @Component({
   selector: 'app-login',
@@ -81,7 +80,7 @@ export class LoginPage implements OnInit {
         user.role = this.loginUser.role;
         user.firstLogin = true;      
         this.authSvc.isEmailVerified(user);
-        this.uiService.presentAlert('Hemos enviado un mensaje de verificación a sus correo electrónico!');
+        this.uiService.presentAlert('Hemos enviado un mensaje de verificación a sus correo electrónico.');
         this.uiService.presentToast('¡Se ha registrado con éxito!',2500);
         this.slideToLogin();
       }
@@ -90,18 +89,12 @@ export class LoginPage implements OnInit {
     }
   }
 
-  onReset(){
-    this.modalCtrl.create({
-      component: ForgotPasswordComponent
-    }).then(m => m.present());
-  }
-
    //método para redireccionar a DASHBOARD si el usuario se encuentra verificado
    private redirectUser(isVerified:boolean):void{
     if(isVerified){
       this.navCtrl.navigateRoot('/welcome', { animated: true })
     }else{
-      this.uiService.presentAlert('Antes debe validar su cuenta desde su correo electrónico registrado!');
+      this.uiService.presentAlert('Antes debe validar su cuenta desde el enlace enviado a su correo electrónico.');
     }
   }
 

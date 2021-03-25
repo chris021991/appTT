@@ -7,7 +7,6 @@ import { CollectionComponent } from './collection/collection.component';
 import { CollectionsComponent } from './collections/collections.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { OrderModule } from 'ngx-order-pipe';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 
@@ -15,8 +14,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
   declarations: [ 
     AvatarSelectorComponent, 
     CollectionComponent, 
-    CollectionsComponent,
-    ForgotPasswordComponent],
+    CollectionsComponent],
   imports: [ 
     CommonModule, 
     FormsModule, 
@@ -27,7 +25,6 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
   exports: [
     AvatarSelectorComponent, 
     CollectionComponent, 
-    CollectionsComponent,
-    ForgotPasswordComponent]
+    CollectionsComponent]
 })
 export class ComponentsModule { }
