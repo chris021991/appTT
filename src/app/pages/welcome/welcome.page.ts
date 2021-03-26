@@ -12,6 +12,13 @@ import { Router } from '@angular/router';
 })
 export class WelcomePage implements OnInit {
 
+  constructor( private authSrv: AuthService,
+               private navCtrl: NavController,
+               private loadingCtrl: LoadingController,
+               private toastCtrl: ToastController,
+               private route: Router,
+               private afs: AngularFirestore ) { }
+
   @ViewChild('slideWelcome') slides: IonSlides;
 
   uid: string;
@@ -21,44 +28,6 @@ export class WelcomePage implements OnInit {
   address: string;
 
   slideCount = 0;
-
-  constructor( private authSrv : AuthService,
-               private navCtrl: NavController,
-               private loadingCtrl: LoadingController,
-               private toastCtrl: ToastController,
-               private route: Router,
-               private afs: AngularFirestore ) { }
-
-
-  async ngOnInit() {
-    this.authSrv.user$.subscribe(user => {
-      this.uid = user.uid,
-      this.displayName = user.displayName,
-      this.phone = user.phone,
-      this.biography = user.biography,
-      this.address = user.address
-    });
-  }
-
-  ionViewDidEnter(){
-    this.slides.lockSwipes(true);
-  }
-
-  onSubmit(){
-   
-  }
-
-  async finish(){
-    await this.updateUserData()
-    .then(() => {
-      this.navCtrl.navigateRoot('/home/app/portfolio', { animated: true });
-    })
-    .catch (error => {
-      console.log(error);
-      
-      this.toast(error.message, 'danger');
-    })
-  }
 
   public form = [
     { val: 'Moda', isChecked: false },
@@ -81,6 +50,31 @@ export class WelcomePage implements OnInit {
     { val: 'Viajes', isChecked: false }
   ];
 
+
+  async ngOnInit() {
+    this.authSrv.user$.subscribe(user => {
+      this.uid = user.uid,
+      this.displayName = user.displayName,
+      this.phone = user.phone,
+      this.biography = user.biography,
+      this.address = user.address;
+    });
+  }
+
+  ionViewDidEnter(){
+    this.slides.lockSwipes(true);
+  }
+
+  async finish(){
+    await this.updateUserData()
+    .then(() => {
+      this.navCtrl.navigateRoot('/home/app/portfolio', { animated: true });
+    })
+    .catch (error => {
+      this.toast(error.message, 'danger');
+    });
+  }
+
   async updateUserData(){
     const loading = await this.loadingCtrl.create({
       message: 'Actualizando...',
@@ -91,26 +85,24 @@ export class WelcomePage implements OnInit {
     loading.present();
 
     this.afs.collection('users').doc(this.uid).set({
-      'displayName': this.displayName,
-      'phone': this.phone,
-      'address': this.address,
-      'biography': this.biography,
-    },{merge: true})
+      displayName: this.displayName,
+      phone: this.phone,
+      address: this.address,
+      biography: this.biography,
+    }, {merge: true})
     .then(() => {
       loading.dismiss();
       this.toast('Actualización exitosa!', 'success');
-      this.route.navigate(['/home/app/portfolio'])
+      this.route.navigate(['/home/app/portfolio']);
     })
     .catch (error => {
-      console.log(error);
-      
-      this.toast(error.message,'danger');
-    })
+      this.toast(error.message, 'danger');
+    });
   }
 
   async toast(message, status){
     const toast = await this.toastCtrl.create({
-      message: message,
+      message,
       color: status,
       position: 'top',
       duration: 2000
@@ -118,18 +110,18 @@ export class WelcomePage implements OnInit {
     toast.present();
   } // fin del toast
 
-  //métodos para dslizar sliders LOGIN/REGISTER
+  // métodos para dslizar sliders LOGIN/REGISTER
   slideToBack(){
     this.slides.lockSwipes(false);
     this.slides.slidePrev();
     this.slideCount --;
-    this.slides.lockSwipes(true);   
+    this.slides.lockSwipes(true);
   }
   slideToForward(){
     this.slides.lockSwipes(false);
     this.slides.slideNext();
     this.slideCount ++;
-    this.slides.lockSwipes(true);  
+    this.slides.lockSwipes(true);
   }
 
 }

@@ -19,17 +19,16 @@ export class ProfilePage implements OnInit {
     this.authSrv.user$.subscribe(user => {
       this.user = user;
       console.log(user.photoURL);
-      
-    })
+    });
     console.log();
-    
   }
 
-  async onLogOut(){
+   onLogOut(){
     try{
-      await this.authSrv.signOut;
+      // tslint:disable-next-line: no-unused-expression
+      this.authSrv.signOut;
       this.navCtrl.navigateRoot('/');
-    }catch(error){
+    }catch (error){
       console.log(error);
     }
   }
