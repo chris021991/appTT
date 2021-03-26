@@ -57,20 +57,25 @@
     </ion-slide>
 
     <ion-slide>
-      <div style="column-count: 1;">
-      <ion-label class="ion-margin">Especialidades</ion-label>
-
-      <ion-list>
-        <ion-item lines="none" *ngFor="let entry of form">
-          <ion-checkbox slot="start" [(ngModel)]="entry.isChecked" name="especialidad"></ion-checkbox>
-          <ion-label>{{entry.val}}</ion-label>
-        </ion-item>
-      </ion-list>
-    </div>
+      <div class="ion-padding">
+        <h1>Estilos <br> fotográficos</h1>
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col size="12">
+              <ion-list>
+                <ion-item lines="none" *ngFor="let entry of form">
+                  <ion-checkbox slot="start" [(ngModel)]="entry.isChecked" name="especialidad"></ion-checkbox>
+                  <ion-label>{{entry.val}}</ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
     </ion-slide>
 
-    <ion-slide style="width: 100%;height: 100%;">
-      <ion-grid>
+    <ion-slide>
+      <ion-grid class="ion-padding">
         <ion-row>
           <ion-col size="12">
 

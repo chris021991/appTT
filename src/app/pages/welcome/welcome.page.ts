@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSlides, NavController, LoadingController, ToastController } from '@ionic/angular';
-import { User, Roles, Social } from '../../models/interfaces';
 import { AuthService } from '../../services/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
@@ -30,24 +29,16 @@ export class WelcomePage implements OnInit {
   slideCount = 0;
 
   public form = [
-    { val: 'Moda', isChecked: false },
-    { val: 'Publicidad', isChecked: false },
-    { val: 'Books', isChecked: false },
-    { val: 'Video', isChecked: false },
-    { val: 'Cine', isChecked: false },
-    { val: 'Lookbooks', isChecked: false },
-    { val: 'Dirección de fotografía', isChecked: false },
-    { val: 'Retoque fotográfico', isChecked: false },
+    { val: 'Bodas y compromisos', isChecked: false },
     { val: 'Retrato', isChecked: false },
-    { val: 'Producto', isChecked: false },
-    { val: 'Arquitectura', isChecked: false },
-    { val: 'Naturaleza', isChecked: false },
-    { val: 'Industrial', isChecked: false },
-    { val: 'Animales', isChecked: false },
-    { val: 'Vehículos', isChecked: false },
-    { val: 'Bodas', isChecked: false },
-    { val: 'Periodismo', isChecked: false },
-    { val: 'Viajes', isChecked: false }
+    { val: 'Eventos', isChecked: false },
+    { val: 'Moda', isChecked: false },
+    { val: 'Colegio', isChecked: false },
+    { val: 'Deportes/Acción', isChecked: false },
+    { val: 'Comercial/Editorial', isChecked: false },
+    { val: 'Naturaleza/Fauna salvaje', isChecked: false },
+    { val: 'Bellas artes', isChecked: false },
+    { val: 'Fotoperiodismo', isChecked: false }
   ];
 
 
