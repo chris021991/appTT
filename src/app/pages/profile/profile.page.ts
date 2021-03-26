@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { User, Roles } from '../../models/interfaces';
+import { User } from '../../models/interfaces';
 import { AuthService } from '../../services/auth.service';
 import { NavController } from '@ionic/angular';
 
@@ -18,7 +18,6 @@ export class ProfilePage implements OnInit {
   ngOnInit() {
     this.authSrv.user$.subscribe(user => {
       this.user = user;
-      console.log(user.photoURL);
     });
     console.log();
   }
