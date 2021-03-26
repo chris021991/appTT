@@ -43,51 +43,7 @@ export class LoginPage implements OnInit {
     this.slides.lockSwipes(true);
   }
 
-  // async onLogin(fLogin: NgForm) {
-  //   if(fLogin.invalid){return;}
-  //   try{
-  //     const user = await this.authSvc.login(this.user.email,this.user.password);
-  //     if (user) {
-  //       const isVerified = this.authSvc.isEmailVerified(user);
-  //       this.redirectUser(isVerified);
-  //     }
-  //     else{
-  //       this.uiService.presentAlert('Usuario y/o contraseña incorrectos.')
-  //     }
-  //   } catch(error){
-  //     console.log('Login error -->',error);
-  //   }
-  // }
-
-  onLoginGoogle(){
-      const user =  this.authSvc.singInGoogle();
-      console.log(user);
-  }
-
-  // async onRegister(fRegister: NgForm) {
-  //   if(fRegister.invalid){return;}
-  //   try {
-  //     const user = await this.authSvc.register(this.user.email, this.user.password, this.user.role );
-  //     if (user) {
-  //       console.log('User->', user);
-  //       user.role = this.user.role;
-  //       user.firstLogin = true;
-  //       this.authSvc.isEmailVerified(user);
-  //       this.uiService.presentAlert('Hemos enviado un mensaje de verificación a sus correo electrónico.');
-  //       this.uiService.presentToast('¡Se ha registrado con éxito!',2500);
-  //       this.slideToLogin();
-  //     }
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  // }
-
-
-
-
-  // nuevo Login
-
-  login(){
+  onLogin(){
     if (this.user.email && this.user.password){
       this.authSvc.signIn(this.user.email, this.user.password);
     } else{
@@ -95,9 +51,11 @@ export class LoginPage implements OnInit {
     }
   }
 
+  onLoginGoogle(){
+    this.authSvc.singInGoogle();
+  }
 
-  // nuevo Register
-  async register(){
+  async onRegister(){
     if (this.user.email && this.user.password && this.user.role){
       const loading = await this.loadingCtrl.create({
         message: 'Procesando...',
@@ -145,19 +103,6 @@ export class LoginPage implements OnInit {
     });
     toast.present();
   } // fin del toast
-
-   // método para redireccionar a DASHBOARD si el usuario se encuentra verificado
-  //  private redirectUser(isVerified: boolean): void{
-  //   if(isVerified){
-  //     this.navCtrl.navigateRoot('/welcome', { animated: true })
-  //   }else{
-  //     this.uiService.presentAlert('Antes debe validar su cuenta desde el enlace enviado a su correo electrónico.');
-  //   }
-  // }
-
-  selectedOption(){
-    console.log(this.user.role);
-  }
 
   // métodos para dslizar sliders LOGIN/REGISTER
   slideToLogin(){

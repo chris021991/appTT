@@ -14,8 +14,9 @@ export class HomePage implements OnInit {
   constructor(private authSrv: AuthService) {}
 
   async ngOnInit(){
-    this.user = await this.authSrv.getCurrentUser();
-    this.authSrv.userLogged = this.user;  
+    this.authSrv.user$.subscribe(user => {
+      this.user = user;
+    });
   }
 
 }

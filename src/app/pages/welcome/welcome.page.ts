@@ -3,6 +3,7 @@ import { IonSlides, NavController, LoadingController, ToastController } from '@i
 import { AuthService } from '../../services/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { User } from '../../models/interfaces';
 
 @Component({
   selector: 'app-welcome',
@@ -41,7 +42,6 @@ export class WelcomePage implements OnInit {
     { val: 'Fotoperiodismo', isChecked: false }
   ];
 
-
   async ngOnInit() {
     this.authSrv.user$.subscribe(user => {
       this.uid = user.uid,
@@ -52,21 +52,22 @@ export class WelcomePage implements OnInit {
     });
   }
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.slides.lockSwipes(true);
   }
 
-  async finish(){
+  async finish() {
     await this.updateUserData()
     .then(() => {
       this.navCtrl.navigateRoot('/home/app/portfolio', { animated: true });
     })
     .catch (error => {
+      console.log(error);
       this.toast(error.message, 'danger');
     });
   }
 
-  async updateUserData(){
+  async updateUserData() {
     const loading = await this.loadingCtrl.create({
       message: 'Actualizando...',
       spinner: 'crescent',
@@ -87,11 +88,12 @@ export class WelcomePage implements OnInit {
       this.route.navigate(['/home/app/portfolio']);
     })
     .catch (error => {
+      console.log(error.message);
       this.toast(error.message, 'danger');
     });
   }
 
-  async toast(message, status){
+  async toast(message, status) {
     const toast = await this.toastCtrl.create({
       message,
       color: status,
@@ -102,13 +104,13 @@ export class WelcomePage implements OnInit {
   } // fin del toast
 
   // métodos para dslizar sliders LOGIN/REGISTER
-  slideToBack(){
+  slideToBack() {
     this.slides.lockSwipes(false);
     this.slides.slidePrev();
     this.slideCount --;
     this.slides.lockSwipes(true);
   }
-  slideToForward(){
+  slideToForward() {
     this.slides.lockSwipes(false);
     this.slides.slideNext();
     this.slideCount ++;
