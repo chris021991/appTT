@@ -25,7 +25,9 @@ export class PortfolioPage implements OnInit {
   constructor(private authSrv: AuthService) { }
 
   ngOnInit() {
-    this.user = this.authSrv.userLogged;
+    this.authSrv.user$.subscribe(user => {
+      this.user = user;
+    })
     
   }
 

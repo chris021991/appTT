@@ -9,10 +9,9 @@ export interface User{
     photosPh?: string[];
     emailVerified?: boolean;
     firstLogin?: boolean;
+    createdAt?: Date;
 
-    name?: string;
-    lastName?: string;
-    phone?: string;
+    phone?: number;
     address?: string;
     photoURL?: string;
     website?: string;
@@ -21,7 +20,7 @@ export interface User{
     experience?: string;
     location?: string;
     studies?: string;
-    photoStyle?: string;
+    photoStyle?: string[];
 }
 
 export interface Collection{
@@ -34,9 +33,9 @@ export interface Collection{
     photos: string[];
 }
 
-interface Social{
-    facebook: string;
-    twitter: string;
-    instagram: string;
-    whatsapp: string;
+export interface Social{
+    facebook?: string;
+    twitter?: string;
+    instagram?: string;
+    whatsapp?: string;
 }

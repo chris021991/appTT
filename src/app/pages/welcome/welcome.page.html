@@ -1,14 +1,8 @@
-<ion-header class="ion-no-border">
-
-  <ion-title>Title</ion-title>
-
-</ion-header>
-
 <ion-content class="ion-padding">
 
   <ion-slides #slideWelcome>
     <ion-slide>
-      <form (ngSubmit)="onSubmit(fWelcome1)" #fWelcome1="ngForm" style="width: 100%; height: 100%;" class="ion-padding">
+      <form (ngSubmit)="onSubmit(fWelcome1)" #fWelcome1="ngForm" class="ion-padding">
 
         <h1 class="ion-text-center">Registro de <br>fotógrafos</h1>
         <p>Estamos agradecidos por tenerte aquí. Ahora vamos a configurar tu perfil.</p>
@@ -21,21 +15,22 @@
                 <ion-label position="stacked">Nombre</ion-label>
                 <ion-input name="name"
                            type="text"
-                           [(ngModel)]="user.name"></ion-input>
+                           [(ngModel)]="displayName"></ion-input>
               </ion-item>
     
-              <ion-item>
+              <!-- <ion-item>
                 <ion-label>Género</ion-label>
                 <ion-select placeholder="Selecionar">
                   <ion-select-option value="f">Femenino</ion-select-option>
                   <ion-select-option value="m">Masculino</ion-select-option>
                 </ion-select>
-              </ion-item>
+              </ion-item> -->
     
               <ion-item>
                 <ion-label position="stacked">Bio</ion-label>
                 <ion-textarea name="bio"
-                           type="text"></ion-textarea>
+                              type="text"
+                              [(ngModel)]="biography"></ion-textarea>
               </ion-item>
           
               <ion-item>
@@ -43,14 +38,14 @@
                 <ion-input name="phone"
                            type="tel"
                            maxlength="10"
-                           [(ngModel)]="user.phone"></ion-input>
+                           [(ngModel)]="phone"></ion-input>
               </ion-item>
               
               <ion-item>
                 <ion-label position="stacked">Dirección<br></ion-label>
                 <ion-input name="address"
                 type="text"
-                [(ngModel)]="user.address"></ion-input>
+                [(ngModel)]="address"></ion-input>
               </ion-item>
               
            

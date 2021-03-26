@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { User } from '../../models/interfaces';
+import { User, Roles } from '../../models/interfaces';
 import { AuthService } from '../../services/auth.service';
 import { NavController } from '@ionic/angular';
 
@@ -16,13 +16,19 @@ export class ProfilePage implements OnInit {
               private navCtrl: NavController) { }
 
   ngOnInit() {
-    this.user = this.authSrv.userLogged;
+    this.authSrv.user$.subscribe(user => {
+      this.user = user;
+      console.log(user.photoURL);
+      
+    })
+    console.log();
+    
   }
 
   async onLogOut(){
     try{
-      await this.authSrv.logout();
-      this.navCtrl.navigateRoot('/', { animated: true });
+      await this.authSrv.signOut;
+      this.navCtrl.navigateRoot('/');
     }catch(error){
       console.log(error);
     }

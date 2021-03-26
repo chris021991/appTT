@@ -1,22 +1,10 @@
-<!-- <ion-header class="ion-no-border">
-  <ion-toolbar>
-    <ion-buttons slot="end">
-      <ion-button (click)="onLogOut()">
-        <ion-icon slot="icon-only" name="exit-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header> -->
-
 <ion-content class="ion-padding">
 
   <ion-row class="top-20" >
-    
     <ion-col size="12" class="ion-text-center">
-      <img *ngIf="user?.photoURL ! null" class="imgRedonda" [src]="user.photoURL">
-      <img *ngIf="user?.photoURL === null" class="img-avatar" src="assets/avatars/av-6.png">
+      <img *ngIf="user?.photoURL !undefined" class="imgRedonda" [src]="user.photoURL">
+      <img *ngIf="user?.photoURL === undefined" class="img-avatar" src="assets/avatars/av-6.png">
     </ion-col>
-
   </ion-row>
 
   <ion-row class="top-20">
@@ -27,7 +15,17 @@
     </ion-col>
   </ion-row>
 
-  <form>
+  <ion-card>
+    <ion-card-content>
+      <h2>{{user?.displayName}}</h2>
+      <p>{{user?.role}}</p>
+      <p>{{user?.email}}</p>
+      <p>{{user?.phone}}</p>
+      <p>{{user?.createdAt | date}}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- <form>
       <ion-row>
         <ion-col>
           
@@ -83,7 +81,7 @@
       </ion-col>
     </ion-row>
     
-  </form>
+  </form> -->
 
   <ion-row>
     <ion-col class="ion-text-center">

@@ -7,32 +7,44 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import { environment } from '../environments/environment';
-
+// Firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+
+// Environment
+import { environment } from '../environments/environment';
+
+// Auth
+import { AuthService } from './services/auth.service'
+
+// Guard
+import { AuthGuard } from './guards/auth.guard';
+
 import { PipesModule } from './pipes/pipes.module';
 import { OrderModule } from 'ngx-order-pipe';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-                  AppComponent
-                ],
+    AppComponent],
   entryComponents: [],
   imports: [
-            BrowserModule, 
-            IonicModule.forRoot(), 
-            AppRoutingModule,
-            AngularFireModule.initializeApp(environment.firebaseConfig),
-            AngularFireAuthModule,
-            AngularFirestoreModule,
-            PipesModule,
-            OrderModule
-           ],
+    BrowserModule, 
+    IonicModule.forRoot(), 
+    AppRoutingModule,
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    PipesModule,
+    OrderModule],
   providers: [
-              { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
-             ],
+    AuthService,
+    AuthGuard,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

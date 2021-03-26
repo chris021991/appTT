@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides, MenuController, NavController, ModalController } from '@ionic/angular';
+import { IonSlides, MenuController, NavController, ModalController, LoadingController, ToastController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { UIServicesService } from '../../services/ui-services.service';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +17,7 @@ export class LoginPage implements OnInit {
   @ViewChild('slidePrincipal') slides: IonSlides;
 
   //variable temporal para guardar el usuario 
-  loginUser = {
+  user = {
     email: '',
     password: '',
     role: null
@@ -26,7 +29,11 @@ export class LoginPage implements OnInit {
               private uiService: UIServicesService,
               private navCtrl: NavController,
               public menu: MenuController,
-              private modalCtrl: ModalController) { }
+              private loadingCtrl: LoadingController,
+              private toastCtrl: ToastController,
+              private afAuth: AngularFireAuth,
+              private afs: AngularFirestore,
+              private route: Router) { }
 
   ngOnInit() {
     //inhabilitar el menú
@@ -38,56 +45,108 @@ export class LoginPage implements OnInit {
     this.slides.lockSwipes(true);
   }
 
-  async onLogin(fLogin: NgForm) {
-    if(fLogin.invalid){return;}
-    try{
-      const user = await this.authSvc.login(this.loginUser.email,this.loginUser.password);
-      if (user) {
-        const isVerified = this.authSvc.isEmailVerified(user);
-        this.redirectUser(isVerified);
-      }
-      else{
-        this.uiService.presentAlert('Usuario y/o contraseña incorrectos.')
-      }
-    }catch(error){
-      console.log('Login error -->',error);
-    }
-  }
+  // async onLogin(fLogin: NgForm) {
+  //   if(fLogin.invalid){return;}
+  //   try{
+  //     const user = await this.authSvc.login(this.user.email,this.user.password);
+  //     if (user) {
+  //       const isVerified = this.authSvc.isEmailVerified(user);
+  //       this.redirectUser(isVerified);
+  //     }
+  //     else{
+  //       this.uiService.presentAlert('Usuario y/o contraseña incorrectos.')
+  //     }
+  //   }catch(error){
+  //     console.log('Login error -->',error);
+  //   }
+  // }
 
-  async onLoginGoogle(){
-    try{
-      const user = await this.authSvc.loginGoogle();
+  onLoginGoogle(){
+      const user =  this.authSvc.singInGoogle();
       console.log(user);
-      
-      if (user) {
-        const isVerified = true;
-        this.redirectUser(isVerified);
-      }
-      else{
-        this.uiService.presentAlert('Usuario y/o contraseña no son correctos');
-      }
-    }catch(error){
-      console.log('Error->',error)
+  }
+
+  // async onRegister(fRegister: NgForm) {
+  //   if(fRegister.invalid){return;}
+  //   try {
+  //     const user = await this.authSvc.register(this.user.email, this.user.password, this.user.role );
+  //     if (user) {
+  //       console.log('User->', user);    
+  //       user.role = this.user.role;
+  //       user.firstLogin = true;      
+  //       this.authSvc.isEmailVerified(user);
+  //       this.uiService.presentAlert('Hemos enviado un mensaje de verificación a sus correo electrónico.');
+  //       this.uiService.presentToast('¡Se ha registrado con éxito!',2500);
+  //       this.slideToLogin();
+  //     }
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
+
+
+
+
+  //nuevo Login
+
+  login(){
+    if(this.user.email && this.user.password){
+      this.authSvc.signIn(this.user.email, this.user.password)
+    } else{
+      this.toast('Por favor ingrese su correo y contraseña', 'warning');
     }
   }
 
-  async onRegister(fRegister: NgForm) {
-    if(fRegister.invalid){return;}
-    try {
-      const user = await this.authSvc.register(this.loginUser.email, this.loginUser.password, this.loginUser.role );
-      if (user) {
-        console.log('User->', user);    
-        user.role = this.loginUser.role;
-        user.firstLogin = true;      
-        this.authSvc.isEmailVerified(user);
-        this.uiService.presentAlert('Hemos enviado un mensaje de verificación a sus correo electrónico.');
-        this.uiService.presentToast('¡Se ha registrado con éxito!',2500);
-        this.slideToLogin();
-      }
-    } catch (error) {
-      console.error(error)
+
+  //nuevo Register
+  async register(){
+    if(this.user.email && this.user.password && this.user.role){
+      const loading = await this.loadingCtrl.create({
+        message: 'Procesando...',
+        spinner: 'crescent',
+        showBackdrop: true
+      });
+      loading.present();
+
+      this.afAuth.createUserWithEmailAndPassword(this.user.email, this.user.password)
+      .then((data) =>{
+        data.user.sendEmailVerification();
+        this.afs.collection('users').doc(data.user.uid).set({
+          'uid': data.user.uid,
+          'email': this.user.email,
+          'role': this.user.role,
+          'createdAt': Date.now()
+        })
+        .then(() => {
+          loading.dismiss();
+          this.toast('Registro exitoso! Por favor revise su correo electrónico!', 'success');
+          this.slideToLogin();
+        })
+        .catch(error => {
+          loading.dismiss();
+          this.toast(error.message,'danger');  
+          this.slideToRegister();        
+        })
+      })
+      .catch(error => {
+        loading.dismiss();
+        this.toast(error.message,'danger'); 
+        this.slideToRegister();              
+      })
+    } else {
+      this.toast('Por favor complete todos los campos!', 'warning');
     }
-  }
+  } // fin de register
+
+  async toast(message, status){
+    const toast = await this.toastCtrl.create({
+      message: message,
+      color: status,
+      position: 'top',
+      duration: 2000
+    });
+    toast.present();
+  } // fin del toast
 
    //método para redireccionar a DASHBOARD si el usuario se encuentra verificado
    private redirectUser(isVerified:boolean):void{
@@ -99,21 +158,23 @@ export class LoginPage implements OnInit {
   }
 
   selectedOption(){
-    console.log(this.loginUser.role);
+    console.log(this.user.role);
   }
 
   //métodos para dslizar sliders LOGIN/REGISTER
   slideToLogin(){
     this.slides.lockSwipes(false);
-    this.loginUser.email = '';
-    this.loginUser.password = '';
+    this.user.email = '';
+    this.user.password = '';
+    this.user.role = null;
     this.slides.slideTo(0);
     this.slides.lockSwipes(true);
   }
   slideToRegister(){
     this.slides.lockSwipes(false);
-    this.loginUser.email = '';
-    this.loginUser.password = '';
+    this.user.email = '';
+    this.user.password = '';
+    this.user.role = null;
     this.slides.slideTo(1);
     this.slides.lockSwipes(true);
   }
