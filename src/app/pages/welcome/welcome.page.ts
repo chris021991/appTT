@@ -1,9 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides, NavController, LoadingController, ToastController } from '@ionic/angular';
+import { IonSlides, NavController, LoadingController, ToastController, AlertController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { User } from '../../models/interfaces';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { FirestoreService } from '../../services/firestore.service';
+import { FirestorageService } from 'src/app/services/firestorage.service';
 
 @Component({
   selector: 'app-welcome',
@@ -16,8 +19,12 @@ export class WelcomePage implements OnInit {
                private navCtrl: NavController,
                private loadingCtrl: LoadingController,
                private toastCtrl: ToastController,
+               private alertCtrl: AlertController,
                private route: Router,
-               private afs: AngularFirestore ) { }
+               private camera: Camera,
+               private afs: AngularFirestore,
+               private afStorage: AngularFireStorage,
+               private firestorage: FirestorageService ) { }
 
   @ViewChild('slideWelcome') slides: IonSlides;
 
@@ -26,6 +33,12 @@ export class WelcomePage implements OnInit {
   phone: number;
   biography: string;
   address: string;
+  photoURL: string;
+  coverPage: string;
+
+  imageCoverPage = 'assets/no-image-banner.jpg';
+  image = 'assets/no-image-banner.jpg';
+  imagePath = 'photoProfile';
 
   slideCount = 0;
 
@@ -49,11 +62,74 @@ export class WelcomePage implements OnInit {
       this.phone = user.phone,
       this.biography = user.biography,
       this.address = user.address;
+      this.photoURL = user.photoURL;
+      this.coverPage = user.coverPage;
     });
   }
 
   ionViewDidEnter() {
     this.slides.lockSwipes(true);
+  }
+
+  async addPhoto(source: string) {
+    if (source === 'camera') {
+      console.log('camera');
+      const cameraPhoto = await this.openCamera();
+      this.image = 'data:image/jpg;base64,' + cameraPhoto;
+    } else {
+      console.log('library');
+      const libraryImage = await this.openLibrary();
+      this.image = 'data:image/jpg;base64,' + libraryImage;
+    }
+  }
+
+  async addCoverPage(source: string) {
+    if (source === 'camera') {
+      console.log('camera');
+      const cameraPhoto = await this.openCamera();
+      this.imageCoverPage = 'data:image/jpg;base64,' + cameraPhoto;
+    } else {
+      console.log('library');
+      const libraryImage = await this.openLibrary();
+      this.imageCoverPage = 'data:image/jpg;base64,' + libraryImage;
+    }
+  }
+
+  async openCamera() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      targetWidth: 1000,
+      targetHeight: 1000,
+      sourceType: this.camera.PictureSourceType.CAMERA
+    };
+    return await this.camera.getPicture(options);
+  }
+
+  async openLibrary() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      targetWidth: 1000,
+      targetHeight: 1000,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    };
+    return await this.camera.getPicture(options);
+  }
+
+  async uploadPhotoProfile() {
+    const photo = await this.firestorage.uploadImage(this.image, this.imagePath, this.uid);
+    this.photoURL = photo;
+    // this.image = 'assets/no-image-banner.jpg';
+  }
+
+  async uploadPhotoCoverPage(){
+    const coverPage = await this.firestorage.uploadImage(this.imageCoverPage, this.imagePath, this.uid);
+    this.coverPage = coverPage;
   }
 
   async finish() {
@@ -81,6 +157,8 @@ export class WelcomePage implements OnInit {
       phone: this.phone,
       address: this.address,
       biography: this.biography,
+      photoURL: this.photoURL,
+      coverPage: this.coverPage
     }, {merge: true})
     .then(() => {
       loading.dismiss();

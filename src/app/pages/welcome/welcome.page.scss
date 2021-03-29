@@ -5,3 +5,31 @@ ion-button{
 ion-toolbar{
     --opacity: 0;
 }
+
+.flex {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .img-box {
+    height: 200px;
+    overflow: hidden;
+  }
+
+  img {
+    height: 200px;
+  }
+
+  .imgRedonda {   
+    width:150px;
+    height: 150px;
+    border-radius:100px !important;
+}
+
+.img-over {
+  position: relative;
+  top: -110px;
+  left: -10px;
+  margin-bottom: -75px;
+}

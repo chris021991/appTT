@@ -1,6 +1,7 @@
 <ion-content>
-  <!-- <ion-img [src]="user?.photoURL | image" *ngIf="user?.photoURL"></ion-img> -->
-  <ion-img src="assets/no-image-banner.jpg"></ion-img>
+  <img *ngIf="user?.coverPage !undefined" [src]="user?.coverPage" style="opacity: 0.7;">
+  <img *ngIf="user?.coverPage === undefined" src="assets/no-image-banner.jpg">
+
   <ion-grid style="margin-bottom: -60px;">
     <ion-row>
       <ion-col class="img-over" size="4" >

@@ -17,7 +17,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from '../environments/environment';
 
 // Auth
-import { AuthService } from './services/auth.service'
+import { AuthService } from './services/auth.service';
 
 // Guard
 import { AuthGuard } from './guards/auth.guard';
@@ -26,13 +26,15 @@ import { PipesModule } from './pipes/pipes.module';
 import { OrderModule } from 'ngx-order-pipe';
 import { FormsModule } from '@angular/forms';
 
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+
 @NgModule({
   declarations: [
     AppComponent],
   entryComponents: [],
   imports: [
-    BrowserModule, 
-    IonicModule.forRoot(), 
+    BrowserModule,
+    IonicModule.forRoot(),
     AppRoutingModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -44,6 +46,7 @@ import { FormsModule } from '@angular/forms';
   providers: [
     AuthService,
     AuthGuard,
+    Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

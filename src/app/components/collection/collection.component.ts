@@ -11,7 +11,7 @@ import { FirestoreService } from '../../services/firestore.service';
 export class CollectionComponent implements OnInit {
 
   // intentar el uso del input, temporal con variable en servicio
-  // @Input() collection: Collection; 
+  // @Input() collection: Collection;
   path: 'collections';
   collection: Collection;
   photos = [];
@@ -33,13 +33,13 @@ export class CollectionComponent implements OnInit {
   photoView(index: number){
     this.database.indexPhotoGeneral = index;
     this.photo = this.collection.photos[index];
-    console.log('Este es el índice -->',this.database.indexPhotoGeneral);
-    console.log('Esta es la imagen -->',this.photo);
+    console.log('Este es el índice -->', this.database.indexPhotoGeneral);
+    console.log('Esta es la imagen -->', this.photo);
     this.modalCtrl.create({
       component: CollectionComponent
     }).then(m => m.present());
   }
-  
+
   closeModal(){
     this.modalCtrl.dismiss();
   }

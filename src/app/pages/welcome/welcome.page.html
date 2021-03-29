@@ -83,7 +83,69 @@
         </ion-row>
         <ion-row>
           <ion-col size="12">
-            <ion-icon size="large" name="image-outline"></ion-icon>
+            <ion-button (click)="addPhoto('library')" expand="block" color="tertiary" shape="round">
+              <ion-icon size="large" name="image-outline"></ion-icon>
+              <ion-label>Abrir la biblioteca</ion-label>
+            </ion-button> 
+
+            <ion-button (click)="addPhoto('camera')" expand="block" color="secondary" shape="round">
+              <ion-icon size="large" name="camera-outline"></ion-icon>
+              <ion-label>Tomar una foto</ion-label>
+            </ion-button> 
+
+            <div class="flex">
+              <div class="img-box">
+                <ion-card class="imgRedonda">
+                  <img *ngIf="photoURL !undefined" [src]="photoURL">
+                  <img *ngIf="photoURL === undefined" [src]="image">
+                </ion-card>
+              </div>
+            </div>
+
+            <ion-button (click)="uploadPhotoProfile()" expand="block" color="warning" shape="round">
+              <ion-icon size="large" name="cloud-upload-outline"></ion-icon>
+              <ion-label>Subir foto</ion-label>
+            </ion-button> 
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ion-slide>
+
+    <ion-slide>
+      <ion-grid class="ion-padding">
+        <ion-row>
+          <ion-col size="12">
+            <h1>Subir foto de portada<br></h1>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <ion-button (click)="addCoverPage('library')" expand="block" color="tertiary" shape="round">
+              <ion-icon size="large" name="image-outline"></ion-icon>
+              <ion-label>Abrir la biblioteca</ion-label>
+            </ion-button> 
+
+            <ion-button (click)="addCoverPage('camera')" expand="block" color="secondary" shape="round">
+              <ion-icon size="large" name="camera-outline"></ion-icon>
+              <ion-label>Tomar una foto</ion-label>
+            </ion-button> 
+
+            <div class="flex">
+              <div class="img-box">
+                <ion-card>
+                  <img *ngIf="coverPage !undefined" [src]="coverPage">
+                  <img *ngIf="coverPage === undefined" [src]="imageCoverPage">
+                </ion-card>
+              </div>
+            </div>
+
+            <ion-button (click)="uploadPhotoCoverPage()" expand="block" color="warning" shape="round">
+              <ion-icon size="large" name="cloud-upload-outline"></ion-icon>
+              <ion-label>Subir foto</ion-label>
+            </ion-button> 
+
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -106,14 +168,14 @@
               size="large" 
               name="caret-forward" 
               class="ion-padding"
-              *ngIf="slideCount < 2"
+              *ngIf="slideCount < 3"
               (click)="slideToForward()">
     </ion-icon>
     <ion-button slot="end" 
                 fill="outline" 
                 shape="round" 
                 style="padding-right: 15px" 
-                *ngIf="slideCount === 2"
+                *ngIf="slideCount === 3"
                 (click)="finish()">
       <ion-label>Finalizar</ion-label>
     </ion-button>

@@ -13,7 +13,7 @@ import { CollectionComponent } from '../collection/collection.component';
 export class CollectionsComponent implements OnInit {
 
   @Input() collections: Collection[] = [];
-  
+
   collection: Collection;
   textSearch = '';
   loading: any;
@@ -29,7 +29,6 @@ export class CollectionsComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.collections );
-    
   }
 
   openCollection(collection: Collection){
@@ -57,11 +56,11 @@ export class CollectionsComponent implements OnInit {
           handler: () => {
             console.log('Confirm Okay');
             this.presentLoading('Espere por favor...');
-            this.database.deleteDocument(this.path,item.id).then( res => {
+            this.database.deleteDocument(this.path, item.id).then( res => {
               this.loading.dismiss();
-              this.uiServices.presentToast('Eliminado con éxito.',2000);
+              this.uiServices.presentToast('Eliminado con éxito.', 2000);
             }).catch( error => {
-              this.uiServices.presentToast('Error al eliminar.',2000);
+              this.uiServices.presentToast('Error al eliminar.', 2000);
               console.log('Error =>', error);
             });
           }
@@ -91,7 +90,7 @@ export class CollectionsComponent implements OnInit {
         handler: () => {
           console.log('Edit clicked');
           console.log(item);
-          
+
           this.presentModalEdit(item);
         }
       }, {
@@ -128,7 +127,7 @@ export class CollectionsComponent implements OnInit {
 
   async presentLoading(message: string) {
     this.loading = await this.loadingCtrl.create({
-      message: message,
+      message,
     });
     await this.loading.present();
   }
