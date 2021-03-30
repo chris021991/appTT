@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides, MenuController, NavController, ModalController, LoadingController, ToastController } from '@ionic/angular';
-import { NgForm } from '@angular/forms';
+import { IonSlides, MenuController, LoadingController, ToastController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
-import { UIServicesService } from '../../services/ui-services.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
@@ -22,6 +20,7 @@ export class LoginPage implements OnInit {
     password: '',
     role: null
   };
+  firstLogin: boolean;
   // tslint:disable-next-line: variable-name
   selected_option: string;
   errormessage: string;
@@ -31,11 +30,15 @@ export class LoginPage implements OnInit {
               private loadingCtrl: LoadingController,
               private toastCtrl: ToastController,
               private afAuth: AngularFireAuth,
-              private afs: AngularFirestore) { }
+              private afs: AngularFirestore,
+              private route: Router) { }
 
   ngOnInit() {
     // inhabilitar el menú
     this.menu.enable(false);
+    this.authSvc.user$.subscribe(user => {
+      this.firstLogin = user?.firstLogin;
+    });
   }
 
   // bloqueo de slide login/registro
@@ -46,6 +49,11 @@ export class LoginPage implements OnInit {
   onLogin(){
     if (this.user.email && this.user.password){
       this.authSvc.signIn(this.user.email, this.user.password);
+      if (this.firstLogin) {
+        this.route.navigate(['/welcome']);
+      } else if (!this.firstLogin) {
+        this.route.navigate(['/home/app/portfolio']);
+      }
     } else{
       this.toast('Por favor ingrese su correo y contraseña', 'warning');
     }
@@ -53,6 +61,11 @@ export class LoginPage implements OnInit {
 
   onLoginGoogle(){
     this.authSvc.singInGoogle();
+    if (this.firstLogin) {
+      this.route.navigate(['/welcome']);
+    } else if (!this.firstLogin) {
+      this.route.navigate(['/home/app/portfolio']);
+    }
   }
 
   async onRegister(){
@@ -71,7 +84,8 @@ export class LoginPage implements OnInit {
           uid: data.user.uid,
           email: this.user.email,
           role: this.user.role,
-          createdAt: Date.now()
+          createdAt: Date.now(),
+          firstLogin: true
         })
         .then(() => {
           loading.dismiss();

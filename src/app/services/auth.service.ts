@@ -12,7 +12,6 @@ import { Plugins } from '@capacitor/core';
 import '@codetrix-studio/capacitor-google-auth';
 import { ToastController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -55,13 +54,14 @@ export class AuthService extends RoleValidator{
     .then(() => {
       this.afAuth.signInWithEmailAndPassword(email, password)
       .then((data) => {
+        const userRef = this.getCurrentUser();
         if (!data.user.emailVerified){
           loading.dismiss();
           this.toast('Por favor verifique su dirección de correo electrónico', 'warning');
           this.afAuth.signOut();
         } else {
           loading.dismiss();
-          this.router.navigate(['/welcome']);
+          // this.router.navigate(['/welcome']);
         }
       })
       .catch(error => {

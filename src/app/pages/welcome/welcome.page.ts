@@ -1,11 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides, NavController, LoadingController, ToastController, AlertController } from '@ionic/angular';
+import { IonSlides, NavController, LoadingController, ToastController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { AngularFireStorage } from '@angular/fire/storage';
-import { FirestoreService } from '../../services/firestore.service';
 import { FirestorageService } from 'src/app/services/firestorage.service';
 
 @Component({
@@ -19,11 +17,9 @@ export class WelcomePage implements OnInit {
                private navCtrl: NavController,
                private loadingCtrl: LoadingController,
                private toastCtrl: ToastController,
-               private alertCtrl: AlertController,
                private route: Router,
                private camera: Camera,
                private afs: AngularFirestore,
-               private afStorage: AngularFireStorage,
                private firestorage: FirestorageService ) { }
 
   @ViewChild('slideWelcome') slides: IonSlides;
@@ -35,10 +31,12 @@ export class WelcomePage implements OnInit {
   address: string;
   photoURL: string;
   coverPage: string;
+  firstLogin: boolean;
 
   imageCoverPage = 'assets/no-image-banner.jpg';
   image = 'assets/no-image-banner.jpg';
   imagePath = 'photoProfile';
+  coverPagePath = 'coverPage';
 
   slideCount = 0;
 
@@ -64,6 +62,7 @@ export class WelcomePage implements OnInit {
       this.address = user.address;
       this.photoURL = user.photoURL;
       this.coverPage = user.coverPage;
+      this.firstLogin = user.firstLogin;
     });
   }
 
@@ -124,11 +123,10 @@ export class WelcomePage implements OnInit {
   async uploadPhotoProfile() {
     const photo = await this.firestorage.uploadImage(this.image, this.imagePath, this.uid);
     this.photoURL = photo;
-    // this.image = 'assets/no-image-banner.jpg';
   }
 
   async uploadPhotoCoverPage(){
-    const coverPage = await this.firestorage.uploadImage(this.imageCoverPage, this.imagePath, this.uid);
+    const coverPage = await this.firestorage.uploadImage(this.imageCoverPage, this.coverPagePath, this.uid);
     this.coverPage = coverPage;
   }
 
@@ -158,7 +156,8 @@ export class WelcomePage implements OnInit {
       address: this.address,
       biography: this.biography,
       photoURL: this.photoURL,
-      coverPage: this.coverPage
+      coverPage: this.coverPage,
+      firstLogin: false
     }, {merge: true})
     .then(() => {
       loading.dismiss();
@@ -181,7 +180,7 @@ export class WelcomePage implements OnInit {
     toast.present();
   } // fin del toast
 
-  // métodos para dslizar sliders LOGIN/REGISTER
+  // métodos para deslizar sliders
   slideToBack() {
     this.slides.lockSwipes(false);
     this.slides.slidePrev();
