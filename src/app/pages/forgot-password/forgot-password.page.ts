@@ -21,7 +21,7 @@ export class ForgotPasswordPage implements OnInit {
     try {
       await this.authSrv.resetPassword(this.email);
       this.presentAlert();
-    } catch(error){
+    } catch (error){
       console.log(error);
     }
   }
@@ -37,7 +37,7 @@ export class ForgotPasswordPage implements OnInit {
         }
       }]
     });
-    
+
     await alert.present();
   }
 

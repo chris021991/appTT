@@ -133,7 +133,7 @@ export class WelcomePage implements OnInit {
   async finish() {
     await this.updateUserData()
     .then(() => {
-      this.navCtrl.navigateRoot('/home/app/portfolio', { animated: true });
+      this.navCtrl.navigateRoot('/dashboard/app/home', { animated: true });
     })
     .catch (error => {
       console.log(error);
@@ -162,7 +162,7 @@ export class WelcomePage implements OnInit {
     .then(() => {
       loading.dismiss();
       this.toast('Actualización exitosa!', 'success');
-      this.route.navigate(['/home/app/portfolio']);
+      this.route.navigate(['/dashboard/app/home']);
     })
     .catch (error => {
       console.log(error.message);

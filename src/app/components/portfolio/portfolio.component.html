@@ -1,0 +1,41 @@
+
+<div class="post">
+
+  <ion-item lines="none">
+    <ion-avatar slot="start">
+      <img src="{{user.photoURL}}">
+    </ion-avatar>
+
+    <ion-label>
+      <h3><strong>{{user.displayName}}</strong></h3>
+      <h5>Quito-Ecuador</h5>
+    </ion-label>
+  </ion-item>
+
+  <ion-slides pager="true">
+    <ion-slide class="image-slide"
+               style="background-image: url('{{img1}}')">
+    </ion-slide>
+    <ion-slide class="image-slide"
+               style="background-image: url('{{img2}}')">
+    </ion-slide>
+    <ion-slide class="image-slide"
+               style="background-image: url('{{img3}}')">
+    </ion-slide>
+  </ion-slides>
+
+  <!-- Mapa -->
+
+<ion-item lines="none">
+  <ion-icon slot="start" name="heart-outline"></ion-icon>
+  <ion-icon name="chatbubble-outline"></ion-icon>
+  <ion-icon slot="end" name="bookmark-outline"></ion-icon>
+</ion-item>
+
+<ion-item lines="none">
+  <ion-label text-wrap >
+    <ion-input type="text" placeholder="Añade tu comentario"></ion-input>
+  </ion-label>
+</ion-item>
+
+</div>

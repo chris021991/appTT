@@ -26,7 +26,7 @@ import { PipesModule } from './pipes/pipes.module';
 import { OrderModule } from 'ngx-order-pipe';
 import { FormsModule } from '@angular/forms';
 
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
 
 @NgModule({
   declarations: [

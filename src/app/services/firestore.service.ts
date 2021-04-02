@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore'
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Collection } from '../models/interfaces';
+import { returnDocuments } from '../helpers/return-documents';
 
 @Injectable({
   providedIn: 'root'
@@ -10,19 +11,20 @@ export class FirestoreService {
 
   collectionGeneral: Collection;
   indexPhotoGeneral: number;
+  lastDocument: any = null;
 
-  constructor(public angularFirestore:AngularFirestore) { }
+  constructor(public angularFirestore: AngularFirestore) { }
 
   createId(){
     return this.angularFirestore.createId();
   }
 
-  createDocument<tipo>(data: tipo, path:string, id: string) {
+  createDocument<tipo>(data: tipo, path: string, id: string) {
     const itemsCollection = this.angularFirestore.collection<tipo>(path);
     return itemsCollection.doc(id).set(data);
   }
 
-  getDocument<tipo>(path:string, id: string) {
+  getDocument<tipo>(path: string, id: string) {
     const itemsCollection = this.angularFirestore.collection<tipo>(path);
     return itemsCollection.doc(id).valueChanges();
   }
@@ -32,14 +34,31 @@ export class FirestoreService {
     return itemsCollection.doc(id).delete();
   }
 
-  updateDocument<tipo>(data: tipo, path:string, id: string) {
+  updateDocument<tipo>(data: tipo, path: string, id: string) {
     const itemsCollection = this.angularFirestore.collection<tipo>(path);
     return itemsCollection.doc(id).update(data);
   }
 
-  getCollectionChanges<tipo>(path:string): Observable<tipo[]>{
+  getCollectionChanges<tipo>(path: string): Observable<tipo[]>{
     const itemsCollection = this.angularFirestore.collection<tipo>(path);
     return itemsCollection.valueChanges();
   }
-  
+
+
+  getPhotographers<tipo>(path: string) {
+
+    const itemsCollection = this.angularFirestore.collection<tipo>('users');
+
+    const query = itemsCollection.ref
+                                    .where('role', '==', 'PHOTOGRAPHER')
+                                    .orderBy('displayName')
+                                    .startAfter(this.lastDocument);
+
+    return query.limit(10).get().then( snap => {
+      this.lastDocument = snap.docs[ snap.docs.length - 1 ] || null;
+      console.log('LastDocument', this.lastDocument);
+      return returnDocuments(snap);
+    });
+  }
+
 }

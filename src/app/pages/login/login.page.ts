@@ -52,7 +52,7 @@ export class LoginPage implements OnInit {
       if (this.firstLogin) {
         this.route.navigate(['/welcome']);
       } else if (!this.firstLogin) {
-        this.route.navigate(['/home/app/portfolio']);
+        this.route.navigate(['/dashboard/app/home']);
       }
     } else{
       this.toast('Por favor ingrese su correo y contraseña', 'warning');
@@ -64,7 +64,7 @@ export class LoginPage implements OnInit {
     if (this.firstLogin) {
       this.route.navigate(['/welcome']);
     } else if (!this.firstLogin) {
-      this.route.navigate(['/home/app/portfolio']);
+      this.route.navigate(['/dashboard/app/home']);
     }
   }
 

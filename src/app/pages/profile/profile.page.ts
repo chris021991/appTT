@@ -26,7 +26,7 @@ export class ProfilePage implements OnInit {
     try{
       // tslint:disable-next-line: no-unused-expression
       this.authSrv.signOut;
-      this.navCtrl.navigateRoot('/');
+      this.navCtrl.navigateRoot('/login');
     }catch (error){
       console.log(error);
     }

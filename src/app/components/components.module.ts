@@ -7,24 +7,28 @@ import { CollectionComponent } from './collection/collection.component';
 import { CollectionsComponent } from './collections/collections.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { OrderModule } from 'ngx-order-pipe';
+import { PortfolioComponent } from './portfolio/portfolio.component';
+import { PortfoliosComponent } from './portfolios/portfolios.component';
 
 
 
 @NgModule({
-  declarations: [ 
-    AvatarSelectorComponent, 
-    CollectionComponent, 
-    CollectionsComponent],
-  imports: [ 
-    CommonModule, 
-    FormsModule, 
-    IonicModule, 
+  declarations: [
+    AvatarSelectorComponent,
+    CollectionComponent,
+    CollectionsComponent,
+    PortfolioComponent,
+    PortfoliosComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
     PipesModule,
     OrderModule
   ],
   exports: [
-    AvatarSelectorComponent, 
-    CollectionComponent, 
-    CollectionsComponent]
+    AvatarSelectorComponent,
+    CollectionsComponent,
+    PortfoliosComponent]
 })
 export class ComponentsModule { }

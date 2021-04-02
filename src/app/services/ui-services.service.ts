@@ -12,7 +12,7 @@ export class UIServicesService {
 
   async presentAlert( message: string ) {
     const alert = await this.alertCrtl.create({
-      message: message,
+      message,
       buttons: ['OK']
     });
 
@@ -21,17 +21,17 @@ export class UIServicesService {
 
   async presentToast(message: string, duration: number) {
     const toast = await this.toastCtrl.create({
-      message: message,
-      duration: duration
+      message,
+      duration
     });
     toast.present();
   }
 
   async presentLoading(message: string) {
     const loading = await this.loadingCtrl.create({
-      message: message,
+      message,
     });
     await loading.present();
   }
- 
+
 }

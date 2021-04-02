@@ -20,7 +20,7 @@ export class GalleryPage implements OnInit {
 
   getCollections(){
     this.database.getCollectionChanges<Collection>(this.path).subscribe( res => {
-            console.log(res);
+            console.log('Collections ->', res);
             this.collections = res;
     });
   }
