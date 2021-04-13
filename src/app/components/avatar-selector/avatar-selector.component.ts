@@ -11,35 +11,35 @@ export class AvatarSelectorComponent implements OnInit {
 
   avatars = [
     {
-      img: 'av-1.png',
+      img: '/assets/avatars/av-1.png',
       seleccionado: true
     },
     {
-      img: 'av-2.png',
+      img: '/assets/avatars/av-2.png',
       seleccionado: false
     },
     {
-      img: 'av-3.png',
+      img: '/assets/avatars/av-3.png',
       seleccionado: false
     },
     {
-      img: 'av-4.png',
+      img: '/assets/avatars/av-4.png',
       seleccionado: false
     },
     {
-      img: 'av-5.png',
+      img: '/assets/avatars/av-5.png',
       seleccionado: false
     },
     {
-      img: 'av-6.png',
+      img: '/assets/avatars/av-6.png',
       seleccionado: false
     },
     {
-      img: 'av-7.png',
+      img: '/assets/avatars/av-7.png',
       seleccionado: false
     },
     {
-      img: 'av-8.png',
+      img: '/assets/avatars/av-8.png',
       seleccionado: false
     },
   ];

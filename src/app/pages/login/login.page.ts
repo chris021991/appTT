@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides, MenuController, LoadingController, ToastController } from '@ionic/angular';
+import { IonSlides, MenuController, LoadingController, ToastController, NavController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -18,11 +18,10 @@ export class LoginPage implements OnInit {
   user = {
     email: '',
     password: '',
-    role: null
+    role: null,
+    photoURL: ''
   };
   firstLogin: boolean;
-  // tslint:disable-next-line: variable-name
-  selected_option: string;
   errormessage: string;
 
   constructor(private authSvc: AuthService,
@@ -31,7 +30,7 @@ export class LoginPage implements OnInit {
               private toastCtrl: ToastController,
               private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
-              private route: Router) { }
+              private navCtrl: NavController) { }
 
   ngOnInit() {
     // inhabilitar el menú
@@ -46,25 +45,25 @@ export class LoginPage implements OnInit {
     this.slides.lockSwipes(true);
   }
 
-  onLogin(){
+  async onLogin(){
     if (this.user.email && this.user.password){
-      this.authSvc.signIn(this.user.email, this.user.password);
+      await this.authSvc.signIn(this.user.email, this.user.password);
       if (this.firstLogin) {
-        this.route.navigate(['/welcome']);
+        this.navCtrl.navigateRoot(['/welcome']);
       } else if (!this.firstLogin) {
-        this.route.navigate(['/dashboard/app/home']);
+        this.navCtrl.navigateRoot(['/dashboard/app/home']);
       }
     } else{
       this.toast('Por favor ingrese su correo y contraseña', 'warning');
     }
   }
 
-  onLoginGoogle(){
-    this.authSvc.singInGoogle();
+  async onLoginGoogle(){
+    await this.authSvc.singInGoogle();
     if (this.firstLogin) {
-      this.route.navigate(['/welcome']);
+      this.navCtrl.navigateRoot(['/welcome']);
     } else if (!this.firstLogin) {
-      this.route.navigate(['/dashboard/app/home']);
+      this.navCtrl.navigateRoot(['/dashboard/app/home']);
     }
   }
 
@@ -85,7 +84,8 @@ export class LoginPage implements OnInit {
           email: this.user.email,
           role: this.user.role,
           createdAt: Date.now(),
-          firstLogin: true
+          firstLogin: true,
+          photoURL: this.user.photoURL
         })
         .then(() => {
           loading.dismiss();

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AlertController, ToastController, LoadingController } from '@ionic/angular';
+import { AlertController, ToastController, LoadingController, ModalController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,8 @@ export class UIServicesService {
 
   constructor(private alertCrtl: AlertController,
               private toastCtrl: ToastController,
-              private loadingCtrl: LoadingController) { }
+              private loadingCtrl: LoadingController,
+              private modalCtrl: ModalController) { }
 
   async presentAlert( message: string ) {
     const alert = await this.alertCrtl.create({
@@ -32,6 +33,13 @@ export class UIServicesService {
       message,
     });
     await loading.present();
+  }
+
+  async presentModal(component: any) {
+    const modal = await this.modalCtrl.create({
+      component
+    });
+    return await modal.present();
   }
 
 }

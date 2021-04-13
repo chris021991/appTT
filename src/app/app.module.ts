@@ -27,6 +27,9 @@ import { OrderModule } from 'ngx-order-pipe';
 import { FormsModule } from '@angular/forms';
 
 import { Camera } from '@ionic-native/camera/ngx';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { FirestorageService } from './services/firestorage.service';
+
 
 @NgModule({
   declarations: [
@@ -46,7 +49,9 @@ import { Camera } from '@ionic-native/camera/ngx';
   providers: [
     AuthService,
     AuthGuard,
+    FirestorageService,
     Camera,
+    ImagePicker,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

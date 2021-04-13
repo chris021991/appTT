@@ -9,7 +9,7 @@
     <ion-slides [options]="avatarSlide">
       <ion-slide *ngFor="let avatar of avatars">
         <ion-img class="pick-avatar" 
-                 src="/assets/avatars/{{avatar.img}}"
+                 src="{{avatar.img}}"
                  [ngClass]="{ 'pick-avatar-seleccionado' : avatar.seleccionado }"
                  (click)="selectAvatar( avatar )"></ion-img>
       </ion-slide>

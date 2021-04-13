@@ -6,7 +6,7 @@ export interface User{
     password?: string;
     displayName?: string;
     role?: Roles;
-    photosPh?: string[];
+    photosPortfolio?: string[];
     emailVerified?: boolean;
     firstLogin?: boolean;
     createdAt?: Date;
@@ -22,6 +22,18 @@ export interface User{
     location?: string;
     studies?: string;
     photoStyle?: string[];
+}
+
+export interface Photo {
+    id?: string;
+    img?: string;
+    downloadURL?: string;
+    createdBy?: string;
+    createdAt?: Date;
+    location?: string;
+    likes?: number;
+    comments?: string[];
+    visualizations?: number;
 }
 
 export interface Collection{

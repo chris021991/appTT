@@ -1,7 +1,7 @@
 
 <div class="post">
 
-  <ion-item lines="none">
+  <ion-item lines="none" (click)="openPortfolio()">
     <ion-avatar slot="start">
       <img src="{{user.photoURL}}">
     </ion-avatar>
@@ -12,7 +12,7 @@
     </ion-label>
   </ion-item>
 
-  <ion-slides pager="true">
+  <ion-slides pager="true" (click)="openPhoto()">
     <ion-slide class="image-slide"
                style="background-image: url('{{img1}}')">
     </ion-slide>
@@ -26,16 +26,16 @@
 
   <!-- Mapa -->
 
-<ion-item lines="none">
-  <ion-icon slot="start" name="heart-outline"></ion-icon>
-  <ion-icon name="chatbubble-outline"></ion-icon>
-  <ion-icon slot="end" name="bookmark-outline"></ion-icon>
-</ion-item>
+  <ion-item lines="none">
+    <ion-icon slot="start" name="heart-outline"></ion-icon>
+    <ion-icon name="chatbubble-outline"></ion-icon>
+    <ion-icon slot="end" name="bookmark-outline"></ion-icon>
+  </ion-item>
 
-<ion-item lines="none">
-  <ion-label text-wrap >
-    <ion-input type="text" placeholder="Añade tu comentario"></ion-input>
-  </ion-label>
-</ion-item>
+  <ion-item lines="none">
+    <ion-label text-wrap >
+      <ion-input type="text" placeholder="Añade tu comentario"></ion-input>
+    </ion-label>
+  </ion-item>
 
 </div>

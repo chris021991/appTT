@@ -1,13 +1,17 @@
 <ion-content>
-  <img *ngIf="user?.coverPage !undefined" [src]="user?.coverPage" style="opacity: 0.7;">
-  <img *ngIf="user?.coverPage === undefined" src="assets/no-image-banner.jpg">
+
+    <img *ngIf="user?.coverPage !undefined" [src]="user?.coverPage" class="cover-page">
+    <img *ngIf="user?.coverPage === undefined" src="assets/no-image-banner.jpg">
+
 
   <ion-grid style="margin-bottom: -60px;">
     <ion-row>
       <ion-col class="img-over" size="4" >
         <ion-card class="imgRedonda">
-          <img *ngIf="user?.photoURL !undefined" [src]="user.photoURL">
-          <img *ngIf="user?.photoURL === undefined" src="assets/avatars/av-6.png">
+          <ion-avatar class="imgRedonda">
+            <img *ngIf="user?.photoURL !undefined" [src]="user.photoURL">
+            <img *ngIf="user?.photoURL === undefined" src="assets/avatars/av-6.png">
+          </ion-avatar>
         </ion-card>
 
       </ion-col>
@@ -15,7 +19,18 @@
         <ion-label>{{user?.displayName}}<br></ion-label>
         <ion-label>Quito - Ecuador<br></ion-label>
         <ion-icon *ngFor="let star of [1,1,1,1,1]" style="color: darkgoldenrod;" name="star"></ion-icon>
-        <ion-button size="small" expand="block" shape="round">Contratar</ion-button>
+        <ion-button *ngIf="userLogged?.role == 'CLIENT'" 
+                    size="small" 
+                    expand="block" 
+                    shape="round">Contratar</ion-button>
+        <ion-button *ngIf="userLogged?.uid == user?.uid" 
+                    size="small" 
+                    expand="block" 
+                    shape="round">Editar Perfil</ion-button>
+        <ion-button *ngIf="userLogged?.uid != user?.uid" 
+                    size="small" 
+                    expand="block" 
+                    shape="round">Seguir</ion-button>
       </ion-col>
     </ion-row>
 
@@ -40,8 +55,8 @@
         <ion-slides class="mainSlide" #slidePortfolio >
           <ion-slide>
             <div style="column-count: 2;">
-              <div *ngFor="let photo of photosPortfolio">
-                <img [src]="photo">
+              <div *ngFor="let photo of user.photosPortfolio">
+                <img [src]="photo | imageSanitizer">
               </div>
             </div>
           </ion-slide>
@@ -67,37 +82,6 @@
                     </ion-item>
                 </ion-col>
 
-                <!-- <ion-col size="12">
-                  <h4 class="ion-text-start">Formación académica</h4> 
-                    <ion-item>
-                      <ion-label>Curso1</ion-label>
-                    </ion-item>
-                    <ion-item>
-                      <ion-label>Curso2</ion-label>
-                    </ion-item>
-                    <ion-item>
-                      <ion-label>Curso3</ion-label>
-                    </ion-item>
-                    <ion-item>
-                      <ion-label>Curso4</ion-label>
-                    </ion-item>
-                </ion-col>
-
-                <ion-col size="12">
-                  <h4 class="ion-text-start">Experiencia laboral</h4>
-                    <ion-item>
-                      <ion-label>Trabajo1</ion-label>
-                    </ion-item>
-                    <ion-item>
-                      <ion-label>Trabajo2</ion-label>
-                    </ion-item>
-                    <ion-item>
-                      <ion-label>Trabajo3</ion-label>
-                    </ion-item>
-                    <ion-item>
-                      <ion-label>Trabajo4</ion-label>
-                    </ion-item>
-                </ion-col> -->
               </ion-row>
             </ion-grid>
           
@@ -107,4 +91,12 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="userLogged?.uid == user?.uid">
+    <ion-fab-button (click)="editPhotosPortfolio()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    
+  </ion-fab>
+
 </ion-content>

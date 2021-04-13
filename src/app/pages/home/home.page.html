@@ -12,15 +12,14 @@
   </ion-refresher>
 
   <!-- Users  -->
-  <app-portfolios [users]= "users"></app-portfolios>
+  <app-accounts [users]= "users"></app-accounts>
 
   <!-- Infinite Scroll  -->
-
-<ion-infinite-scroll [disabled]="!enable"
-                     threshold="150px" 
-                     (ionInfinite)="loadData($event)">
-  <ion-infinite-scroll-content >
-  </ion-infinite-scroll-content>
-</ion-infinite-scroll>
+  <ion-infinite-scroll [disabled]="!enable"
+                      threshold="150px" 
+                      (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>

@@ -1,97 +1,150 @@
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" >
 
-  <ion-row class="top-20" >
-    <ion-col size="12" class="ion-text-center">
-      <img *ngIf="user?.photoURL !undefined" class="imgRedonda" [src]="user.photoURL">
-      <img *ngIf="user?.photoURL === undefined" class="img-avatar" src="assets/avatars/av-6.png">
-    </ion-col>
-  </ion-row>
+  <ion-grid>
 
-  <ion-row class="top-20">
-    <ion-col size="12" class="ion-text-center">
-      <ion-label>
-        <h1>Información de Perfil</h1>
-      </ion-label>
-    </ion-col>
-  </ion-row>
+    <ion-row style="margin-top: 70px;" >
+      <ion-col>
+        <ion-avatar class="imgRedonda">
+          <img *ngIf="user?.photoURL !undefined" [src]="user.photoURL">
+          <img *ngIf="user?.photoURL === undefined" src="assets/avatars/av-6.png">
+        </ion-avatar>
+      </ion-col>
+    </ion-row>
 
-  <ion-card>
-    <ion-card-content>
-      <h2>{{user?.displayName}}</h2>
-      <p>{{user?.role}}</p>
-      <p>{{user?.email}}</p>
-      <p>{{user?.phone}}</p>
-      <p>{{user?.createdAt | date}}</p>
-    </ion-card-content>
-  </ion-card>
+    <ion-row class="top-20">
+      <ion-col size="12" class="ion-text-center">
+        <ion-label>
+          <h1>Información de Perfil</h1>
+        </ion-label>
+      </ion-col>
+    </ion-row>
 
-  <!-- <form>
+    <form>
       <ion-row>
-        <ion-col>
+        <ion-col size="12">
+          <ion-list>
+            <ion-item>
+              <ion-label>Nombre:</ion-label>
+              <ion-input type="text"
+                         name="displayName"
+                         [disabled]="disableInput"
+                         [(ngModel)]="user.displayName"
+                         required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Celular:</ion-label>
+              <ion-input type="tel"
+                         name="phone"
+                         [disabled]="disableInput"
+                         [(ngModel)]="user.phone"
+                         required></ion-input>
+            </ion-item>
+
+          </ion-list>
           
-            <ion-list>
-              
-              <ion-item>
-                <ion-label position="floating">UId</ion-label>
-                <ion-input name="uid"
-                           type="text"
-                           disabled="true"
-                           [(ngModel)]="user.uid"
-                           required></ion-input>
-              </ion-item>
-
-              <ion-item>
-                <ion-label position="floating">Email</ion-label>
-                <ion-input name="email"
-                           type="email"
-                           disabled="true"
-                           [(ngModel)]="user.email"
-                           required></ion-input>
-              </ion-item>
-
-              <ion-item>
-                <ion-label position="floating">Nombre</ion-label>
-                <ion-input name="nombre"
-                           type="text"
-                           disabled="true"
-                           [(ngModel)]="user.displayName"
-                           required></ion-input>
-              </ion-item>
-
-              <ion-item>
-                <ion-label position="floating">Rol</ion-label>
-                <ion-input name="rol"
-                           type="Role"
-                           [(ngModel)]="user.role"
-                           disabled="true"
-                           required></ion-input>
-              </ion-item>
-
-            </ion-list>
         </ion-col>
       </ion-row>
-      
-      <ion-row>
+
+      <ion-row *ngIf="disableInput == true">
         <ion-col class="ion-text-center">
           <ion-button type="submit"
                       color="primary"
-                      shape="round">
-          Actualizar
+                      shape="round"
+                      (click)="edit()">
+          Editar
         </ion-button>
       </ion-col>
     </ion-row>
-    
-  </form> -->
+    <ion-row *ngIf="disableInput == false">
+      <ion-col class="ion-text-center">
+        <ion-button type="submit"
+                    color="primary"
+                    shape="round"
+                    (click)="update()">
+        Actualizar
+      </ion-button>
+    </ion-col>
+  </ion-row>
+    </form>
 
-  <ion-row>
-    <ion-col class="ion-text-center">
-      <ion-button color="primary"
-                  shape="round"
-                  (click)="onLogOut()">
-      Cerrar Sesión
-    </ion-button>
-  </ion-col>
-</ion-row>
+    <!-- <ion-card>
+      <ion-card-content>
+        <h2>{{user?.displayName}}</h2>
+        <p>{{user?.role}}</p>
+        <p>{{user?.email}}</p>
+        <p>{{user?.phone}}</p>
+        <p>{{user?.createdAt | date}}</p>
+      </ion-card-content>
+    </ion-card> -->
 
+    <!-- <form>
+        <ion-row>
+          <ion-col>
+            
+              <ion-list>
+                
+                <ion-item>
+                  <ion-label position="floating">UId</ion-label>
+                  <ion-input name="uid"
+                            type="text"
+                            disabled="true"
+                            [(ngModel)]="user.uid"
+                            required></ion-input>
+                </ion-item>
 
+                <ion-item>
+                  <ion-label position="floating">Email</ion-label>
+                  <ion-input name="email"
+                            type="email"
+                            disabled="true"
+                            [(ngModel)]="user.email"
+                            required></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating">Nombre</ion-label>
+                  <ion-input name="nombre"
+                            type="text"
+                            disabled="true"
+                            [(ngModel)]="user.displayName"
+                            required></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating">Rol</ion-label>
+                  <ion-input name="rol"
+                            type="Role"
+                            [(ngModel)]="user.role"
+                            disabled="true"
+                            required></ion-input>
+                </ion-item>
+
+              </ion-list>
+          </ion-col>
+        </ion-row>
+        
+        <ion-row>
+          <ion-col class="ion-text-center">
+            <ion-button type="submit"
+                        color="primary"
+                        shape="round">
+            Actualizar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      
+    </form> -->
+
+    <ion-row style="margin-top: 80px;">
+      <ion-col class="ion-text-center">
+        <ion-button color="primary"
+                    shape="round"
+                    (click)="onLogOut()">
+        Cerrar Sesión
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
 </ion-content>

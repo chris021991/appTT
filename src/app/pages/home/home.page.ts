@@ -35,12 +35,10 @@ export class HomePage implements OnInit {
   }
 
   doRefresh( event ){
-    console.log('Event', event.target);
     this.users = [];
     this.database.lastDocument = null;
     this.enable = true;
     this.loadData( event );
-    console.log('Event2', event.target);
   }
 
 }

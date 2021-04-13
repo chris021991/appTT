@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Collection } from '../models/interfaces';
+import { Collection, User } from '../models/interfaces';
 import { returnDocuments } from '../helpers/return-documents';
 
 @Injectable({
@@ -12,6 +12,7 @@ export class FirestoreService {
   collectionGeneral: Collection;
   indexPhotoGeneral: number;
   lastDocument: any = null;
+  userTemp: User = null;
 
   constructor(public angularFirestore: AngularFirestore) { }
 
@@ -46,7 +47,6 @@ export class FirestoreService {
 
 
   getPhotographers<tipo>(path: string) {
-
     const itemsCollection = this.angularFirestore.collection<tipo>('users');
 
     const query = itemsCollection.ref
@@ -56,7 +56,6 @@ export class FirestoreService {
 
     return query.limit(10).get().then( snap => {
       this.lastDocument = snap.docs[ snap.docs.length - 1 ] || null;
-      console.log('LastDocument', this.lastDocument);
       return returnDocuments(snap);
     });
   }

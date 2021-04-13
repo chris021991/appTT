@@ -7,8 +7,11 @@ import { CollectionComponent } from './collection/collection.component';
 import { CollectionsComponent } from './collections/collections.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { OrderModule } from 'ngx-order-pipe';
-import { PortfolioComponent } from './portfolio/portfolio.component';
-import { PortfoliosComponent } from './portfolios/portfolios.component';
+import { AccountsComponent } from './accounts/accounts.component';
+import { AccountComponent } from './account/account.component';
+import { PhotoPortfolioComponent } from './photo-portfolio/photo-portfolio.component';
+import { PhotoCoverpageComponent } from './photo-coverpage/photo-coverpage.component';
+import { PhotoProfileComponent } from './photo-profile/photo-profile.component';
 
 
 
@@ -17,8 +20,11 @@ import { PortfoliosComponent } from './portfolios/portfolios.component';
     AvatarSelectorComponent,
     CollectionComponent,
     CollectionsComponent,
-    PortfolioComponent,
-    PortfoliosComponent],
+    AccountComponent,
+    AccountsComponent,
+    PhotoPortfolioComponent,
+    PhotoCoverpageComponent,
+    PhotoProfileComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -29,6 +35,6 @@ import { PortfoliosComponent } from './portfolios/portfolios.component';
   exports: [
     AvatarSelectorComponent,
     CollectionsComponent,
-    PortfoliosComponent]
+    AccountsComponent]
 })
 export class ComponentsModule { }

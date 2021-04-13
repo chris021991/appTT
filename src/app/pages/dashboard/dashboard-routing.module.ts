@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardPage } from './dashboard.page';
+import { PortfolioPageModule } from '../portfolio/portfolio.module';
 
 const routes: Routes = [
   {
@@ -14,6 +15,10 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
+          },
+          {
+            path: 'portfolio',
+            loadChildren: () => import('../portfolio/portfolio.module').then(m => m.PortfolioPageModule)
           }
         ]
       },

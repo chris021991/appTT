@@ -18,15 +18,12 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardPageModule)
-  },
-  {
-    path: 'portfolio',
-    loadChildren: () => import('./pages/portfolio/portfolio.module').then( m => m.PortfolioPageModule)
+    loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'dashboard/app/home',
     pathMatch: 'full'
   }
 ];

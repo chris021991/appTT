@@ -7,7 +7,7 @@ import { Collection } from '../models/interfaces';
 export class SearchPipe implements PipeTransform {
 
   transform(items: Collection[], text: string): Collection[] {
-    if (text.length === 0 ) {return items}
+    if (text.length === 0 ) {return items; }
 
     text = text.toLocaleLowerCase();
 

@@ -102,6 +102,7 @@ export class WelcomePage implements OnInit {
       mediaType: this.camera.MediaType.PICTURE,
       targetWidth: 1000,
       targetHeight: 1000,
+      correctOrientation: true,
       sourceType: this.camera.PictureSourceType.CAMERA
     };
     return await this.camera.getPicture(options);

@@ -3,14 +3,51 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 import { LoadingController, AlertController } from '@ionic/angular';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
+
 export class FirestorageService {
 
-  constructor(public storage: AngularFireStorage,
+  MEDIA_STORAGE_PATH = 'images';
+
+  constructor(private storage: AngularFireStorage,
               private loadingCtrl: LoadingController,
               private alertCtrl: AlertController) { }
+
+
+    async uploadImages(images: any[], path: string, name: string) {
+      // const loading = await this.loadingCtrl.create();
+      // await loading.present();
+      const resp = [];
+
+      for (const image of images) {
+
+        // image.uploading = true;
+        const filePath = `${path}/${name}_${new Date().getTime()}`;
+        const ref = this.storage.ref(filePath);
+        // subir archivos
+        // const task = this.storage.upload(filePath, image.file);
+
+        // subir imágenes por URL
+        const task = ref.putString(image, 'data_url');
+
+        // item.uploadPercent = task.percentageChanges();
+        task.snapshotChanges().pipe(
+          finalize(() => {
+            ref.getDownloadURL().subscribe(async res => {
+              console.log('Res ->', res);
+              resp.push(res);
+              console.log('Resp ->', resp);
+
+              // image.downloadURL = res;
+              // image.uploading = false;
+
+            });
+          })
+          ).subscribe();
+        }
+      console.log('Resp final ->', resp);
+      return resp;
+    }
 
   async uploadImage(file: any, path: string, name: string): Promise<string> {
     const loading = await this.loadingCtrl.create();

@@ -82,7 +82,7 @@
 
         </ion-grid>
       </form>
-    
+
 
 
     </ion-slide>
@@ -92,7 +92,7 @@
       <ion-grid fixed>
 
         <!-- Avatar selector -->
-        <app-avatar-selector (avatarSel)="photoURL = $event"></app-avatar-selector>
+        <app-avatar-selector (avatarSel)="user.photoURL = $event"></app-avatar-selector>
 
         <form (ngSubmit)="onRegister()" #fRegister="ngForm">
           <ion-row>

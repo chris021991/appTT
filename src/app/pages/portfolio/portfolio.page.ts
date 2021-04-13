@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides } from '@ionic/angular';
+import { IonSlides, NavController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/interfaces';
+import { FirestoreService } from '../../services/firestore.service';
+import { UIServicesService } from '../../services/ui-services.service';
+import { PhotoPortfolioComponent } from '../../components/photo-portfolio/photo-portfolio.component';
 
 @Component({
   selector: 'app-portfolio',
@@ -12,6 +15,7 @@ export class PortfolioPage implements OnInit {
 
   @ViewChild('slidePortfolio') slides: IonSlides;
 
+  userLogged: User;
   user: User;
   photosPortfolio: string[] = [
     'https://firebasestorage.googleapis.com/v0/b/appttdb.appspot.com/o/collections%2FKathe%20Recalde?alt=media&token=ba246e15-52a1-44e9-89d2-a76ece6ca352',
@@ -22,18 +26,33 @@ export class PortfolioPage implements OnInit {
     'https://firebasestorage.googleapis.com/v0/b/appttdb.appspot.com/o/collections%2FPatricia%20Macias_1614626098655?alt=media&token=aa2d9e67-6451-43ed-acf7-4200d1c05ad0'
   ];
 
-  constructor(private authSrv: AuthService) { }
+  constructor(private firestoreSvc: FirestoreService,
+              private authSvc: AuthService,
+              private uiService: UIServicesService,
+              private navCtrl: NavController) { }
 
   ngOnInit() {
-    this.authSrv.user$.subscribe(user => {
-      this.user = user;
+    // usuario temporal enviado desde el componente account
+    this.user = this.firestoreSvc.userTemp;
+    // validación para que exista un User seleccionado
+    if (this.user === null || this.user === undefined) {
+      this.navCtrl.navigateRoot(['/dashboard/app/home']);
+    }
+    // devuelve el usuario logeado actualmente
+    this.authSvc.user$.subscribe( userLogged => {
+      this.userLogged = userLogged;
     });
   }
 
-   // bloqueo de slide login/registro
+   // bloqueo de slide
    ionViewDidEnter(){
     this.slides.lockSwipes(true);
   }
+
+  editPhotosPortfolio() {
+    this.uiService.presentModal(PhotoPortfolioComponent);
+  }
+
   // valida el value del segment
   segmentChanged(ev: any) {
     if (ev.detail.value === 'portfolio'){
@@ -42,7 +61,7 @@ export class PortfolioPage implements OnInit {
       this.slideToBio();
     }
   }
-  // métodos para dslizar sliders
+  // métodos para deslizar sliders
   slideToPortfolio(){
     this.slides.lockSwipes(false);
     this.slides.slideTo(0);

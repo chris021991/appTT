@@ -12,6 +12,11 @@
     border-radius:100px !important;
 }
 
+.cover-page {
+    opacity: 0.7;
+    width: 100%;
+    height: 210px;
+}
 
 .img-over {
     position: relative;
@@ -22,7 +27,7 @@
 
 .txt-over {
     position: relative;
-    top: -75px;
+    top: -90px;
     left: -10px;
     margin-bottom: -75px;
     text-align: center;

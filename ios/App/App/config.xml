@@ -6,5 +6,9 @@
     <param name="ios-package" value="CDVCamera"/>
   </feature>
 
+  <feature name="ImagePicker">
+    <param name="ios-package" value="SOSPicker"/>
+  </feature>
+
   
 </widget>
