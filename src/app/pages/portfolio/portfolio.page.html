@@ -54,10 +54,14 @@
       <ion-col>
         <ion-slides class="mainSlide" #slidePortfolio >
           <ion-slide>
-            <div style="column-count: 2;">
+            <div style="column-count: 2;" *ngIf="user.photosPortfolio">
               <div *ngFor="let photo of user.photosPortfolio">
                 <img [src]="photo | imageSanitizer">
               </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 60px;" *ngIf="!user.photosPortfolio">
+                <ion-label>No ha cargado imágenes a su Portafolio</ion-label>
             </div>
           </ion-slide>
 

@@ -32,7 +32,7 @@ export class PortfolioPage implements OnInit {
               private navCtrl: NavController) { }
 
   ngOnInit() {
-    // usuario temporal enviado desde el componente account
+    // usuario temporal enviado desde el componente account (pendiente actualizar user al cargar fotos)
     this.user = this.firestoreSvc.userTemp;
     // validación para que exista un User seleccionado
     if (this.user === null || this.user === undefined) {

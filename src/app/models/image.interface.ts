@@ -1,5 +1,7 @@
 import { Observable } from 'rxjs';
 
+
+// Clase no usada por el momento, prueba para subir imagenes como objetos
 export class Image {
   public name: string;
   public uploading = false;

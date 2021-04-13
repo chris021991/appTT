@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActionSheetController, ModalController } from '@ionic/angular';
+import { ActionSheetController, ModalController, NavController } from '@ionic/angular';
 import { CameraService } from '../../services/camera.service';
 import { FirestorageService } from '../../services/firestorage.service';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { User } from '../../models/interfaces';
 import { AuthService } from '../../services/auth.service';
 import { FirestoreService } from '../../services/firestore.service';
-import { Image } from '../../models/image.interface';
+import { Router } from '@angular/router';
 
 declare var window: any;
 
@@ -19,12 +19,10 @@ declare var window: any;
 export class PhotoPortfolioComponent implements OnInit {
 
   userLogged: User;
+  photosPortfolioURL = [];
   tempImages: string[] = [];
   imagePath = 'PortfolioImages';
   uid = 'prueba';
-
-  retSvc = [];
-
 
   constructor(private fireStorage: FirestorageService,
               private database: FirestoreService,
@@ -32,11 +30,15 @@ export class PhotoPortfolioComponent implements OnInit {
               private cameraSvc: CameraService,
               private imagePicker: ImagePicker,
               private actionSheetCtrl: ActionSheetController,
-              private modalCtrl: ModalController) { }
+              private modalCtrl: ModalController,
+              private route: Router) { }
 
   ngOnInit() {
     this.authSvc.user$.subscribe( userLogged => {
       this.userLogged = userLogged;
+      if (userLogged.photosPortfolio !== undefined){
+        this.photosPortfolioURL = userLogged.photosPortfolio;
+      }
     });
 
     this.imagePicker.hasReadPermission().then((val) => {
@@ -74,9 +76,15 @@ export class PhotoPortfolioComponent implements OnInit {
   }
 
   async uploadImages() {
-    const temp = await this.fireStorage.uploadImages(this.tempImages, this.imagePath, this.uid);
-    this.retSvc = temp;
-    console.log('RetSvc ->', this.retSvc);
+    for (const image of this.tempImages) {
+      const img = await this.fireStorage.uploadImage(image, this.imagePath, this.uid);
+      this.photosPortfolioURL.push(img);
+    }
+    this.userLogged.photosPortfolio = this.photosPortfolioURL;
+    this.database.updateDocument(this.userLogged, 'users', this.userLogged.uid)
+    .then(() => {
+      this.closeModal();
+    });
   }
 
   async presentActionSheet() {
