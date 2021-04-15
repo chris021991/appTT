@@ -25,10 +25,11 @@
     </ion-slide>
   </ion-slides>
 
-  <ion-slides pager="true" (click)="openPhoto()" *ngIf="user.photosPortfolio">
+  <ion-slides pager="true" *ngIf="user.photosPortfolio">
     <ion-slide *ngFor="let photo of user.photosPortfolio"
                class="image-slide"
-               style="background-image: url('{{photo}}')">
+               style="background-image: url('{{photo}}')"
+               (click)="openPhoto(photo)">
     </ion-slide>
   </ion-slides>
 

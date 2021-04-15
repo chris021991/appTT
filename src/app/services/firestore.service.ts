@@ -13,6 +13,7 @@ export class FirestoreService {
   indexPhotoGeneral: number;
   lastDocument: any = null;
   userTemp: User = null;
+  photoTemp = '';
 
   constructor(public angularFirestore: AngularFirestore) { }
 

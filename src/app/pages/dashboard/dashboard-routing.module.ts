@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardPage } from './dashboard.page';
 import { PortfolioPageModule } from '../portfolio/portfolio.module';
+import { PhotoComponent } from '../../components/photo/photo.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,19 @@ const routes: Routes = [
           {
             path: 'portfolio',
             loadChildren: () => import('../portfolio/portfolio.module').then(m => m.PortfolioPageModule)
+          },
+          {
+            path: 'photo',
+            loadChildren: () => import('../photo/photo.module').then(m => m.PhotoPageModule)
+          }
+        ]
+      },
+      {
+        path: 'search',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../search/search.module').then(m => m.SearchPageModule)
           }
         ]
       },
@@ -28,6 +42,15 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () => import('../gallery/gallery.module').then(m => m.GalleryPageModule)
+          }
+        ]
+      },
+      {
+        path: 'notifications',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../notifications/notifications.module').then(m => m.NotificationsPageModule)
           }
         ]
       },

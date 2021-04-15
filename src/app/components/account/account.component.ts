@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from '../../models/interfaces';
-import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { FirestoreService } from '../../services/firestore.service';
 
@@ -27,8 +26,9 @@ export class AccountComponent implements OnInit {
     this.route.navigate(['/dashboard/app/home/portfolio']);
   }
 
-  openPhoto() {
-    window.alert(this.img1);
+  openPhoto( photo ) {
+    this.firestoreSrv.photoTemp = photo;
+    this.route.navigate(['/dashboard/app/home/photo']);
   }
 
 }

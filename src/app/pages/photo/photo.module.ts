@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { DashboardPageRoutingModule } from './dashboard-routing.module';
+import { PhotoPageRoutingModule } from './photo-routing.module';
 
-import { DashboardPage } from './dashboard.page';
+import { PhotoPage } from './photo.page';
 import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { ComponentsModule } from '../../components/components.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    DashboardPageRoutingModule,
+    PhotoPageRoutingModule,
     ComponentsModule
   ],
-  declarations: [DashboardPage]
+  declarations: [PhotoPage]
 })
-export class DashboardPageModule {}
+export class PhotoPageModule {}

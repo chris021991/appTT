@@ -12,6 +12,7 @@ import { AccountComponent } from './account/account.component';
 import { PhotoPortfolioComponent } from './photo-portfolio/photo-portfolio.component';
 import { PhotoCoverpageComponent } from './photo-coverpage/photo-coverpage.component';
 import { PhotoProfileComponent } from './photo-profile/photo-profile.component';
+import { PhotoComponent } from './photo/photo.component';
 
 
 
@@ -24,7 +25,8 @@ import { PhotoProfileComponent } from './photo-profile/photo-profile.component';
     AccountsComponent,
     PhotoPortfolioComponent,
     PhotoCoverpageComponent,
-    PhotoProfileComponent],
+    PhotoProfileComponent,
+    PhotoComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -35,6 +37,7 @@ import { PhotoProfileComponent } from './photo-profile/photo-profile.component';
   exports: [
     AvatarSelectorComponent,
     CollectionsComponent,
-    AccountsComponent]
+    AccountsComponent,
+    PhotoComponent]
 })
 export class ComponentsModule { }
