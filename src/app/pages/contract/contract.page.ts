@@ -66,6 +66,7 @@ export class ContractPage implements OnInit {
 
   onAccept() {
     window.alert('Estilo: ' + this.styleVal + ', Locación: ' + this.placeVal);
+    this.navCtrl.navigateRoot(['/dashboard/app/home/portfolio']);
   }
 
 }

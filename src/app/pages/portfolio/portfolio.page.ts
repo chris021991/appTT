@@ -64,6 +64,10 @@ export class PortfolioPage implements OnInit {
     this.navCtrl.navigateRoot(['/contract'], {animated: true});
   }
 
+  back() {
+    this.navCtrl.navigateBack([]);
+  }
+
   // valida el value del segment
   segmentChanged(ev: any) {
     if (ev.detail.value === 'portfolio'){
