@@ -5,6 +5,7 @@ import { User } from '../../models/interfaces';
 import { FirestoreService } from '../../services/firestore.service';
 import { UIServicesService } from '../../services/ui-services.service';
 import { PhotoPortfolioComponent } from '../../components/photo-portfolio/photo-portfolio.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-portfolio',
@@ -29,7 +30,8 @@ export class PortfolioPage implements OnInit {
   constructor(private firestoreSvc: FirestoreService,
               private authSvc: AuthService,
               private uiService: UIServicesService,
-              private navCtrl: NavController) { }
+              private navCtrl: NavController,
+              private route: Router) { }
 
   ngOnInit() {
     // usuario temporal enviado desde el componente account (pendiente actualizar user al cargar fotos)
@@ -49,8 +51,17 @@ export class PortfolioPage implements OnInit {
     this.slides.lockSwipes(true);
   }
 
+  openPhoto( photo ) {
+    this.firestoreSvc.photoTemp = photo;
+    this.route.navigate(['/dashboard/app/home/photo']);
+  }
+
   editPhotosPortfolio() {
     this.uiService.presentModal(PhotoPortfolioComponent);
+  }
+
+  onContract() {
+    this.navCtrl.navigateRoot(['/contract'], {animated: true});
   }
 
   // valida el value del segment

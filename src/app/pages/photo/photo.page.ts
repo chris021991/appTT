@@ -16,6 +16,9 @@ export class PhotoPage implements OnInit {
 
   ngOnInit() {
     this.image = this.firestoreSvc.photoTemp;
+    if (!this.image){
+      this.navCtrl.navigateRoot(['/']);
+    }
   }
 
   back() {

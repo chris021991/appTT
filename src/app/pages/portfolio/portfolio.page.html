@@ -20,6 +20,7 @@
         <ion-label>Quito - Ecuador<br></ion-label>
         <ion-icon *ngFor="let star of [1,1,1,1,1]" style="color: darkgoldenrod;" name="star"></ion-icon>
         <ion-button *ngIf="userLogged?.role == 'CLIENT'" 
+                    (click)="onContract()"
                     size="small" 
                     expand="block" 
                     shape="round">Contratar</ion-button>
@@ -56,7 +57,8 @@
           <ion-slide>
             <div style="column-count: 2;" *ngIf="user.photosPortfolio">
               <div *ngFor="let photo of user.photosPortfolio">
-                <img [src]="photo | imageSanitizer">
+                <img [src]="photo | imageSanitizer"
+                (click)="openPhoto(photo)">
               </div>
             </div>
 

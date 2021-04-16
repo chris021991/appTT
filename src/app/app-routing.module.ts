@@ -25,6 +25,10 @@ const routes: Routes = [
     path: '',
     redirectTo: 'dashboard/app/home',
     pathMatch: 'full'
+  },
+  {
+    path: 'contract',
+    loadChildren: () => import('./pages/contract/contract.module').then( m => m.ContractPageModule)
   }
 ];
 
