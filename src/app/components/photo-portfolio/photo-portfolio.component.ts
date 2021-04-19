@@ -5,8 +5,8 @@ import { FirestorageService } from '../../services/firestorage.service';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { User } from '../../models/interfaces';
 import { AuthService } from '../../services/auth.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { FirestoreService } from '../../services/firestore.service';
-import { Router } from '@angular/router';
 
 declare var window: any;
 
@@ -21,17 +21,16 @@ export class PhotoPortfolioComponent implements OnInit {
   userLogged: User;
   photosPortfolioURL = [];
   tempImages: string[] = [];
-  imagePath = 'PortfolioImages';
-  uid = 'prueba';
+  imagePath = 'photosPortfolio';
 
   constructor(private fireStorage: FirestorageService,
               private database: FirestoreService,
+              private afs: AngularFirestore,
               private authSvc: AuthService,
               private cameraSvc: CameraService,
               private imagePicker: ImagePicker,
               private actionSheetCtrl: ActionSheetController,
-              private modalCtrl: ModalController,
-              private route: Router) { }
+              private modalCtrl: ModalController) { }
 
   ngOnInit() {
     this.authSvc.user$.subscribe( userLogged => {
@@ -77,14 +76,24 @@ export class PhotoPortfolioComponent implements OnInit {
 
   async uploadImages() {
     for (const image of this.tempImages) {
-      const img = await this.fireStorage.uploadImage(image, this.imagePath, this.uid);
+      const img = await this.fireStorage.uploadImage(image, this.imagePath, this.userLogged.uid);
+      const idPhoto = Date.now() + '_' + this.userLogged.uid;
       this.photosPortfolioURL.push(img);
+      this.afs.collection('users').doc(this.userLogged.uid).collection('photosPortfolio').doc(idPhoto).set({
+        id: idPhoto,
+        createdBy: this.userLogged.uid,
+        createdAt: Date.now(),
+        img
+      });
     }
-    this.userLogged.photosPortfolio = this.photosPortfolioURL;
-    this.database.updateDocument(this.userLogged, 'users', this.userLogged.uid)
-    .then(() => {
-      this.closeModal();
-    });
+
+    this.closeModal();
+
+    // this.userLogged.photosPortfolio = this.photosPortfolioURL;
+    // this.database.updateDocument(this.userLogged, 'users', this.userLogged.uid)
+    // .then(() => {
+    //   this.closeModal();
+    // });
   }
 
   async presentActionSheet() {

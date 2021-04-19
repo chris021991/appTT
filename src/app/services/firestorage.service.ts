@@ -54,7 +54,7 @@ export class FirestorageService {
     await loading.present();
 
     return new Promise( resolve => {
-      const filePath = `${path}/${name}_${new Date().getTime()}`;
+      const filePath = `${path}/${new Date().getTime()}_${name}`;
       const ref = this.storage.ref(filePath);
       const task = ref.putString(file, 'data_url');
       task.snapshotChanges().pipe(

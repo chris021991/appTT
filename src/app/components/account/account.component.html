@@ -13,7 +13,7 @@
   </ion-item>
 
   <!-- Temporal carga imagenes de perro en perfiles de fotografos sin Portfolio -->
-  <ion-slides pager="true" (click)="openPhoto()" *ngIf="!user.photosPortfolio">
+  <ion-slides pager="true" (click)="openPhoto()" *ngIf="photos?.length < 1">
     <ion-slide class="image-slide"
                style="background-image: url('{{img1}}')">
     </ion-slide>
@@ -25,15 +25,13 @@
     </ion-slide>
   </ion-slides>
 
-  <ion-slides pager="true" *ngIf="user.photosPortfolio">
-    <ion-slide *ngFor="let photo of user.photosPortfolio"
+  <ion-slides pager="true" *ngIf="photos?.length > 0">
+    <ion-slide *ngFor="let photo of photos"
                class="image-slide"
-               style="background-image: url('{{photo}}')"
+               style="background-image: url('{{photo.img}}')"
                (click)="openPhoto(photo)">
     </ion-slide>
   </ion-slides>
-
-  <!-- Mapa -->
 
   <ion-item lines="none">
     <ion-icon slot="start" name="heart-outline"></ion-icon>

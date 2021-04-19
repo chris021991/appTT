@@ -46,7 +46,6 @@ export class FirestoreService {
     return itemsCollection.valueChanges();
   }
 
-
   getPhotographers<tipo>(path: string) {
     const itemsCollection = this.angularFirestore.collection<tipo>('users');
 
@@ -59,6 +58,11 @@ export class FirestoreService {
       this.lastDocument = snap.docs[ snap.docs.length - 1 ] || null;
       return returnDocuments(snap);
     });
+  }
+
+  getPhotosPortfolio<tipo>(uid: string) {
+    const itemsCollection = this.angularFirestore.collection<User>('users').doc(uid).collection<tipo>('photosPortfolio');
+    return itemsCollection.valueChanges();
   }
 
 }

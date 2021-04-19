@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { User } from '../../models/interfaces';
+import { User, Photo } from '../../models/interfaces';
 import { Router } from '@angular/router';
 import { FirestoreService } from '../../services/firestore.service';
 
@@ -11,23 +11,33 @@ import { FirestoreService } from '../../services/firestore.service';
 export class AccountComponent implements OnInit {
 
   @Input() user: User = {};
+  photos: Photo[];
 
   img1 = '/assets/perro-1.jpg';
   img2 = '/assets/perro-2.jpg';
   img3 = '/assets/perro-3.jpg';
 
-  constructor(private firestoreSrv: FirestoreService,
+  constructor(private database: FirestoreService,
               private route: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getPhotosPortfolio();
+  }
+
+  // recupera la colección photosPorfolio de cada User
+  getPhotosPortfolio() {
+    this.database.getPhotosPortfolio(this.user.uid).subscribe((res) => {
+      this.photos = res;
+    });
+  }
 
   openPortfolio() {
-    this.firestoreSrv.userTemp = this.user;
+    this.database.userTemp = this.user;
     this.route.navigate(['/dashboard/app/home/portfolio']);
   }
 
-  openPhoto( photo ) {
-    this.firestoreSrv.photoTemp = photo;
+  openPhoto( photo: Photo ) {
+    this.database.photoTemp = photo.img;
     this.route.navigate(['/dashboard/app/home/photo']);
   }
 

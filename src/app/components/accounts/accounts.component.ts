@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { User } from '../../models/interfaces';
+import { User, Photo } from '../../models/interfaces';
 
 @Component({
   selector: 'app-accounts',
