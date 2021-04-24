@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { FirestoreService } from '../../services/firestore.service';
+import { Photo } from '../../models/interfaces';
 
 @Component({
   selector: 'app-photo',
@@ -9,7 +10,7 @@ import { FirestoreService } from '../../services/firestore.service';
 })
 export class PhotoPage implements OnInit {
 
-  image = '';
+  image: Photo;
 
   constructor(private navCtrl: NavController,
               private firestoreSvc: FirestoreService) { }

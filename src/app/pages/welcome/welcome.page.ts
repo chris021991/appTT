@@ -40,9 +40,9 @@ export class WelcomePage implements OnInit {
 
   slideCount = 0;
 
-  public form = [
-    { val: 'Bodas y compromisos', isChecked: false },
+  public photoStyle = [
     { val: 'Retrato', isChecked: false },
+    { val: 'Bodas y compromisos', isChecked: false },
     { val: 'Eventos', isChecked: false },
     { val: 'Moda', isChecked: false },
     { val: 'Colegio', isChecked: false },
@@ -63,6 +63,7 @@ export class WelcomePage implements OnInit {
       this.photoURL = user.photoURL;
       this.coverPage = user.coverPage;
       this.firstLogin = user.firstLogin;
+      this.photoStyle = user.photoStyle;
     });
   }
 
@@ -158,6 +159,7 @@ export class WelcomePage implements OnInit {
       biography: this.biography,
       photoURL: this.photoURL,
       coverPage: this.coverPage,
+      photoStyle: this.photoStyle,
       firstLogin: false
     }, {merge: true})
     .then(() => {

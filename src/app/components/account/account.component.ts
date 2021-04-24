@@ -37,7 +37,7 @@ export class AccountComponent implements OnInit {
   }
 
   openPhoto( photo: Photo ) {
-    this.database.photoTemp = photo.img;
+    this.database.photoTemp = photo;
     this.route.navigate(['/dashboard/app/home/photo']);
   }
 

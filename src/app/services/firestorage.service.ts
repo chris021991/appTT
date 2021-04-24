@@ -61,13 +61,13 @@ export class FirestorageService {
         finalize( () => {
           ref.getDownloadURL().subscribe( async res => {
             await loading.dismiss();
-            const alert = await this.alertCtrl.create({
-              header: 'Felicitaciones',
-              message: '¡Se completó la carga de la foto a Firebase!',
-              buttons: ['OK']
-            });
+            // const alert = await this.alertCtrl.create({
+            //   header: 'Felicitaciones',
+            //   message: '¡Se completó la carga de la foto a Firebase!',
+            //   buttons: ['OK']
+            // });
 
-            await alert.present();
+            // await alert.present();
             const downloadURL = res;
             resolve(downloadURL);
             return;

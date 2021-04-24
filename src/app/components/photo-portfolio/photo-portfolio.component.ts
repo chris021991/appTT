@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActionSheetController, ModalController, NavController } from '@ionic/angular';
+import { ActionSheetController, ModalController } from '@ionic/angular';
 import { CameraService } from '../../services/camera.service';
 import { FirestorageService } from '../../services/firestorage.service';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
-import { User } from '../../models/interfaces';
+import { User, Photo } from '../../models/interfaces';
 import { AuthService } from '../../services/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FirestoreService } from '../../services/firestore.service';
@@ -19,8 +19,8 @@ declare var window: any;
 export class PhotoPortfolioComponent implements OnInit {
 
   userLogged: User;
-  photosPortfolioURL = [];
   tempImages: string[] = [];
+  photosPortfolio: Photo[];
   imagePath = 'photosPortfolio';
 
   constructor(private fireStorage: FirestorageService,
@@ -35,9 +35,9 @@ export class PhotoPortfolioComponent implements OnInit {
   ngOnInit() {
     this.authSvc.user$.subscribe( userLogged => {
       this.userLogged = userLogged;
-      if (userLogged.photosPortfolio !== undefined){
-        this.photosPortfolioURL = userLogged.photosPortfolio;
-      }
+      this.database.getPhotosPortfolio(userLogged.uid).subscribe((res) => {
+        this.photosPortfolio = res;
+      });
     });
 
     this.imagePicker.hasReadPermission().then((val) => {
@@ -78,7 +78,6 @@ export class PhotoPortfolioComponent implements OnInit {
     for (const image of this.tempImages) {
       const img = await this.fireStorage.uploadImage(image, this.imagePath, this.userLogged.uid);
       const idPhoto = Date.now() + '_' + this.userLogged.uid;
-      this.photosPortfolioURL.push(img);
       this.afs.collection('users').doc(this.userLogged.uid).collection('photosPortfolio').doc(idPhoto).set({
         id: idPhoto,
         createdBy: this.userLogged.uid,
@@ -94,6 +93,15 @@ export class PhotoPortfolioComponent implements OnInit {
     // .then(() => {
     //   this.closeModal();
     // });
+  }
+
+  deleteStorage(uid: string, id: string) {
+    this.afs.collection('users').doc(uid).collection('photosPortfolio').doc(id).delete();
+  }
+
+  deleteTemp(image) {
+    const index = this.tempImages.indexOf(image);
+    this.tempImages.splice(index, 1);
   }
 
   async presentActionSheet() {

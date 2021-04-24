@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Collection, User } from '../models/interfaces';
+import { Collection, User, Photo } from '../models/interfaces';
 import { returnDocuments } from '../helpers/return-documents';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class FirestoreService {
   indexPhotoGeneral: number;
   lastDocument: any = null;
   userTemp: User = null;
-  photoTemp = '';
+  photoTemp: Photo;
 
   constructor(public angularFirestore: AngularFirestore) { }
 

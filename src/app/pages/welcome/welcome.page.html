@@ -63,7 +63,7 @@
           <ion-row>
             <ion-col size="12">
               <ion-list>
-                <ion-item lines="none" *ngFor="let entry of form">
+                <ion-item lines="none" *ngFor="let entry of photoStyle">
                   <ion-checkbox slot="start" [(ngModel)]="entry.isChecked" name="especialidad"></ion-checkbox>
                   <ion-label>{{entry.val}}</ion-label>
                 </ion-item>

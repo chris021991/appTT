@@ -48,6 +48,9 @@
           <ion-segment-button value="bio">
             <ion-label>Bio</ion-label>
           </ion-segment-button>
+          <ion-segment-button value="packs">
+            <ion-label>Paquetes</ion-label>
+          </ion-segment-button>
         </ion-segment>
       </ion-col>
     </ion-row>
@@ -73,25 +76,49 @@
             <ion-grid fixed>
               <ion-row>
                 <ion-col size="12">
-                  <ion-label>{{user?.biography}}</ion-label>
+                  <ion-text>
+                    <p>{{user.biography}}</p>
+                  </ion-text>
                 </ion-col>
+              </ion-row>
 
-                <ion-col>
-                  <h4 class="ion-text-start">Información básica</h4> 
+              <ion-row>
+                <ion-col size="12">
+                  <ion-list>
                     <ion-item>
-                      <ion-label>{{user?.displayName}}</ion-label>
+                      <ion-label class="ion-text-wrap">Likes</ion-label>
+                      <ion-label class="ion-text-wrap" slot="end">123</ion-label>
+                      <ion-icon size="small" name="heart">123</ion-icon>
                     </ion-item>
+
                     <ion-item>
-                      <ion-label>{{user?.email}}</ion-label>
+                      <ion-label class="ion-text-wrap">Visualizaciones</ion-label>
+                      <ion-label class="ion-text-wrap" slot="end">739</ion-label>
+                      <ion-icon size="small" name="eye"></ion-icon>
                     </ion-item>
+
                     <ion-item>
-                      <ion-label>{{user?.phone}}</ion-label>
+                      <ion-label class="ion-text-wrap">Especialidades</ion-label>
+                      <ion-list>
+                        <div *ngFor="let style of user.photoStyle">
+                          <ion-label *ngIf="style.isChecked" class="ion-text-wrap" slot="start">{{style.val}}</ion-label>
+                        </div>
+                      </ion-list>
                     </ion-item>
+
+                    <ion-item>
+                      <ion-label class="ion-text-wrap">Disponibilidad para viajar</ion-label>
+                      <ion-label class="ion-text-wrap" slot="end">Si, todo el país</ion-label>
+                    </ion-item>
+                  </ion-list>
                 </ion-col>
-
               </ion-row>
             </ion-grid>
           
+          </ion-slide>
+
+          <ion-slide>
+            <h1>Paquetes Fotográficos</h1>
           </ion-slide>
 
         </ion-slides>

@@ -2,22 +2,32 @@
 <ion-content >
 
   <ion-slide style="width: 100%; height: 100%;">
-    <ion-img [src]="image"></ion-img>
+    <ion-img src={{image.img}}></ion-img>
     
   </ion-slide>
   
   <div>
     <ion-item lines="none">
-      <ion-icon slot="start" name="heart-outline"></ion-icon>
-      <ion-icon name="chatbubble-outline"></ion-icon>
-      <ion-icon slot="end" name="bookmark-outline"></ion-icon>
+      <ion-buttons slot="start">
+        <ion-button (click)="onClick()" expand="block" fill="clear" shape="round" style="color: currentColor;">
+          <ion-icon size="large" name="heart-outline"></ion-icon>
+        </ion-button>
+        <ion-button (click)="onClick()" expand="block" fill="clear" shape="round" style="color: currentColor;">
+          <ion-icon size="large" name="chatbubble-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button (click)="onClick()" expand="block" fill="clear" shape="round" style="color: currentColor;">
+          <ion-icon size="large" name="bookmark-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
     </ion-item>
   </div>
 
   <ion-grid fixed class="ion-padding">
     <ion-row>
       <ion-col>
-          <ion-label>@chriscalahorrano<br></ion-label>
+          <ion-label>{{user.displayName}}<br></ion-label>
           <ion-label>Fotógrafo de Quito-Ecuador</ion-label>
       </ion-col>
     </ion-row>

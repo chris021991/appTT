@@ -6,7 +6,6 @@ export interface User{
     password?: string;
     displayName?: string;
     role?: Roles;
-    photosPortfolio?: string[];
     emailVerified?: boolean;
     firstLogin?: boolean;
     createdAt?: Date;
@@ -21,7 +20,7 @@ export interface User{
     experience?: string;
     location?: string;
     studies?: string;
-    photoStyle?: string[];
+    photoStyle?: any[];
 }
 
 export interface Photo {

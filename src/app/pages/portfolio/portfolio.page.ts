@@ -6,7 +6,6 @@ import { FirestoreService } from '../../services/firestore.service';
 import { UIServicesService } from '../../services/ui-services.service';
 import { PhotoPortfolioComponent } from '../../components/photo-portfolio/photo-portfolio.component';
 import { Router } from '@angular/router';
-import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-portfolio',
@@ -50,7 +49,7 @@ export class PortfolioPage implements OnInit {
   }
 
   openPhoto( photo: Photo ) {
-    this.database.photoTemp = photo.img;
+    this.database.photoTemp = photo;
     this.route.navigate(['/dashboard/app/home/photo']);
   }
 
@@ -72,6 +71,8 @@ export class PortfolioPage implements OnInit {
       this.slideToPortfolio();
     } else if (ev.detail.value === 'bio'){
       this.slideToBio();
+    } else if (ev.detail.value === 'packs'){
+      this.slideToPacks();
     }
   }
   // métodos para deslizar sliders
@@ -83,6 +84,11 @@ export class PortfolioPage implements OnInit {
   slideToBio(){
     this.slides.lockSwipes(false);
     this.slides.slideTo(1);
+    this.slides.lockSwipes(true);
+  }
+  slideToPacks() {
+    this.slides.lockSwipes(false);
+    this.slides.slideTo(2);
     this.slides.lockSwipes(true);
   }
 
