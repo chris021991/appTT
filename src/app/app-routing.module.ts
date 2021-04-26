@@ -29,6 +29,10 @@ const routes: Routes = [
   {
     path: 'contract',
     loadChildren: () => import('./pages/contract/contract.module').then( m => m.ContractPageModule)
+  },
+  {
+    path: 'packages',
+    loadChildren: () => import('./pages/packages/packages.module').then( m => m.PackagesPageModule)
   }
 ];
 

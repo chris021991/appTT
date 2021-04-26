@@ -13,6 +13,9 @@ import { PhotoPortfolioComponent } from './photo-portfolio/photo-portfolio.compo
 import { PhotoCoverpageComponent } from './photo-coverpage/photo-coverpage.component';
 import { PhotoProfileComponent } from './photo-profile/photo-profile.component';
 import { PhotoComponent } from './photo/photo.component';
+import { NewPackageComponent } from './package/new-package/new-package.component';
+import { EditPackageComponent } from './package/edit-package/edit-package.component';
+import { OpenPackageComponent } from './package/open-package/open-package.component';
 
 
 
@@ -26,7 +29,10 @@ import { PhotoComponent } from './photo/photo.component';
     PhotoPortfolioComponent,
     PhotoCoverpageComponent,
     PhotoProfileComponent,
-    PhotoComponent],
+    PhotoComponent,
+    NewPackageComponent,
+    EditPackageComponent,
+    OpenPackageComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -38,6 +44,9 @@ import { PhotoComponent } from './photo/photo.component';
     AvatarSelectorComponent,
     CollectionsComponent,
     AccountsComponent,
-    PhotoComponent]
+    PhotoComponent,
+    NewPackageComponent,
+    EditPackageComponent,
+    OpenPackageComponent]
 })
 export class ComponentsModule { }
