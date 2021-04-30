@@ -5,7 +5,7 @@ import { AuthGuard } from './guards/auth.guard';
 const routes: Routes = [
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./pages/login-container/login/login.module').then( m => m.LoginPageModule)
   },
   {
     path: 'welcome',
@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'forgot-password',
-    loadChildren: () => import('./pages/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+    loadChildren: () => import('./pages/login-container//forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
   },
   {
     path: 'dashboard',
@@ -22,17 +22,17 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'contract',
+    loadChildren: () => import('./pages/contract/contract.module').then( m => m.ContractPageModule)
+  },
+  {
     path: '',
     redirectTo: 'dashboard/app/home',
     pathMatch: 'full'
   },
   {
-    path: 'contract',
-    loadChildren: () => import('./pages/contract/contract.module').then( m => m.ContractPageModule)
-  },
-  {
-    path: 'packages',
-    loadChildren: () => import('./pages/packages/packages.module').then( m => m.PackagesPageModule)
+    path: 'photo-changes',
+    loadChildren: () => import('./pages/photo-changes/photo-changes.module').then( m => m.PhotoChangesPageModule)
   }
 ];
 

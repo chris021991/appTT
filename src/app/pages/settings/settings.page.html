@@ -1,0 +1,40 @@
+
+<ion-content [fullscreen]=true color="light">
+
+  <div style="margin: 70px 0px 10px 20px;">
+    <ion-text>
+      <h1>Configuración</h1>
+    </ion-text>
+  </div>
+    
+
+
+  <ion-list>
+    <ion-item lines="none" (click)="onProfile()" detail="true">
+      <ion-avatar style="margin-right: 20px;">
+        <img src={{user.photoURL}}>
+      </ion-avatar>
+      <ion-label>
+        <h2>{{user.displayName}}</h2>
+        <p>{{role}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <div style="margin-left: 20px;">
+    <h1></h1>
+    <p style="margin-bottom: 0px;">Opciones de administrador</p>
+  </div>
+
+  <ion-list lines="none">
+    <ion-item [routerLink]="['/dashboard/app/settings/packages']">
+      <ion-icon slot="start" name="create-outline"></ion-icon>
+      <ion-label>Paquetes fotográficos</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-button (click)="onLogOut()" expand="block" shape="round" class="ion-margin" color="medium">
+    Cerrar sesión
+  </ion-button>
+
+</ion-content>

@@ -1,0 +1,31 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="#" color="primary" text="Editar perfil"(click)="changeImage()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Foto de perfil</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="presentActionSheet()">
+        Editar
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-slide style="width: 100%; height: 100%;">
+    <img src="{{tempImage}}">
+  </ion-slide>
+
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-button color="primary" (click)="share()">
+        <ion-icon slot="icon-only" name="share-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

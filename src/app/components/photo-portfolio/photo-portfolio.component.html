@@ -24,7 +24,7 @@
             <ion-thumbnail slot="start">
               <img [src]="imageStorage.img | imageSanitizer">
             </ion-thumbnail>
-            <ion-button slot="end" (click)="deleteStorage(imageStorage.createdBy, imageStorage.id)" expand="block" fill="clear" shape="round">
+            <ion-button slot="end" (click)="deleteFirestore(imageStorage.createdBy, imageStorage.id)" expand="block" fill="clear" shape="round">
               <ion-icon size="small" slot="icon-only" name="trash" color="danger"></ion-icon>
             </ion-button>
           </ion-item>

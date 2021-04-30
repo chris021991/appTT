@@ -95,7 +95,7 @@ export class PhotoPortfolioComponent implements OnInit {
     // });
   }
 
-  deleteStorage(uid: string, id: string) {
+  deleteFirestore(uid: string, id: string) {
     this.afs.collection('users').doc(uid).collection('photosPortfolio').doc(id).delete();
   }
 
@@ -137,16 +137,4 @@ export class PhotoPortfolioComponent implements OnInit {
     this.modalCtrl.dismiss();
   }
 
-  // intentar trabajar con PopOver, problemas al recibir info de component
-  // async presentPopover(ev: any) {
-  //   const popover = await this.popoverCtrl.create({
-  //     component: PopoverPortfolioComponent,
-  //     event: ev,
-  //     translucent: true
-  //   });
-  //   await popover.present();
-
-  //   const { data } = await popover.onWillDismiss();
-  //   this.image = data;
-  // }
 }

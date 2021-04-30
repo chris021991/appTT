@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardPage } from './dashboard.page';
-import { PortfolioPageModule } from '../portfolio/portfolio.module';
-import { PhotoComponent } from '../../components/photo/photo.component';
 
 const routes: Routes = [
   {
@@ -15,15 +13,15 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
+            loadChildren: () => import('../home-container/home/home.module').then(m => m.HomePageModule)
           },
           {
             path: 'portfolio',
-            loadChildren: () => import('../portfolio/portfolio.module').then(m => m.PortfolioPageModule)
+            loadChildren: () => import('../home-container/portfolio/portfolio.module').then(m => m.PortfolioPageModule)
           },
           {
             path: 'photo',
-            loadChildren: () => import('../photo/photo.module').then(m => m.PhotoPageModule)
+            loadChildren: () => import('../home-container/photo/photo.module').then(m => m.PhotoPageModule)
           }
         ]
       },
@@ -55,11 +53,24 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'profile',
+        path: 'settings',
         children: [
           {
             path: '',
-            loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule)
+            loadChildren: () => import('../settings/settings.module').then(m => m.SettingsPageModule)
+          },
+          {
+            path: 'profile',
+            children: [
+              {
+                path: '',
+                loadChildren: () => import('../profile-container/profile/profile.module').then(m => m.ProfilePageModule)
+              }
+            ]
+          },
+          {
+            path: 'packages',
+            loadChildren: () => import('../profile-container/packages/packages.module').then(m => m.PackagesPageModule)
           }
         ]
       },
