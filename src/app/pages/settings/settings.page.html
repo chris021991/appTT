@@ -21,19 +21,22 @@
     </ion-item>
   </ion-list>
 
-  <div style="margin-left: 20px;">
-    <h1></h1>
-    <p style="margin-bottom: 0px;">Opciones de administrador</p>
+  <!-- temporal admin y fotógrafos habilitados en opciones Administrador -->
+  <div *ngIf="user.role === 'ADMIN' || user.role === 'PHOTOGRAPHER'">
+    <div style="margin-left: 20px;">
+      <h1></h1>
+      <p style="margin-bottom: 0px; ">Opciones de administrador</p>
+    </div>
+  
+    <ion-list lines="none">
+      <ion-item [routerLink]="['/dashboard/app/settings/genres']">
+        <ion-icon slot="start" name="folder-open-outline"></ion-icon>
+        <ion-label>Géneros y paquetes fotográficos</ion-label>
+      </ion-item>
+    </ion-list>
   </div>
 
-  <ion-list lines="none">
-    <ion-item [routerLink]="['/dashboard/app/settings/packages']">
-      <ion-icon slot="start" name="create-outline"></ion-icon>
-      <ion-label>Paquetes fotográficos</ion-label>
-    </ion-item>
-  </ion-list>
-
-  <ion-button (click)="onLogOut()" expand="block" shape="round" class="ion-margin" color="medium">
+  <ion-button (click)="onLogOut()" expand="block" shape="round" class="ion-margin" color="medium" style="margin-top: 25px;">
     Cerrar sesión
   </ion-button>
 

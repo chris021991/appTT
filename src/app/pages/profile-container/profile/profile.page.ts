@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from '../../../models/interfaces';
 import { AuthService } from '../../../services/auth.service';
-import { NavController } from '@ionic/angular';
+import { NavController, LoadingController } from '@ionic/angular';
 import { FirestoreService } from '../../../services/firestore.service';
 
 @Component({
@@ -22,7 +22,8 @@ export class ProfilePage implements OnInit {
 
   constructor(private authSrv: AuthService,
               private database: FirestoreService,
-              private navCtrl: NavController) { }
+              private navCtrl: NavController,
+              private loadingCtrl: LoadingController) { }
 
   ngOnInit() {
     this.authSrv.user$.subscribe(user => {
@@ -35,8 +36,21 @@ export class ProfilePage implements OnInit {
   }
 
   async update() {
-    await this.database.updateDocument(this.user , this.path, this.user.uid);
-    this.disableInput = true;
+    const loading = await this.loadingCtrl.create({
+      spinner: 'crescent',
+      showBackdrop: true
+    });
+
+    loading.present();
+
+    await this.database.updateDocument(this.user , this.path, this.user.uid)
+    .then(() => {
+      loading.dismiss();
+    })
+    .catch (error => {
+      console.log('Error ->', error.message);
+      loading.dismiss();
+    });
   }
 
   openPhotoProfile() {

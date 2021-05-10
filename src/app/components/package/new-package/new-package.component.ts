@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-new-package',
@@ -9,54 +9,48 @@ import { ModalController } from '@ionic/angular';
 })
 export class NewPackageComponent implements OnInit {
 
-  constructor(private afs: AngularFirestore,
-              private modalCtrl: ModalController) { }
-
-  val1 = true;
-  val2 = false;
-
   locations = [
-    { name: 'Solo estudio fotográfico', isChecked: false },
-    { name: 'Solo exterior', isChecked: false },
+    { name: 'Estudio fotográfico o exterior', isChecked: false },
     { name: 'Estudio fotográfico y exterior', isChecked: false }
   ];
 
   prices = [
     { name: 'Fotógrafo Nivel 1', val: null},
     { name: 'Fotógrafo Nivel 2', val: null},
-    { name: 'Fotógrafo Nivel 3', val: null},
+    { name: 'Fotógrafo Nivel 3', val: null}
   ];
 
-  genre = '';
+  genre: any = null;
   package = '';
   photographerLevel: '';
   duration = '';
   digitalPhotos = '';
   phisicalPhotos = '';
-  photobook: boolean;
+  photobook = 'No';
   clothing = '';
 
-  ngOnInit() {}
+  constructor(private navParams: NavParams,
+              private afs: AngularFirestore,
+              private modalCtrl: ModalController) { }
+
+  ngOnInit() {
+    this.genre = this.navParams.get('genre');
+    console.log(this.genre);
+  }
 
   onSave() {
-    const ref = this.afs.collection('photo_genres').doc(this.genre.toLocaleLowerCase());
-    ref.set({
-      id: this.genre.toLocaleLowerCase(),
-      name: this.genre,
-    }, {merge: true})
-    .then(() => {
-      ref.collection('packages').doc(this.package.toLocaleLowerCase()).set({
-        id: this.package.toLocaleLowerCase(),
-        name: this.package,
-        duration: this.duration,
-        digitalPhotos: this.digitalPhotos,
-        phisicalPhotos: this.phisicalPhotos,
-        photobook: this.photobook,
-        clothing: this.clothing,
-        locations: this.locations,
-        prices: this.prices
-      });
-    })
+    const packageId = this.afs.createId();
+    const ref = this.afs.collection('photo_genres').doc(this.genre.id).collection('packages').doc(packageId).set({
+      id: packageId,
+      name: this.package,
+      duration: this.duration,
+      digitalPhotos: this.digitalPhotos,
+      phisicalPhotos: this.phisicalPhotos,
+      photobook: this.photobook,
+      clothing: this.clothing,
+      locations: this.locations,
+      prices: this.prices
+      })
     .then(() => {
       window.alert('Guardado');
       this.close();

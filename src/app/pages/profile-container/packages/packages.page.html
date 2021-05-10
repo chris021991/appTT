@@ -1,44 +1,21 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header class="ion-no-border">
+  <ion-toolbar color="light">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/dashboard/app/profile"></ion-back-button>
+      <ion-back-button defaultHref="/dashboard/app/settings/genres"
+                       color="primary"
+                       text=""></ion-back-button>
     </ion-buttons>
-    <ion-title>Paquetes fotográficos</ion-title>
+    <ion-title>Paquetes de {{genre.name}}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="addPackage()">
-        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+        <ion-icon slot="icon-only" name="add-outline" color="primary"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
-  <!-- <app-new-package></app-new-package> -->
-  <ion-text>
-    <h1>Géneros Fotográficos</h1>
-  </ion-text>
-
-  <ion-list>
-    <ion-item-sliding *ngFor="let package of packages">
-      <ion-item (click)="openPackage(package)">
-        <ion-text>
-          <h4>{{package.name}}</h4>
-        </ion-text>
-      </ion-item>
-
-      <ion-item-options side="end">
-        <ion-item-option (click)="editPackage(package)">
-          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-        </ion-item-option>
-
-        <ion-item-option (click)="deletePackage(package)" color="danger">
-          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
+<ion-content color="light" class="ion-padding">
   
-    </ion-item-sliding>
-  </ion-list>
-
+  <app-packages-component [genre] = "genre" [packages] = "packages"></app-packages-component>
 
 </ion-content>

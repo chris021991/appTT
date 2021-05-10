@@ -1,0 +1,43 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard/app/settings"
+                       color="primary"
+                       text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Géneros fotográficos</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="addGenre()">
+        <ion-icon slot="icon-only" name="add-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let genre of genres">
+      <ion-item (click)="openPackage(genre)">
+        <ion-icon slot="start" name="camera-outline"></ion-icon>
+        <ion-label>
+          <h2>{{genre.name}}</h2>
+          <p>{{genre.description}}</p>
+        </ion-label>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option (click)="editGenre(genre)">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-item-option>
+
+        <ion-item-option (click)="deleteGenre(genre)" color="danger">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+  
+    </ion-item-sliding>
+  </ion-list>
+
+
+</ion-content>

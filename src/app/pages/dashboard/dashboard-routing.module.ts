@@ -61,16 +61,20 @@ const routes: Routes = [
           },
           {
             path: 'profile',
+            loadChildren: () => import('../profile-container/profile/profile.module').then(m => m.ProfilePageModule)
+          },
+          {
+            path: 'genres',
             children: [
               {
                 path: '',
-                loadChildren: () => import('../profile-container/profile/profile.module').then(m => m.ProfilePageModule)
+                loadChildren: () => import('../profile-container/genres/genres.module').then(m => m.GenresPageModule)
+              },
+              {
+                path: 'packages',
+                loadChildren: () => import('../profile-container/packages/packages.module').then(m => m.PackagesPageModule)
               }
             ]
-          },
-          {
-            path: 'packages',
-            loadChildren: () => import('../profile-container/packages/packages.module').then(m => m.PackagesPageModule)
           }
         ]
       },

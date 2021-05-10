@@ -6,33 +6,11 @@
         <ion-icon slot="icon-only" name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
+    <ion-title>Crear paquete</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-text class="ion-text-center">
-    <h2>Crear Nuevo Paquete Fotográfico</h2>
-  </ion-text>
-
-  <ion-card>
-    <ion-item lines="none">
-      <ion-label position="stacked">Género Fotográfico</ion-label>
-      <ion-input type="text" 
-                 placeholder="Nombre"
-                 [(ngModel)]="genre"></ion-input>
-    </ion-item>
-  </ion-card>
-  
-  <!-- <ion-card>
-    <ion-item lines="none">
-      <ion-label position="stacked">Nivel del fotografo</ion-label>
-      <ion-select placeholder="Seleccionar" interface="action-sheet" [(ngModel)]="photographerLevel">
-        <ion-select-option value="photographer1">Fotógrafo Nivel 1</ion-select-option>
-        <ion-select-option value="photographer2">Fotógrafo Nivel 2</ion-select-option>
-        <ion-select-option value="photographer3">Fotógrafo Nivel 3</ion-select-option>
-      </ion-select>
-    </ion-item>
-  </ion-card> -->
 
   <ion-card>
     <ion-item lines="none"> 
@@ -103,9 +81,9 @@
   <ion-card>
     <ion-item lines="none">
       <ion-label position="stacked">Photobook</ion-label>
-      <ion-select value="{{val2}}" interface="action-sheet" [(ngModel)]="photobook">
-        <ion-select-option value="{{val1}}">Si</ion-select-option>
-        <ion-select-option value="{{val2}}">No</ion-select-option>
+      <ion-select interface="action-sheet" [(ngModel)]="photobook">
+        <ion-select-option value="Si">Si</ion-select-option>
+        <ion-select-option value="No">No</ion-select-option>
       </ion-select>
     </ion-item>
   </ion-card>
@@ -114,7 +92,7 @@
     <ion-item lines="none" >
       <ion-label position="stacked">Precios</ion-label>
       <ion-item lines="none"  *ngFor="let price of prices">
-        <ion-label class="ion-text-wrap">{{price.name}}</ion-label>
+        <ion-label class="ion-text-wrap">{{price.name}}:</ion-label>
         <ion-input slot="end" 
                    type="number" 
                    inputmode="decimal" 

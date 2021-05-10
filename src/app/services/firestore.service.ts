@@ -14,6 +14,7 @@ export class FirestoreService {
   lastDocument: any = null;
   userTemp: User = null;
   photoTemp: Photo;
+  genre: any = null;
 
   constructor(public angularFirestore: AngularFirestore) { }
 

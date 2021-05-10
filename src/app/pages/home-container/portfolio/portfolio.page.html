@@ -27,7 +27,8 @@
                     shape="round">Contratar</ion-button>
         <ion-button *ngIf="userLogged?.uid == user?.uid" 
                     size="small" 
-                    expand="block" 
+                    expand="block"
+                    [routerLink]="['/dashboard/app/settings/profile']" 
                     shape="round">Editar Perfil</ion-button>
         <ion-button *ngIf="userLogged?.uid != user?.uid" 
                     size="small" 

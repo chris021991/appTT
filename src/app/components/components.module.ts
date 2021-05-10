@@ -11,11 +11,9 @@ import { AccountsComponent } from './accounts/accounts.component';
 import { AccountComponent } from './account/account.component';
 import { PhotoPortfolioComponent } from './photo-portfolio/photo-portfolio.component';
 import { PhotoComponent } from './photo/photo.component';
+import { PackagesComponent } from './packages/packages.component';
+import { PackageComponent } from './package/package.component';
 import { NewPackageComponent } from './package/new-package/new-package.component';
-import { EditPackageComponent } from './package/edit-package/edit-package.component';
-import { OpenPackageComponent } from './package/open-package/open-package.component';
-
-
 
 @NgModule({
   declarations: [
@@ -26,9 +24,9 @@ import { OpenPackageComponent } from './package/open-package/open-package.compon
     AccountsComponent,
     PhotoPortfolioComponent,
     PhotoComponent,
-    NewPackageComponent,
-    EditPackageComponent,
-    OpenPackageComponent],
+    PackageComponent,
+    PackagesComponent,
+    NewPackageComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -41,8 +39,7 @@ import { OpenPackageComponent } from './package/open-package/open-package.compon
     CollectionsComponent,
     AccountsComponent,
     PhotoComponent,
-    NewPackageComponent,
-    EditPackageComponent,
-    OpenPackageComponent]
+    PackagesComponent,
+    NewPackageComponent]
 })
 export class ComponentsModule { }

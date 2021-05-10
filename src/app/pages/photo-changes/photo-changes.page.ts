@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/interfaces';
-import { NavController, ActionSheetController, LoadingController } from '@ionic/angular';
+import { ActionSheetController, LoadingController } from '@ionic/angular';
 import { CameraService } from '../../services/camera.service';
-import { FirestorageService } from 'src/app/services/firestorage.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
@@ -26,8 +25,7 @@ export class PhotoChangesPage implements OnInit {
               private afs: AngularFirestore,
               private cameraSvc: CameraService,
               private actionSheetCtrl: ActionSheetController,
-              private loadingCtrl: LoadingController,
-              private navCtrl: NavController) { }
+              private loadingCtrl: LoadingController) { }
 
   ngOnInit() {
     this.authSrv.user$.subscribe(user => {
@@ -57,26 +55,28 @@ export class PhotoChangesPage implements OnInit {
   }
 
   async changeImage() {
-    const loading = await this.loadingCtrl.create({
-      spinner: 'crescent',
-      showBackdrop: true
-    });
+    if (this.tempImage !== this.user.photoURL) {
+      const loading = await this.loadingCtrl.create({
+        spinner: 'crescent',
+        showBackdrop: true
+      });
 
-    loading.present();
+      loading.present();
 
-    const img = await this.uploadImage();
-    console.log(img);
+      const img = await this.uploadImage();
+      console.log(img);
 
-    this.afs.collection('users').doc(this.user.uid).set({
-      photoURL: img
-    }, {merge: true})
-    .then(async () => {
-      await loading.dismiss();
-      this.navCtrl.navigateRoot(['/dashboard/app/settings/profile']);
-    })
-    .catch (error => {
-      console.log(error.message);
-    });
+      this.afs.collection('users').doc(this.user.uid).set({
+        photoURL: img
+      }, {merge: true})
+      .then(() => {
+        loading.dismiss();
+      })
+      .catch (error => {
+        console.log('Error ->', error.message);
+        loading.dismiss();
+      });
+    }
   }
 
   private async uploadImage() {
