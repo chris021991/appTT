@@ -40,7 +40,7 @@ export class PackagesPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: NewPackageComponent,
       componentProps: {
-        genre: this.genre,
+        genre: this.genre
       }
     });
     return await modal.present();

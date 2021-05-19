@@ -12,6 +12,7 @@ export class HomePage implements OnInit {
   users: User[] = [];
   private path = 'users';
   enable = true;
+  page = 'home';
 
   constructor(private database: FirestoreService ) { }
 
@@ -20,7 +21,7 @@ export class HomePage implements OnInit {
     this.loadData();
   }
 
-  async loadData( event? ) {
+  async loadData(event?) {
 
     const data = await this.database.getPhotographers<User>(this.path);
 

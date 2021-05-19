@@ -8,6 +8,8 @@ import { PortfolioPageRoutingModule } from './portfolio-routing.module';
 
 import { PortfolioPage } from './portfolio.page';
 import { PipesModule } from '../../../pipes/pipes.module';
+import { GenresPageModule } from '../../profile-container/genres/genres.module';
+import { OrderModule } from 'ngx-order-pipe';
 
 @NgModule({
   imports: [
@@ -15,7 +17,9 @@ import { PipesModule } from '../../../pipes/pipes.module';
     FormsModule,
     IonicModule,
     PortfolioPageRoutingModule,
-    PipesModule
+    PipesModule,
+    GenresPageModule,
+    OrderModule
   ],
   declarations: [PortfolioPage]
 })

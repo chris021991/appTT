@@ -1,5 +1,5 @@
 
-<ion-list *ngFor="let package of packages" class="post">
+<ion-list *ngFor="let package of packages | orderBy: 'name'" class="post">
 
   <app-package-component [genre] = "genre" [package] = "package"></app-package-component>
       

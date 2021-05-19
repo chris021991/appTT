@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: 'welcome',
-    loadChildren: () => import('./pages/welcome/welcome.module').then( m => m.WelcomePageModule),
+    loadChildren: () => import('./pages/login-container/welcome/welcome.module').then( m => m.WelcomePageModule),
     canActivate: [AuthGuard]
   },
   {

@@ -15,11 +15,21 @@
   <ion-card>
     <ion-item lines="none"> 
       <ion-label position="stacked">Paquete fotográfico</ion-label>
-      <ion-select placeholder="Seleccionar" interface="action-sheet" [(ngModel)]="package">
+      <ion-select placeholder="Seleccionar" interface="action-sheet" [(ngModel)]="name">
         <ion-select-option value="Paquete 1">Paquete 1</ion-select-option>
         <ion-select-option value="Paquete 2">Paquete 2</ion-select-option>
         <ion-select-option value="Paquete 3">Paquete 3</ion-select-option>
       </ion-select>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <ion-item lines="none">
+      <ion-label position="stacked">Descripción</ion-label>
+      <ion-textarea placeholder="Descripción del paquete" 
+                    inputmode="text" 
+                    type="text" 
+                    [(ngModel)]="description"></ion-textarea>
     </ion-item>
   </ion-card>
 

@@ -91,7 +91,7 @@ export class GenresPage implements OnInit {
     this.presentAlert('Editar género fotográfico', '', genre);
   }
 
-  openPackage(genre: any) {
+  openGenre(genre: any) {
       this.database.genre = genre;
       this.navCtrl.navigateRoot(['/dashboard/app/settings/genres/packages'], {animated: true});
   }
@@ -101,6 +101,7 @@ export class GenresPage implements OnInit {
   }
 
   async presentAlert(header: string, message: string, genre?: any) {
+    const genreId = this.afs.createId();
     const alert = await this.alertCtrl.create({
       header,
       message,
@@ -137,8 +138,8 @@ export class GenresPage implements OnInit {
                   description: data.description
                 }, {merge: true});
             } else {
-              this.afs.collection(this.path).doc(data.name).set({
-                id: data.name,
+              this.afs.collection(this.path).doc(genreId).set({
+                id: genreId,
                 name: data.name,
                 description: data.description
               }, {merge: true});

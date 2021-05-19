@@ -14,6 +14,7 @@ import { PhotoComponent } from './photo/photo.component';
 import { PackagesComponent } from './packages/packages.component';
 import { PackageComponent } from './package/package.component';
 import { NewPackageComponent } from './package/new-package/new-package.component';
+import { GenresSelectedComponent } from './genres-selected/genres-selected.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { NewPackageComponent } from './package/new-package/new-package.component
     PhotoComponent,
     PackageComponent,
     PackagesComponent,
-    NewPackageComponent],
+    NewPackageComponent,
+    GenresSelectedComponent],
   imports: [
     CommonModule,
     FormsModule,

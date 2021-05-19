@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FirestoreService } from '../../services/firestore.service';
 import { ModalController, LoadingController, AlertController, ActionSheetController, IonRouterOutlet } from '@ionic/angular';
+import { NewPackageComponent } from './new-package/new-package.component';
 
 @Component({
   selector: 'app-package-component',
@@ -15,7 +16,8 @@ export class PackageComponent implements OnInit {
   constructor(private database: FirestoreService,
               private loadingCtrl: LoadingController,
               private alertCtrl: AlertController,
-              private actionSheetCtrl: ActionSheetController) { }
+              private actionSheetCtrl: ActionSheetController,
+              private modalCtrl: ModalController) { }
 
   ngOnInit() {}
 
@@ -66,7 +68,7 @@ export class PackageComponent implements OnInit {
       }, {
         text: 'Editar',
         handler: () => {
-          console.log('Edit clicked');
+          this.presentModal();
         }
       }, {
         text: 'Cancel',
@@ -81,6 +83,17 @@ export class PackageComponent implements OnInit {
 
     // const { role } = await actionSheet.onDidDismiss();
     // console.log('onDidDismiss resolved with role', role);
+  }
+
+  private async presentModal() {
+    const modal = await this.modalCtrl.create({
+      component: NewPackageComponent,
+      componentProps: {
+        genre: this.genre,
+        package: this.package
+      }
+    });
+    return await modal.present();
   }
 
 }

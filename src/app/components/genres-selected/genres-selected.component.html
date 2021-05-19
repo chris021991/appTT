@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Géneros Fotográficos</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-item *ngFor="let genre of genres">
+      <ion-label>{{genre.name}}</ion-label>
+      <ion-checkbox [(ngModel)]="prueba" (ionChange)="updatePrueba(genre)"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

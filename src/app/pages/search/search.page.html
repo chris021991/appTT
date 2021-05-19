@@ -1,10 +1,65 @@
-<ion-header>
+<ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-title>search</ion-title>
   </ion-toolbar>
-  <ion-searchbar placeholder="Buscar" (ionChange)="onSearchChange($event)" [debounce]="250"></ion-searchbar>
 </ion-header>
 
 <ion-content>
+
+  <!-- Refresher -->
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>  
+
+  <!-- Búsqueda -->
+  <ion-toolbar color="light">
+    <ion-item lines="none" color="light">
+      <ion-title>Fotógrafos</ion-title>
+    </ion-item>
+    <ion-item lines="none" color="light">
+      <ion-label>Ciudad</ion-label>
+      <ion-select value="Quito" (ionChange)="search( $event )">
+        <ion-select-option *ngFor="let city of cities">{{city}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-toolbar>
+  
+  <div class="ion-text-center" style="padding-top: 15px;">
+    <ion-button (click)="advancedSearch()">
+      <ion-icon slot="start" name="search-outline"></ion-icon>
+      <ion-label>Búsqueda avanzada</ion-label>
+    </ion-button>
+  </div>
+
+  <!-- Busqueda avanzada -->
+  <div *ngIf="advanced">
+    <ion-list>
+      <ion-list-header>
+        <ion-label>Especialidades</ion-label>
+      </ion-list-header>
+      <ion-item *ngFor="let genre of genres" lines="none">
+        <ion-label>{{genre.name}}</ion-label>
+        <ion-checkbox slot="start"></ion-checkbox>
+      </ion-item>
+      <div class="ion-text-center">
+        <ion-button (click)="search()">
+          <ion-icon slot="start" name="search-outline"></ion-icon>
+          <ion-label>Buscar</ion-label>
+        </ion-button>
+      </div>
+    </ion-list>
+  </div>
+
+
+  <!-- Users  -->
+  <app-accounts [users]= "users" [page] = "page" [textSearch] = "textSearch"></app-accounts>
+
+  <!-- Infinite Scroll  -->
+  <ion-infinite-scroll [disabled]="!enable"
+                       threshold="150px" 
+                       (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>

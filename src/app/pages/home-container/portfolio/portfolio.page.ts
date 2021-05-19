@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides, NavController } from '@ionic/angular';
+import { IonSlides, NavController, ModalController } from '@ionic/angular';
 import { AuthService } from '../../../services/auth.service';
 import { User, Photo } from '../../../models/interfaces';
 import { FirestoreService } from '../../../services/firestore.service';
 import { UIServicesService } from '../../../services/ui-services.service';
 import { PhotoPortfolioComponent } from '../../../components/photo-portfolio/photo-portfolio.component';
 import { Router } from '@angular/router';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { GenresSelectedComponent } from 'src/app/components/genres-selected/genres-selected.component';
 
 @Component({
   selector: 'app-portfolio',
@@ -19,28 +21,34 @@ export class PortfolioPage implements OnInit {
   userLogged: User;
   user: User;
   photos: Photo[];
+  event: any;
+  genresSelected: any;
 
   constructor(private database: FirestoreService,
               private authSvc: AuthService,
               private uiService: UIServicesService,
               private navCtrl: NavController,
+              private modalCtrl: ModalController,
               private route: Router) { }
 
   ngOnInit() {
     // usuario temporal enviado desde el componente account (pendiente actualizar user al cargar fotos)
     this.user = this.database.userTemp;
     // validación para que exista un User seleccionado
-    if (this.user === null || this.user === undefined) {
+    if (!this.user) {
       this.navCtrl.navigateRoot(['/dashboard/app/home']);
+    } else {
+      // devuelve la colección photosPortfolio del User
+      this.database.getPhotosPortfolio(this.user.uid).subscribe( res => {
+        this.photos = res;
+      });
+      // devuelve el usuario logeado actualmente
+      this.authSvc.user$.subscribe( userLogged => {
+        this.userLogged = userLogged;
+      });
+      // devuelve los estilos fotográficos
+      this.genresSelected = this.user.photoStyle;
     }
-    // devuelve el usuario logeado actualmente
-    this.authSvc.user$.subscribe( userLogged => {
-      this.userLogged = userLogged;
-    });
-    // devuelve la colección photosPortfolio del User
-    this.database.getPhotosPortfolio(this.user.uid).subscribe( res => {
-      this.photos = res;
-    });
   }
 
    // bloqueo de slide
@@ -65,8 +73,19 @@ export class PortfolioPage implements OnInit {
     this.navCtrl.navigateBack([]);
   }
 
+  async presentModal() {
+    const modal = await this.modalCtrl.create({
+      component: GenresSelectedComponent,
+      componentProps: {
+        user: this.user
+      }
+    });
+    return await modal.present();
+  }
+
   // valida el value del segment
   segmentChanged(ev: any) {
+    this.event = ev.detail.value;
     if (ev.detail.value === 'portfolio'){
       this.slideToPortfolio();
     } else if (ev.detail.value === 'bio'){
@@ -75,18 +94,19 @@ export class PortfolioPage implements OnInit {
       this.slideToPacks();
     }
   }
+
   // métodos para deslizar sliders
-  slideToPortfolio(){
+  private slideToPortfolio(){
     this.slides.lockSwipes(false);
     this.slides.slideTo(0);
     this.slides.lockSwipes(true);
   }
-  slideToBio(){
+  private slideToBio(){
     this.slides.lockSwipes(false);
     this.slides.slideTo(1);
     this.slides.lockSwipes(true);
   }
-  slideToPacks() {
+  private slideToPacks() {
     this.slides.lockSwipes(false);
     this.slides.slideTo(2);
     this.slides.lockSwipes(true);

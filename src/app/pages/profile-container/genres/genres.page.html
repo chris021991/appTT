@@ -17,8 +17,8 @@
 <ion-content color="light">
 
   <ion-list>
-    <ion-item-sliding *ngFor="let genre of genres">
-      <ion-item (click)="openPackage(genre)">
+    <ion-item-sliding *ngFor="let genre of genres | orderBy: 'name'">
+      <ion-item (click)="openGenre(genre)">
         <ion-icon slot="start" name="camera-outline"></ion-icon>
         <ion-label>
           <h2>{{genre.name}}</h2>

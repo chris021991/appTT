@@ -3,7 +3,7 @@
   <ion-row>
     <ion-col size="12" size-lg="3" size-md="4" size-sm="6" size-xs="12"
              *ngFor="let user of users">
-      <app-account [user]= "user"></app-account>
+      <app-account [user] = "user" [page] = "page"></app-account>
     </ion-col>
   </ion-row>
 </ion-grid>

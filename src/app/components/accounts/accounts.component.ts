@@ -9,6 +9,8 @@ import { User } from '../../models/interfaces';
 export class AccountsComponent implements OnInit {
 
   @Input() users: User[] = [];
+  @Input() page = '';
+  @Input() textSearch = '';
 
   constructor() { }
 

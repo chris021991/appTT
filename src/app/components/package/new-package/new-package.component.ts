@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ModalController, NavParams } from '@ionic/angular';
 
@@ -8,6 +8,8 @@ import { ModalController, NavParams } from '@ionic/angular';
   styleUrls: ['./new-package.component.scss'],
 })
 export class NewPackageComponent implements OnInit {
+
+  @Input() package: any;
 
   locations = [
     { name: 'Estudio fotográfico o exterior', isChecked: false },
@@ -20,9 +22,10 @@ export class NewPackageComponent implements OnInit {
     { name: 'Fotógrafo Nivel 3', val: null}
   ];
 
+  packageId = '';
   genre: any = null;
-  package = '';
-  photographerLevel: '';
+  name = '';
+  description = '';
   duration = '';
   digitalPhotos = '';
   phisicalPhotos = '';
@@ -35,14 +38,28 @@ export class NewPackageComponent implements OnInit {
 
   ngOnInit() {
     this.genre = this.navParams.get('genre');
-    console.log(this.genre);
+    if (this.package) {
+      this.packageId = this.package.id;
+      this.name = this.package.name;
+      this.description = this.package.description;
+      this.duration = this.package.duration;
+      this.digitalPhotos = this.package.digitalPhotos;
+      this.phisicalPhotos = this.package.phisicalPhotos;
+      this.photobook = this.package.photobook;
+      this.clothing = this.package.clothing;
+      this.prices = this.package.prices;
+      this.locations = this.package.locations;
+    }
   }
 
   onSave() {
-    const packageId = this.afs.createId();
-    const ref = this.afs.collection('photo_genres').doc(this.genre.id).collection('packages').doc(packageId).set({
-      id: packageId,
-      name: this.package,
+    if (!this.package) {
+      this.packageId = this.afs.createId();
+    }
+    const ref = this.afs.collection('photo_genres').doc(this.genre.id).collection('packages').doc(this.packageId).set({
+      id: this.packageId,
+      name: this.name,
+      description: this.description,
       duration: this.duration,
       digitalPhotos: this.digitalPhotos,
       phisicalPhotos: this.phisicalPhotos,

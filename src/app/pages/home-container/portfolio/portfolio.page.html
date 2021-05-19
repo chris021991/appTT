@@ -119,7 +119,32 @@
           </ion-slide>
 
           <ion-slide>
-            <h1>Paquetes Fotográficos</h1>
+            <div *ngIf="!genresSelected">
+              <h3 class="ion-text-wrap">No ha seleccionado paquetes fotográficos predeterminados</h3>
+            </div>
+
+            <ion-list>
+              <ion-item-sliding *ngFor="let genre of genresSelected | orderBy: 'name'">
+                <ion-item *ngIf="genre.isChecked">
+                  <ion-icon slot="start" name="camera-outline"></ion-icon>
+                  <ion-label>
+                    <h2>{{genre.val}}</h2>
+                    <p>{{genre.description}}</p>
+                  </ion-label>
+                </ion-item>
+          
+                <ion-item-options side="end">
+                  <ion-item-option>
+                    <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+                  </ion-item-option>
+          
+                  <ion-item-option color="danger">
+                    <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                  </ion-item-option>
+                </ion-item-options>
+            
+              </ion-item-sliding>
+            </ion-list>
           </ion-slide>
 
         </ion-slides>
@@ -130,11 +155,19 @@
   <ion-fab vertical="bottom" 
            horizontal="end" 
            slot="fixed" 
-           *ngIf="userLogged?.uid == user?.uid">
+           *ngIf="userLogged?.uid == user?.uid && (event === 'portfolio' || event === undefined)">
     <ion-fab-button (click)="editPhotosPortfolio()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
-    
+  </ion-fab>
+
+  <ion-fab vertical="bottom" 
+           horizontal="end" 
+           slot="fixed" 
+           *ngIf="userLogged?.uid == user?.uid && event === 'packs'">
+    <ion-fab-button (click)="presentModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
   </ion-fab>
 
 </ion-content>

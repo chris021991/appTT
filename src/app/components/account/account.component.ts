@@ -11,6 +11,8 @@ import { FirestoreService } from '../../services/firestore.service';
 export class AccountComponent implements OnInit {
 
   @Input() user: User = {};
+  @Input() page = '';
+
   photos: Photo[];
 
   img1 = '/assets/perro-1.jpg';

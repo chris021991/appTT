@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSlides, NavController, LoadingController, ToastController } from '@ionic/angular';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
@@ -45,7 +45,7 @@ export class WelcomePage implements OnInit {
     { val: 'Bodas y compromisos', isChecked: false },
     { val: 'Eventos', isChecked: false },
     { val: 'Moda', isChecked: false },
-    { val: 'Colegio', isChecked: false },
+    { val: 'Graduaciones', isChecked: false },
     { val: 'Deportes/Acción', isChecked: false },
     { val: 'Comercial/Editorial', isChecked: false },
     { val: 'Naturaleza/Fauna salvaje', isChecked: false },
