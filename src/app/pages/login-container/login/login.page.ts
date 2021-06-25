@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides, MenuController, LoadingController, ToastController, NavController } from '@ionic/angular';
+import { IonSlides, MenuController, LoadingController, ToastController, NavController, ModalController } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from '../../../services/auth.service';
+import { WelcomePage } from '../welcome/welcome.page';
 
 @Component({
   selector: 'app-login',
@@ -18,24 +19,26 @@ export class LoginPage implements OnInit {
     email: '',
     password: '',
     role: null,
-    photoURL: ''
+    photoURL: '',
   };
   firstLogin: boolean;
   errormessage: string;
 
   constructor(private authSvc: AuthService,
+              private afAuth: AngularFireAuth,
+              private afs: AngularFirestore,
               public menu: MenuController,
               private loadingCtrl: LoadingController,
               private toastCtrl: ToastController,
-              private afAuth: AngularFireAuth,
-              private afs: AngularFirestore,
-              private navCtrl: NavController) { }
+              private modalCtrl: ModalController) { }
 
   ngOnInit() {
     // inhabilitar el menú
     this.menu.enable(false);
+
     this.authSvc.user$.subscribe(user => {
       this.firstLogin = user?.firstLogin;
+      console.log(user);
     });
   }
 
@@ -44,26 +47,17 @@ export class LoginPage implements OnInit {
     this.slides.lockSwipes(true);
   }
 
-  async onLogin(){
+  onLogin(){
     if (this.user.email && this.user.password){
-      await this.authSvc.signIn(this.user.email, this.user.password);
-      if (this.firstLogin) {
-        this.navCtrl.navigateRoot(['/welcome']);
-      } else if (!this.firstLogin) {
-        this.navCtrl.navigateRoot(['/dashboard/app/home']);
-      }
+      this.authSvc.signIn(this.user.email, this.user.password);
+      console.log(this.firstLogin);
     } else{
       this.toast('Por favor ingrese su correo y contraseña', 'warning');
     }
   }
 
-  async onLoginGoogle(){
-    await this.authSvc.singInGoogle();
-    if (this.firstLogin) {
-      this.navCtrl.navigateRoot(['/welcome']);
-    } else if (!this.firstLogin) {
-      this.navCtrl.navigateRoot(['/dashboard/app/home']);
-    }
+  onLoginGoogle(){
+    this.authSvc.singInGoogle();
   }
 
   async onRegister(){
@@ -116,6 +110,14 @@ export class LoginPage implements OnInit {
     });
     toast.present();
   } // fin del toast
+
+  async presentModal() {
+    const modal = await this.modalCtrl.create({
+      component: WelcomePage,
+      cssClass: 'my-custom-class'
+    });
+    return await modal.present();
+  }
 
   // métodos para dslizar sliders LOGIN/REGISTER
   slideToLogin(){

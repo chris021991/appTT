@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, CanActivate } from '@angular/router';
 
 import { DashboardPage } from './dashboard.page';
+import { AuthGuard } from 'src/app/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -23,7 +24,8 @@ const routes: Routes = [
             path: 'photo',
             loadChildren: () => import('../home-container/photo/photo.module').then(m => m.PhotoPageModule)
           }
-        ]
+        ],
+        canActivate: [AuthGuard]
       },
       {
         path: 'search',

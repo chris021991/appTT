@@ -10,6 +10,7 @@ import { ModalController, NavParams } from '@ionic/angular';
 export class NewPackageComponent implements OnInit {
 
   @Input() package: any;
+  @Input() title = '';
 
   locations = [
     { name: 'Estudio fotográfico o exterior', isChecked: false },

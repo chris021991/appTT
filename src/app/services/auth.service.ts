@@ -61,7 +61,7 @@ export class AuthService extends RoleValidator{
           this.afAuth.signOut();
         } else {
           loading.dismiss();
-          // this.router.navigate(['/welcome']);
+          this.router.navigate(['/dashboard/app/home']);
         }
       })
       .catch(error => {
@@ -95,7 +95,7 @@ export class AuthService extends RoleValidator{
       .then((data) => {
           loading.dismiss();
           this.updateUserGoogleData(data.user);
-          this.router.navigate(['/welcome']);
+          this.router.navigate(['/dashboard/app/home']);
       })
       .catch(error => {
         this.toast(error.message, 'danger');

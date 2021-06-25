@@ -123,10 +123,10 @@
               <h3 class="ion-text-wrap">No ha seleccionado paquetes fotográficos predeterminados</h3>
             </div>
 
-            <ion-list>
+            <ion-list style="height: 100%; width: 100%;">
               <ion-item-sliding *ngFor="let genre of genresSelected | orderBy: 'name'">
-                <ion-item *ngIf="genre.isChecked">
-                  <ion-icon slot="start" name="camera-outline"></ion-icon>
+                <ion-item detail="true" *ngIf="genre.isChecked">
+                  <!-- <ion-icon slot="start" name="camera-outline"></ion-icon> -->
                   <ion-label>
                     <h2>{{genre.val}}</h2>
                     <p>{{genre.description}}</p>

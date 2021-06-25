@@ -1,8 +1,15 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>search</ion-title>
+    <ion-title>Buscar</ion-title>
   </ion-toolbar>
 </ion-header>
+
+<ion-toolbar>
+  <ion-searchbar placeholder="Buscar" 
+                 (ionChange)="search( $event )"
+                 animated
+                 decounce="700"></ion-searchbar>
+</ion-toolbar>
 
 <ion-content>
 
@@ -10,19 +17,6 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>  
-
-  <!-- Búsqueda -->
-  <ion-toolbar color="light">
-    <ion-item lines="none" color="light">
-      <ion-title>Fotógrafos</ion-title>
-    </ion-item>
-    <ion-item lines="none" color="light">
-      <ion-label>Ciudad</ion-label>
-      <ion-select value="Quito" (ionChange)="search( $event )">
-        <ion-select-option *ngFor="let city of cities">{{city}}</ion-select-option>
-      </ion-select>
-    </ion-item>
-  </ion-toolbar>
   
   <div class="ion-text-center" style="padding-top: 15px;">
     <ion-button (click)="advancedSearch()">
@@ -32,7 +26,22 @@
   </div>
 
   <!-- Busqueda avanzada -->
+
   <div *ngIf="advanced">
+
+    <!-- Búsqueda por ubicación-->
+    <ion-toolbar color="light">
+      <ion-item lines="none" color="light">
+        <ion-title>Fotógrafos</ion-title>
+      </ion-item>
+      <ion-item lines="none" color="light">
+        <ion-label>Ciudad</ion-label>
+        <ion-select value="Quito" (ionChange)="search( $event )">
+          <ion-select-option *ngFor="let city of cities">{{city}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-toolbar>
+
     <ion-list>
       <ion-list-header>
         <ion-label>Especialidades</ion-label>
@@ -42,7 +51,7 @@
         <ion-checkbox slot="start"></ion-checkbox>
       </ion-item>
       <div class="ion-text-center">
-        <ion-button (click)="search()">
+        <ion-button (click)="search($event)">
           <ion-icon slot="start" name="search-outline"></ion-icon>
           <ion-label>Buscar</ion-label>
         </ion-button>

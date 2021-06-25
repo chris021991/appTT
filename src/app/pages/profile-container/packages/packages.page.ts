@@ -12,6 +12,7 @@ export class PackagesPage implements OnInit {
 
   genre: any = null;
   packages: any = null;
+  title = '';
 
   constructor(private database: FirestoreService,
               private navCtrl: NavController,
@@ -27,6 +28,7 @@ export class PackagesPage implements OnInit {
   }
 
   addPackage() {
+    this.title = 'Crear';
     this.presentModal();
   }
 
@@ -40,7 +42,8 @@ export class PackagesPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: NewPackageComponent,
       componentProps: {
-        genre: this.genre
+        genre: this.genre,
+        title: this.title
       }
     });
     return await modal.present();

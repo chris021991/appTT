@@ -13,6 +13,8 @@ export class PackageComponent implements OnInit {
   @Input() genre: any;
   @Input() package: any;
 
+  title = '';
+
   constructor(private database: FirestoreService,
               private loadingCtrl: LoadingController,
               private alertCtrl: AlertController,
@@ -68,6 +70,7 @@ export class PackageComponent implements OnInit {
       }, {
         text: 'Editar',
         handler: () => {
+          this.title = 'Editar';
           this.presentModal();
         }
       }, {
@@ -90,7 +93,8 @@ export class PackageComponent implements OnInit {
       component: NewPackageComponent,
       componentProps: {
         genre: this.genre,
-        package: this.package
+        package: this.package,
+        title: this.title
       }
     });
     return await modal.present();

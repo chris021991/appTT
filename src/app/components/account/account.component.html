@@ -13,7 +13,7 @@
   </ion-item>
 
   <!-- Temporal carga imagenes de perro en perfiles de fotografos sin Portfolio -->
-  <ion-slides pager="true" (click)="openPhoto()" *ngIf="photos?.length < 1">
+  <ion-slides pager="true" *ngIf="photos?.length < 1">
     <ion-slide class="image-slide"
                style="background-image: url('{{img1}}')">
     </ion-slide>

@@ -2,7 +2,7 @@
 <ion-grid fixed>
   <ion-row>
     <ion-col size="12" size-lg="3" size-md="4" size-sm="6" size-xs="12"
-             *ngFor="let user of users">
+             *ngFor="let user of users | orderBy: 'displayName' | search: textSearch">
       <app-account [user] = "user" [page] = "page"></app-account>
     </ion-col>
   </ion-row>

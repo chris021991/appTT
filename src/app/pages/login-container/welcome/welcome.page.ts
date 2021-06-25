@@ -40,6 +40,7 @@ export class WelcomePage implements OnInit {
 
   slideCount = 0;
 
+  // cambiar por colección photo_genres
   public photoStyle = [
     { val: 'Retrato', isChecked: false },
     { val: 'Bodas y compromisos', isChecked: false },
