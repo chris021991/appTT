@@ -14,7 +14,6 @@ export class CollectionsComponent implements OnInit {
 
   @Input() collections: Collection[] = [];
 
-  collection: Collection;
   textSearch = '';
   loading: any;
   private path = 'collections';
@@ -122,7 +121,6 @@ export class CollectionsComponent implements OnInit {
   search( event ){
     const text = event.target.value;
     this.textSearch = text;
-    console.log(text);
   }
 
   async presentLoading(message: string) {

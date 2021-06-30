@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ImagePipe } from './image.pipe';
 import { SearchPipe } from './search.pipe';
 import { ImageSanitizerPipe } from './image-sanitizer.pipe';
+import { SearchCollectionPipe } from './search-collection.pipe';
 
 
 
@@ -10,11 +11,13 @@ import { ImageSanitizerPipe } from './image-sanitizer.pipe';
   declarations: [
     ImagePipe,
     SearchPipe,
-    ImageSanitizerPipe],
+    ImageSanitizerPipe,
+    SearchCollectionPipe],
   exports: [
     ImagePipe,
     SearchPipe,
-    ImageSanitizerPipe],
+    ImageSanitizerPipe,
+    SearchCollectionPipe],
   imports: [
     CommonModule
   ]

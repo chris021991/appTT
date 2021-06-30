@@ -4,43 +4,38 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-toolbar>
-  <ion-searchbar placeholder="Buscar" 
-                 (ionChange)="search( $event )"
-                 animated
-                 decounce="700"></ion-searchbar>
-</ion-toolbar>
-
 <ion-content>
-
   <!-- Refresher -->
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>  
-  
-  <div class="ion-text-center" style="padding-top: 15px;">
-    <ion-button (click)="advancedSearch()">
+
+  <ion-toolbar>
+    <ion-searchbar placeholder="Buscar" 
+                   (ionChange)="search( $event )"
+                   animated
+                   decounce="700"></ion-searchbar>
+  </ion-toolbar>
+
+  <div class="ion-text-center" style="margin-bottom: -15px;">
+    <ion-button (click)="advancedSearch()" fill="clear" class="ion-no-margin">
       <ion-icon slot="start" name="search-outline"></ion-icon>
       <ion-label>Búsqueda avanzada</ion-label>
     </ion-button>
   </div>
 
   <!-- Busqueda avanzada -->
-
   <div *ngIf="advanced">
 
     <!-- Búsqueda por ubicación-->
-    <ion-toolbar color="light">
-      <ion-item lines="none" color="light">
-        <ion-title>Fotógrafos</ion-title>
-      </ion-item>
-      <ion-item lines="none" color="light">
+    <ion-list>
+      <ion-item lines="none">
         <ion-label>Ciudad</ion-label>
         <ion-select value="Quito" (ionChange)="search( $event )">
           <ion-select-option *ngFor="let city of cities">{{city}}</ion-select-option>
         </ion-select>
       </ion-item>
-    </ion-toolbar>
+    </ion-list>
 
     <ion-list>
       <ion-list-header>
@@ -51,7 +46,7 @@
         <ion-checkbox slot="start"></ion-checkbox>
       </ion-item>
       <div class="ion-text-center">
-        <ion-button (click)="search($event)">
+        <ion-button (click)=temp()>
           <ion-icon slot="start" name="search-outline"></ion-icon>
           <ion-label>Buscar</ion-label>
         </ion-button>

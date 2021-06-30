@@ -114,7 +114,10 @@ export class SearchPage implements OnInit {
   search( event ){
     const text = event.target.value;
     this.textSearch = text;
-    console.log(text);
+  }
+
+  temp(){
+    this.advanced = false;
   }
 
 }
