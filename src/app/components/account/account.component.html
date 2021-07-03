@@ -1,4 +1,4 @@
-
+<!-- Página HOME -->
 <div class="post" *ngIf="page === 'home'">
 
   <ion-item lines="none" (click)="openPortfolio()">
@@ -8,7 +8,7 @@
 
     <ion-label>
       <h2>{{user.displayName}}</h2>
-      <p>Quito-Ecuador</p>
+      <p>{{user.city}} - {{user.country}}</p>
     </ion-label>
   </ion-item>
 
@@ -48,6 +48,7 @@
 </div>
 
 
+<!-- Página SEARCH -->
 <div class="post" *ngIf="page === 'search'" style="margin-left: 40px; margin-right: 40px;">
   
   <ion-item lines="none" style="border-radius: 5px;" (click)="openPortfolio()">
@@ -68,7 +69,7 @@
           <ion-item lines="none" class="ion-no-padding">
             <ion-icon slot="start" size="small" name="location-outline"></ion-icon>
             <ion-label>
-              <p>Quito, Ecuador</p>
+              <p>{{user.city}} - {{user.country}}</p>
             </ion-label>
           </ion-item>
           <ion-item lines="none" style="margin-top: -14px;" class="ion-no-padding">

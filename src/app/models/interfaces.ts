@@ -12,6 +12,8 @@ export interface User{
 
     phone?: number;
     address?: string;
+    city?: string;
+    country?: string;
     photoURL?: string;
     coverPage?: string;
     website?: string;
