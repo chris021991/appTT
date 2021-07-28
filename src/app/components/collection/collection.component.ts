@@ -18,8 +18,7 @@ export class CollectionComponent implements OnInit {
   photo: string;
 
   constructor(private database: FirestoreService,
-              public modalCtrl: ModalController,
-              ) { }
+              public modalCtrl: ModalController) { }
 
   ngOnInit() {
     this.getPhotos();

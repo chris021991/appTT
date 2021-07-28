@@ -27,7 +27,7 @@ export class CollectionsComponent implements OnInit {
               private loadingCtrl: LoadingController) { }
 
   ngOnInit() {
-    console.log(this.collections );
+    console.log(this.collections);
   }
 
   openCollection(collection: Collection){

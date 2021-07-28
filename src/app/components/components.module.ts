@@ -15,6 +15,7 @@ import { PackagesComponent } from './packages/packages.component';
 import { PackageComponent } from './package/package.component';
 import { NewPackageComponent } from './package/new-package/new-package.component';
 import { GenresSelectedComponent } from './genres-selected/genres-selected.component';
+import { NewCollectionComponent } from './collection/new-collection/new-collection.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { GenresSelectedComponent } from './genres-selected/genres-selected.compo
     PackageComponent,
     PackagesComponent,
     NewPackageComponent,
-    GenresSelectedComponent],
+    GenresSelectedComponent,
+    NewCollectionComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -42,6 +44,7 @@ import { GenresSelectedComponent } from './genres-selected/genres-selected.compo
     AccountsComponent,
     PhotoComponent,
     PackagesComponent,
-    NewPackageComponent]
+    NewPackageComponent,
+    NewCollectionComponent]
 })
 export class ComponentsModule { }
