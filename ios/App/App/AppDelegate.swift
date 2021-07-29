@@ -1,52 +1,16 @@
 import UIKit
 import Capacitor
-import Firebase
-import GoogleSignIn
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
-      // ...
-      if let error = error {
-        // ...
-        return
-      }
-
-      guard let authentication = user.authentication else { return }
-      let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
-                                                        accessToken: authentication.accessToken)
-      // ...
-    }
-
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        // Perform any operations when the user disconnects from app here.
-        // ...
-    }
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
-    
-    // Use Firebase library to configure APIs
-    FirebaseApp.configure()
-    
-    GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-    GIDSignIn.sharedInstance().delegate = self
-    
     return true
   }
-    
-    @available(iOS 9.0, *)
-    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
-      -> Bool {
-      return GIDSignIn.sharedInstance().handle(url)
-    }
-    
-    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        return GIDSignIn.sharedInstance().handle(url)
-    }
 
   func applicationWillResignActive(_ application: UIApplication) {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -70,11 +34,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
   }
 
-//  func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-//    // Called when the app was launched with a url. Feel free to add additional processing here,
-//    // but if you want the App API to support tracking app url opens, make sure to keep this call
-//    return CAPBridge.handleOpenUrl(url, options)
-//  }
+  func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    // Called when the app was launched with a url. Feel free to add additional processing here,
+    // but if you want the App API to support tracking app url opens, make sure to keep this call
+    return CAPBridge.handleOpenUrl(url, options)
+  }
   
   func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
     // Called when the app was launched with an activity, including Universal Links.

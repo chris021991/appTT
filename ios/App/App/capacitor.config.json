@@ -1,27 +1,27 @@
 {
-  "appId": "io.ionic.appTT",
-  "appName": "appTT",
-  "bundledWebRuntime": false,
-  "npmClient": "npm",
-  "webDir": "www",
-  "plugins": {
-    "SplashScreen": {
-      "launchShowDuration": 0
-    },
-    "GoogleAuth": {
-      "scopes": [
-        "profile",
-        "email"
-      ],
-      "serverClientId": "221915991759-imctj4k88a8q5gv1ta1f6uml90r5qu00.apps.googleusercontent.com",
-      "forceCodeForRefreshToken": true
-    }
-  },
-  "cordova": {},
-  "server": {
-    "url": "http://192.168.100.7:8100",
-    "cleartext": true,
-    "originalUrl": "http://192.168.100.7:8100",
-    "originalCleartext": true
-  }
+	"appId": "io.ionic.appTT",
+	"appName": "appTT",
+	"bundledWebRuntime": false,
+	"npmClient": "npm",
+	"webDir": "www",
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 0
+		},
+		"GoogleAuth": {
+			"scopes": [
+				"profile",
+				"email"
+			],
+			"serverClientId": "221915991759-imctj4k88a8q5gv1ta1f6uml90r5qu00.apps.googleusercontent.com",
+			"forceCodeForRefreshToken": true
+		}
+	},
+	"cordova": {},
+	"server": {
+		"url": "http://192.168.100.7:8100",
+		"cleartext": true,
+		"originalUrl": "http://192.168.100.7:8100",
+		"originalCleartext": true
+	}
 }

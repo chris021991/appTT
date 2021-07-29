@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, ActionSheetController } from '@ionic/angular';
 import { CameraService } from '../../../services/camera.service';
-import { Photo, User } from '../../../models/interfaces';
+import { User } from '../../../models/interfaces';
 import { FirestorageService } from '../../../services/firestorage.service';
 import { FirestoreService } from '../../../services/firestore.service';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -20,12 +20,11 @@ export class NewCollectionComponent implements OnInit {
   tempImages: string[] = [];
   path = 'collections';
   userLogged: User;
-  id = '';
-  name = '';
+  id: string;
+  name: string;
   date = Date.now();
-  description = '';
-  tag = '';
-  client = '';
+  description: string;
+  client: string;
 
   constructor(private modalCtrl: ModalController,
               private actionSheetCtrl: ActionSheetController,
@@ -54,16 +53,16 @@ export class NewCollectionComponent implements OnInit {
     this.getId();
     this.afs.collection(this.path).doc(this.id).set({
       id: this.id,
+      name: this.name,
       client: this.client,
       date: this.date,
       des: this.description,
-      tag: this.tag,
       photographer: this.userLogged.uid
     });
     for (const image of this.tempImages) {
       const img = await this.fireStorage.uploadImage(image, this.path, this.userLogged.uid);
-      const idPhoto = Date.now() + '_' + this.userLogged.uid;
-      this.afs.collection(this.path).doc(this.id).collection('photos').doc(idPhoto).set({
+      const idPhoto = Date.now() + '_' + this.id;
+      this.afs.collection(this.path).doc(this.id).collection('photo').doc(idPhoto).set({
         id: idPhoto,
         photographer: this.userLogged.uid,
         uploadAt: Date.now(),

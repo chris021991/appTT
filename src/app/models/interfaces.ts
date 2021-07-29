@@ -39,7 +39,8 @@ export interface Photo {
 
 export interface Collection{
     id: string;
-    uid?: string;
+    photographer?: string;
+    client: string;
     name: string;
     date: Date;
     description?: string;

@@ -14,30 +14,30 @@
     <ion-label>Crear Galería</ion-label>
   </ion-list-header>
   <ion-list>
-    <ion-item [(ngModel)]="name" lines="none">
+    <ion-item lines="none">
       <ion-icon color="medium" slot="start" name="albums"></ion-icon>
-      <ion-input type="text" placeholder="Nombre"></ion-input>
+      <ion-input [(ngModel)]="name" type="text" placeholder="Nombre"></ion-input>
     </ion-item>
 
-    <ion-item [(ngModel)]="client" lines="none">
+    <ion-item  lines="none">
       <ion-icon color="medium" slot="start" name="person"></ion-icon>
-      <ion-input type="text" placeholder="Cliente"></ion-input>
+      <ion-input [(ngModel)]="client" type="text" placeholder="Cliente"></ion-input>
     </ion-item>
 
-    <ion-item [(ngModel)]="date" lines="none" detail>
+    <ion-item lines="none" detail>
       <ion-icon color="medium" slot="start" name="calendar"></ion-icon>
-      <ion-datetime display-format="DD-MMMM-YYYY"></ion-datetime>
+      <ion-datetime [(ngModel)]="date" display-format="DD-MMM-YYYY"></ion-datetime>
     </ion-item>
 
-    <ion-item [(ngModel)]="description" lines="none">
+    <ion-item lines="none">
       <ion-icon color="medium" slot="start" name="pencil"></ion-icon>
-      <ion-input type="text" placeholder="Descripción"></ion-input>
+      <ion-input [(ngModel)]="description" type="text" placeholder="Descripción"></ion-input>
     </ion-item>
 
-    <ion-item [(ngModel)]="tag" lines="none">
+    <!-- <ion-item lines="none">
       <ion-icon color="medium" slot="start" name="pricetag"></ion-icon>
       <ion-label>Tag</ion-label>
-    </ion-item>
+    </ion-item> -->
 
     <ion-item lines="none" detail (click)="presentActionSheet()">
       <ion-icon color="medium" slot="start" name="images"></ion-icon>
