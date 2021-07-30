@@ -16,6 +16,7 @@ import { PackageComponent } from './package/package.component';
 import { NewPackageComponent } from './package/new-package/new-package.component';
 import { GenresSelectedComponent } from './genres-selected/genres-selected.component';
 import { NewCollectionComponent } from './collection/new-collection/new-collection.component';
+import { PhotoSliderComponent } from './photo-slider/photo-slider.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { NewCollectionComponent } from './collection/new-collection/new-collecti
     PackagesComponent,
     NewPackageComponent,
     GenresSelectedComponent,
-    NewCollectionComponent],
+    NewCollectionComponent,
+    PhotoSliderComponent],
   imports: [
     CommonModule,
     FormsModule,

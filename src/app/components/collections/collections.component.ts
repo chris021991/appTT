@@ -4,7 +4,6 @@ import { FirestoreService } from '../../services/firestore.service';
 import { ModalController, IonRouterOutlet, ActionSheetController, AlertController, LoadingController } from '@ionic/angular';
 import { UIServicesService } from '../../services/ui-services.service';
 import { CollectionComponent } from '../collection/collection.component';
-import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-collections',
@@ -19,10 +18,8 @@ export class CollectionsComponent implements OnInit {
   loading: any;
   private path = 'collections';
   collection: Collection;
-  photosCollection: Photo[];
 
   constructor(private database: FirestoreService,
-              private angularFirestore: AngularFirestore,
               private modalCtrl: ModalController,
               private routerOutlet: IonRouterOutlet,
               private actionSheetCtrl: ActionSheetController,
@@ -32,7 +29,6 @@ export class CollectionsComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.collections);
-    this.getPhotos();
   }
 
   openCollection(collection: Collection){
@@ -41,14 +37,6 @@ export class CollectionsComponent implements OnInit {
     this.modalCtrl.create({
       component: CollectionComponent
     }).then(m => m.present());
-  }
-
-  getPhotos<tipo>() {
-    const itemsCollection = this.angularFirestore.collection<Collection>(this.path).doc(this.collection?.photographer).collection<tipo>('photo');
-    itemsCollection.valueChanges().subscribe(res => {
-      console.log('photos ->', res);
-      this.photosCollection = res;
-    });
   }
 
   async deleteItems(item: Collection){

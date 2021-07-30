@@ -21,10 +21,10 @@ export class NewCollectionComponent implements OnInit {
   path = 'collections';
   userLogged: User;
   id: string;
-  name: string;
+  name = '';
   date = Date.now();
-  description: string;
-  client: string;
+  description = '';
+  client = '';
 
   constructor(private modalCtrl: ModalController,
               private actionSheetCtrl: ActionSheetController,
@@ -51,24 +51,23 @@ export class NewCollectionComponent implements OnInit {
 
   async createCollection() {
     this.getId();
-    this.afs.collection(this.path).doc(this.id).set({
+    const photos = [];
+    const meta = []; // Pendiente metadatos
+
+    for (const image of this.tempImages) {
+      const img = await this.fireStorage.uploadImage(image, this.path, this.userLogged.uid);
+      photos.push(img);
+    }
+
+    await this.afs.collection(this.path).doc(this.id).set({
       id: this.id,
       name: this.name,
       client: this.client,
       date: this.date,
       des: this.description,
-      photographer: this.userLogged.uid
+      photographer: this.userLogged.uid,
+      photos
     });
-    for (const image of this.tempImages) {
-      const img = await this.fireStorage.uploadImage(image, this.path, this.userLogged.uid);
-      const idPhoto = Date.now() + '_' + this.id;
-      this.afs.collection(this.path).doc(this.id).collection('photo').doc(idPhoto).set({
-        id: idPhoto,
-        photographer: this.userLogged.uid,
-        uploadAt: Date.now(),
-        img
-      });
-    }
 
     this.close();
 
@@ -79,8 +78,35 @@ export class NewCollectionComponent implements OnInit {
     // });
   }
 
+
+
+  // Colección dentro de users
+  // async createCollection() {
+  //   this.getId();
+  //   const photos = [];
+  //   const meta = []; // Pendiente metadatos
+
+  //   for (const image of this.tempImages) {
+  //     const img = await this.fireStorage.uploadImage(image, this.path, this.userLogged.uid);
+  //     photos.push(img);
+  //   }
+
+  //   const photographer = this.afs.collection('users').doc(this.userLogged.uid);
+  //   const client = photographer.collection('clients').doc(this.client);
+  //   await client.collection('gallery').doc(this.id).set({
+  //     id: this.id,
+  //     name: this.name,
+  //     date: this.date,
+  //     des: this.description,
+  //     photos
+  //   });
+
+  //   this.close();
+  // }
+
+  // No utilizado, sirve para borrar documentos
   deleteFirestore(uid: string, id: string) {
-    this.afs.collection('users').doc(uid).collection('photosPortfolio').doc(id).delete();
+    this.afs.collection(this.path).doc(uid).collection('photosPortfolio').doc(id).delete();
   }
 
   deleteTemp(image) {
