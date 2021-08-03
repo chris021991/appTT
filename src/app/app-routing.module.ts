@@ -33,6 +33,10 @@ const routes: Routes = [
   {
     path: 'photo-changes',
     loadChildren: () => import('./pages/photo-changes/photo-changes.module').then( m => m.PhotoChangesPageModule)
+  },
+  {
+    path: 'contract-view',
+    loadChildren: () => import('./pages/contract-view/contract-view.module').then( m => m.ContractViewPageModule)
   }
 ];
 

@@ -5,37 +5,100 @@
 </ion-header> -->
 
 <ion-content class="ion-padding">
+  
+  <ion-list *ngIf="select == 'estilo'">
 
-  <div class="ion-text-center" style="margin-top: 40px;">
-    <ion-text>
-      <h3>SERVICIOS FOTOGRÁFICOS<br></h3>
-      <h6>Seleccione los servicios que requiera para su sesión fotográfica.</h6>
-    </ion-text>
-  </div>
+    <div class="ion-text-center" style="margin-top: 40px;">
+      <ion-text>
+        <h3>SERVICIOS FOTOGRÁFICOS<br></h3>
+        <h6>Seleccione los servicios que requiera para su sesión fotográfica.</h6>
+      </ion-text>
+    </div>
+
+      <ion-item *ngFor="let genre of estilos" (click)="openPackages(genre)">
+        <ion-label>
+          <h2>{{genre.name}}</h2>
+          <p>{{genre.description}}</p>
+        </ion-label>
+      </ion-item>
+  </ion-list>
+
+<ion-list *ngIf="select == 'paquete'">
+  <ion-item (click)="select = 'estilo'">
+    <ion-label>Regresar</ion-label>
+    <ion-icon slot="start" name="arrow-back"></ion-icon>
+  </ion-item>
+  <ng-container *ngFor="let package of paquetes">
+    <ion-item lines="none" class="ion-no-margin" class="ion-no-padding">    
+      <ion-toolbar class="ion-no-padding">
+        <ion-title style="font-size: larger;">{{package.name}}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="seleccionarPaquete(package)">
+            <ion-icon slot="start" name="add"></ion-icon>
+            Seleccionar
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-item>
+  
+    <ion-item lines="none">
+      <p>{{package.description}}</p>
+    </ion-item>
+  
+    <div class="ion-padding"> 
+      <ion-item>
+        <ion-label>{{package.duration}} horas de cobertura</ion-label>
+      </ion-item>
+  
+      <!-- <ion-item *ngIf="package.clothing > 0">
+        <ion-label>{{package.clothing}} cambios de vestuario</ion-label>
+      </ion-item>
+      
+      <ion-item *ngIf="package.digitalPhotos > 0">
+        <ion-label>{{package.digitalPhotos}} fotografías digitales </ion-label>
+      </ion-item>
+  
+      <ion-item *ngIf="package.phisicalPhotos">
+        <ion-label>{{package.phisicalPhotos}} fotografías impresas</ion-label>
+      </ion-item>
+  
+      <ion-item *ngIf="package.photobook === 'true'">
+        <ion-label>Photobook incluido</ion-label>
+      </ion-item> -->
+  
+      <ion-item lines="none" *ngFor="let price of package.prices">
+        <ion-label>{{price.name}}: ${{price.val}}</ion-label>
+      </ion-item>
+    </div>
+  </ng-container>
+
+</ion-list>
+
+
 
   <!-- <form> -->
 
     <ion-list>
-      <ion-radio-group [(ngModel)]="styleVal">
+      <!-- <ion-radio-group [(ngModel)]="styleVal">
         <ion-list-header>
           <ion-label>Estilo Fotográfico</ion-label>
         </ion-list-header>
     
         <ion-item *ngFor="let style of styles">
           <ion-label>{{style.name}}</ion-label>
-          <ion-radio slot="start" value="{{style.value}}"></ion-radio>
+          <ion-radio slot="start" value="{{style.name}}"></ion-radio>
         </ion-item>
 
-      </ion-radio-group>
+      </ion-radio-group> -->
 
-      <ion-radio-group [(ngModel)]="placeVal">
+      <ion-radio-group *ngIf="select == 'locacion'" [(ngModel)]="placeVal">
         <ion-list-header>
           <ion-label>Locación</ion-label>
         </ion-list-header>
     
         <ion-item *ngFor="let place of places">
           <ion-label class="ion-text-wrap"><strong>{{place.name}}</strong><br/>{{place.des}}</ion-label>
-          <ion-radio slot="start" value="{{place.value}}"></ion-radio>
+          <ion-radio slot="start" value="{{place.name}}"></ion-radio>
         </ion-item>
 
       </ion-radio-group>
@@ -54,7 +117,7 @@
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end" style="margin-right: 5%;">
-      <ion-button (click)="onAccept()"fill="outline" shape="round">
+      <ion-button [disabled]="!placeVal.length" (click)="onAccept()"fill="outline" shape="round">
         <ion-label class="ion-padding">Solicitar</ion-label>
       </ion-button>
     </ion-buttons>

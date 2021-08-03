@@ -1,9 +1,24 @@
-<ion-header>
+<ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>notifications</ion-title>
+    <ion-title>Notificaciones</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+  <ion-list>
+    <ion-item *ngFor="let notificacion of notificaciones" 
+              (click)="viewNotification(notificacion)">
+      <ion-avatar slot="start">
+        <img *ngIf="uid === notificacion.cliente.uid" [src]="notificacion.fotografo.photoURL" />
+        <img *ngIf="uid === notificacion.fotografo.uid" [src]="notificacion.cliente.photoURL" />
+      </ion-avatar>
+      <ion-label>Solicitud del contrato
+        <p *ngIf="uid === notificacion.cliente.uid">{{notificacion.fotografo.displayName}}</p>
+        <p *ngIf="uid === notificacion.fotografo.uid">{{notificacion.cliente.displayName}}</p>
+        <p>{{notificacion.estado}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 
 </ion-content>

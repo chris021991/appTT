@@ -29,22 +29,29 @@
 
 <ion-list-header class="ion-no-margin">
   <ion-label>Información</ion-label>
-  <ion-button>Ver todo</ion-button>
+  <!-- <ion-button>Ver todo</ion-button> -->
 </ion-list-header>
 
-<ion-list>
-  <ion-item lines="none">
+<ion-list >
+
+  <ion-item class="back">
+    <ion-icon slot="start" name="document-text-outline"></ion-icon>
+    <ion-textarea [(ngModel)]="user.biography" inputmode="tel"></ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-icon slot="start" name="phone-portrait-outline"></ion-icon>
+    <ion-input [(ngModel)]="user.phone" inputmode="tel"></ion-input>
+  </ion-item>
+
+  <ion-item>
     <ion-icon slot="start" name="pin-outline"></ion-icon>
     <ion-label>{{user.city}}</ion-label>
     <ion-button (click)="openPicker()" fill="clear">
       <ion-icon name="chevron-down"></ion-icon>
     </ion-button>
   </ion-item>
-
-  <ion-item lines="none">
-    <ion-icon slot="start" name="phone-portrait-outline"></ion-icon>
-    <ion-input [(ngModel)]="user.phone" inputmode="tel"></ion-input>
-  </ion-item>
+  
 </ion-list>
 
   <!-- <ion-grid>

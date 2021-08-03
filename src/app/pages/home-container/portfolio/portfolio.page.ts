@@ -22,14 +22,15 @@ export class PortfolioPage implements OnInit {
   user: User;
   photos: Photo[];
   event: any;
-  genresSelected: any;
+  genresSelected = [];
 
   constructor(private database: FirestoreService,
               private authSvc: AuthService,
               private uiService: UIServicesService,
               private navCtrl: NavController,
               private modalCtrl: ModalController,
-              private route: Router) { }
+              private route: Router,
+              private afs: AngularFirestore) { }
 
   ngOnInit() {
     // usuario temporal enviado desde el componente account (pendiente actualizar user al cargar fotos)
@@ -47,13 +48,19 @@ export class PortfolioPage implements OnInit {
         this.userLogged = userLogged;
       });
       // devuelve los estilos fotográficos
-      this.genresSelected = this.user.photoStyle;
+      this.getPhotoGenres();
     }
   }
 
    // bloqueo de slide
    ionViewDidEnter(){
     this.slides.lockSwipes(true);
+  }
+
+  getPhotoGenres() {
+    this.afs.collection('photo_genres').valueChanges().subscribe(res => {
+      this.genresSelected = res;
+    });
   }
 
   openPhoto( photo: Photo ) {

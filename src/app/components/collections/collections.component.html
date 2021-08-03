@@ -26,28 +26,28 @@
     <ion-col size="12" size-lg="2" size-md="3" size-sm="4" size-xs="6"
              *ngFor="let collection of collections | orderBy: 'date' | searchCollection: textSearch" collection=collection>
               
-      <ion-card> 
-        <ion-img (click)="openCollection(collection)" class="image-card" [src]="collection.photos"></ion-img>
-        <ion-card-header style="margin-top: -20px; margin-bottom: -15px">
-          <ion-card-subtitle style="font-size: 14px" class="ion-margin-top">{{collection.date}}</ion-card-subtitle>
-          <ion-card-title style="font-size: 16px;">{{collection.name}}</ion-card-title>
-        </ion-card-header>
-        
-        <ion-card-content style="font-size: 13px; margin-bottom: -15px">
-          <ion-toolbar>  
-            
-            <ion-label *ngIf="collection.photos?.length === 1">{{collection.photos.length}} Foto</ion-label>
-            <ion-label *ngIf="collection.photos?.length > 1">{{collection.photos.length}} Fotos</ion-label>
-            
-            <ion-buttons  slot="end">
-              <ion-button (click)="presentActionSheet(collection)">
-                <ion-icon slot="icon-only" name="ellipsis-horizontal"></ion-icon>
-              </ion-button>
-            </ion-buttons>
-            
-          </ion-toolbar>
-        </ion-card-content>
-      </ion-card>
+        <ion-card *ngIf="collection.photographer === user.uid"> 
+          <ion-img (click)="openCollection(collection)" class="image-card" [src]="collection.photos"></ion-img>
+          <ion-card-header style="margin-top: -20px; margin-bottom: -15px">
+            <ion-card-subtitle style="font-size: 14px" class="ion-margin-top">{{collection.date}}</ion-card-subtitle>
+            <ion-card-title style="font-size: 16px;">{{collection.name}}</ion-card-title>
+          </ion-card-header>
+          
+          <ion-card-content style="font-size: 13px; margin-bottom: -15px">
+            <ion-toolbar>  
+              
+              <ion-label *ngIf="collection.photos?.length === 1">{{collection.photos.length}} Foto</ion-label>
+              <ion-label *ngIf="collection.photos?.length > 1">{{collection.photos.length}} Fotos</ion-label>
+              
+              <ion-buttons  slot="end">
+                <ion-button (click)="presentActionSheet(collection)">
+                  <ion-icon slot="icon-only" name="ellipsis-horizontal"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+              
+            </ion-toolbar>
+          </ion-card-content>
+        </ion-card>
       
       
     </ion-col>

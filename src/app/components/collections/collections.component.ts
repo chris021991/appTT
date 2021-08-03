@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Collection, Photo } from '../../models/interfaces';
+import { Collection, Photo, User } from '../../models/interfaces';
 import { FirestoreService } from '../../services/firestore.service';
 import { ModalController, IonRouterOutlet, ActionSheetController, AlertController, LoadingController } from '@ionic/angular';
 import { UIServicesService } from '../../services/ui-services.service';
 import { CollectionComponent } from '../collection/collection.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-collections',
@@ -14,6 +15,7 @@ export class CollectionsComponent implements OnInit {
 
   @Input() collections: Collection[] = [];
 
+  user: User;
   textSearch = '';
   loading: any;
   private path = 'collections';
@@ -25,10 +27,13 @@ export class CollectionsComponent implements OnInit {
               private actionSheetCtrl: ActionSheetController,
               private alertCtrl: AlertController,
               private uiServices: UIServicesService,
-              private loadingCtrl: LoadingController) { }
+              private loadingCtrl: LoadingController,
+              private authSvc: AuthService) { }
 
   ngOnInit() {
-    console.log(this.collections);
+    this.authSvc.user$.subscribe(user => {
+      this.user = user;
+    });
   }
 
   openCollection(collection: Collection){

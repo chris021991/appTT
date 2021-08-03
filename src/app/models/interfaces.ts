@@ -54,3 +54,49 @@ export interface Social{
     instagram?: string;
     whatsapp?: string;
 }
+
+export interface Paquete{
+    id: string;
+    name: string;
+    description: number;
+    duration: number;
+    prices: PrecioPaquete[];
+}
+
+export interface Contrato{
+    id: string;
+    fecha: Date;
+    fotografo: {
+        uid?: string;
+        displayName?: string;
+        phone?: number;
+        address?: string;
+        city?: string;
+        country?: string;
+        photoURL?: string;
+    };
+    cliente: {
+        uid?: string;
+        displayName?: string;
+        phone?: number;
+        address?: string;
+        city?: string;
+        country?: string;
+        photoURL?: string;
+    };
+    estilo: string;
+    locacion: string;
+    paquete: Paquete;
+    estado: 'Pendiente' | 'Aceptado' | 'Rechazado' | 'Finalizado';
+}
+
+export interface EstiloFotografico{
+    id: string;
+    name: string;
+    description: string;
+}
+
+export interface PrecioPaquete{
+    name: 'Fotógrafo Nivel 1' | 'Fotógrafo Nivel 2' | 'Fotógrafo Nivel 3';
+    val: number;
+}

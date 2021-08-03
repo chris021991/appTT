@@ -1,4 +1,4 @@
-<ion-content class="ion-padding">
+<ion-content fullscreen>
 
   <ion-slides #slideWelcome>
     <ion-slide>
@@ -10,43 +10,56 @@
          <ion-grid>
            <ion-row>
              <ion-col size="12">
-              <ion-label class="ion-margin">Información Personal</ion-label>
-              <ion-item>
-                <ion-label position="stacked">Nombre</ion-label>
-                <ion-input name="name"
-                           type="text"
-                           [(ngModel)]="displayName"></ion-input>
-              </ion-item>
-    
-              <!-- <ion-item>
-                <ion-label>Género</ion-label>
-                <ion-select placeholder="Selecionar">
-                  <ion-select-option value="f">Femenino</ion-select-option>
-                  <ion-select-option value="m">Masculino</ion-select-option>
-                </ion-select>
-              </ion-item> -->
-    
-              <ion-item>
-                <ion-label position="stacked">Bio</ion-label>
-                <ion-textarea name="bio"
-                              type="text"
-                              [(ngModel)]="biography"></ion-textarea>
-              </ion-item>
-          
-              <ion-item>
-                <ion-label position="stacked">Número telefónico</ion-label>
-                <ion-input name="phone"
-                           type="tel"
-                           maxlength="10"
-                           [(ngModel)]="phone"></ion-input>
-              </ion-item>
-              
-              <ion-item>
-                <ion-label position="stacked">Dirección<br></ion-label>
-                <ion-input name="address"
-                type="text"
-                [(ngModel)]="address"></ion-input>
-              </ion-item>
+               <ion-list-header class="ion-padding">
+                <ion-label>Información Personal</ion-label>
+                 <!-- <ion-button>See All</ion-button> -->
+               </ion-list-header>
+              <ion-list>
+                <ion-item>
+                  <ion-icon slot="start" name="person-outline"></ion-icon>
+                  <ion-input name="name"
+                            type="text"
+                            placeholder="Nombre"
+                            [(ngModel)]="displayName"></ion-input>
+                </ion-item>
+      
+                <!-- <ion-item>
+                  <ion-label>Género</ion-label>
+                  <ion-select placeholder="Selecionar">
+                    <ion-select-option value="f">Femenino</ion-select-option>
+                    <ion-select-option value="m">Masculino</ion-select-option>
+                  </ion-select>
+                </ion-item> -->
+      
+                <ion-item>
+                  <ion-icon slot="start" name="document-text-outline"></ion-icon>
+                  <ion-textarea name="bio"
+                                type="text"
+                                placeholder="Biografía"
+                                [(ngModel)]="biography"></ion-textarea>
+                </ion-item>
+            
+                <ion-item>
+                  <ion-icon slot="start" name="phone-portrait-outline"></ion-icon>
+                  <ion-input name="phone"
+                            type="tel"
+                            placeholder="Número telefónico"
+                            maxlength="10"
+                            [(ngModel)]="phone"></ion-input>
+                </ion-item>
+                
+                <ion-item>
+                  <ion-icon slot="start" name="pin-outline"></ion-icon>
+                  <ion-input disabled
+                             placeholder="Ciudad"
+                             name= "address" 
+                             type="text"
+                             [(ngModel)]="city"></ion-input>
+                  <ion-button slot="end" (click)="openPicker()" fill="clear">
+                    <ion-icon name="chevron-down"></ion-icon>
+                  </ion-button>
+                </ion-item>
+              </ion-list>
               
            
              </ion-col>
@@ -58,14 +71,19 @@
 
     <ion-slide>
       <div class="ion-padding">
-        <h1>Estilos <br> fotográficos</h1>
-        <ion-grid fixed>
+        <h1 class="ion-text-center">Registro de <br>fotógrafos</h1>
+        <p>Selecciona los estilos fotográficos con los que te identificas.</p>
+
+        <ion-grid >
           <ion-row>
             <ion-col size="12">
+              <ion-list-header class="ion-padding">
+                <ion-label>Estilos Fotográficos</ion-label>
+              </ion-list-header>
               <ion-list>
-                <ion-item lines="none" *ngFor="let entry of photoStyle">
-                  <ion-checkbox slot="start" [(ngModel)]="entry.isChecked" name="especialidad"></ion-checkbox>
-                  <ion-label>{{entry.val}}</ion-label>
+                <ion-item lines="none" *ngFor="let photoStyle of photoStyles">
+                  <ion-checkbox slot="start"  name="especialidad"></ion-checkbox>
+                  <ion-label>{{photoStyle.name}}</ion-label>
                 </ion-item>
               </ion-list>
             </ion-col>
@@ -78,12 +96,24 @@
       <ion-grid class="ion-padding">
         <ion-row>
           <ion-col size="12">
-            <h1>Subir foto de perfil<br></h1>
+            <h1 class="ion-text-center">Registro de <br>fotógrafos</h1>
+            <p>Selecciona tu imagen de perfil.</p>
+
+            <div class="flex">
+              <div class="img-box">
+                <ion-avatar class="imgRedonda">
+                  <img *ngIf="photoURL !undefined" [src]="photoURL">
+                  <img *ngIf="photoURL === undefined" [src]="image">
+                </ion-avatar>
+                <ion-item lines="none" (click)="presentActionSheetPhotoProfile()">
+                  <a style="margin: 0px 0px 17px 35px; font-size: 17px;">Editar</a>
+                </ion-item>
+              </div>
+            </div>
           </ion-col>
         </ion-row>
-        <ion-row>
-          <ion-col size="12">
-            <ion-button (click)="addPhoto('library')" expand="block" color="tertiary" shape="round">
+
+            <!-- <ion-button (click)="addPhoto('library')" expand="block" color="tertiary" shape="round">
               <ion-icon size="large" name="image-outline"></ion-icon>
               <ion-label>Abrir la biblioteca</ion-label>
             </ion-button> 
@@ -91,38 +121,43 @@
             <ion-button (click)="addPhoto('camera')" expand="block" color="secondary" shape="round">
               <ion-icon size="large" name="camera-outline"></ion-icon>
               <ion-label>Tomar una foto</ion-label>
-            </ion-button> 
+            </ion-button>  -->
 
-            <div class="flex">
-              <div class="img-box">
-                <ion-avatar class="imgRedonda">
-                  <img *ngIf="photoURL !undefined" [src]="photoURL">
-                  <img *ngIf="photoURL === undefined" [src]="imagePath">
-                </ion-avatar>
-              </div>
-            </div>
-
-            <ion-button (click)="uploadPhotoProfile()" expand="block" color="warning" shape="round">
+            <!-- <ion-button (click)="uploadPhotoProfile()" expand="block" color="warning" shape="round">
               <ion-icon size="large" name="cloud-upload-outline"></ion-icon>
               <ion-label>Subir foto</ion-label>
-            </ion-button> 
+            </ion-button>  -->
 
-          </ion-col>
-        </ion-row>
       </ion-grid>
 
     </ion-slide>
 
     <ion-slide>
-      <ion-grid class="ion-padding">
-        <ion-row>
-          <ion-col size="12">
-            <h1>Subir foto de portada<br></h1>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="12">
-            <ion-button (click)="addCoverPage('library')" expand="block" color="tertiary" shape="round">
+      <div class="ion-padding">
+        <h1 class="ion-text-center">Registro de <br>fotógrafos</h1>
+        <p>Selecciona tu imagen de portada.</p>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12">
+              <div class="flex">
+                <div class="img-box">
+                  <ion-card>
+                    <img *ngIf="coverPage !undefined" [src]="coverPage">
+                    <img *ngIf="coverPage === undefined" [src]="imageCoverPage">
+                  </ion-card>
+                </div>
+              </div>
+              <div>
+                <ion-item lines="none" (click)="presentActionSheetCoverPage()">
+                  <a style="font-size: 17px;">Editar</a>
+                </ion-item>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+            <!-- <ion-button (click)="addCoverPage('library')" expand="block" color="tertiary" shape="round">
               <ion-icon size="large" name="image-outline"></ion-icon>
               <ion-label>Abrir la biblioteca</ion-label>
             </ion-button> 
@@ -132,23 +167,10 @@
               <ion-label>Tomar una foto</ion-label>
             </ion-button> 
 
-            <div class="flex">
-              <div class="img-box">
-                <ion-card>
-                  <img *ngIf="coverPage !undefined" [src]="coverPage">
-                  <img *ngIf="coverPage === undefined" [src]="imageCoverPage">
-                </ion-card>
-              </div>
-            </div>
-
             <ion-button (click)="uploadPhotoCoverPage()" expand="block" color="warning" shape="round">
               <ion-icon size="large" name="cloud-upload-outline"></ion-icon>
               <ion-label>Subir foto</ion-label>
-            </ion-button> 
-
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+            </ion-button>  -->
 
     </ion-slide>
 

@@ -21,7 +21,6 @@ export class LoginPage implements OnInit {
     role: null,
     photoURL: '',
   };
-  firstLogin: boolean;
   errormessage: string;
 
   constructor(private authSvc: AuthService,
@@ -35,11 +34,6 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     // inhabilitar el menú
     this.menu.enable(false);
-
-    this.authSvc.user$.subscribe(user => {
-      this.firstLogin = user?.firstLogin;
-      console.log(user);
-    });
   }
 
   // bloqueo de slide login/registro
@@ -50,7 +44,6 @@ export class LoginPage implements OnInit {
   onLogin(){
     if (this.user.email && this.user.password){
       this.authSvc.signIn(this.user.email, this.user.password);
-      console.log(this.firstLogin);
     } else{
       this.toast('Por favor ingrese su correo y contraseña', 'warning');
     }

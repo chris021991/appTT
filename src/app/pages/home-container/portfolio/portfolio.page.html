@@ -18,7 +18,7 @@
       </ion-col>
       <ion-col class="txt-over">
         <ion-label>{{user?.displayName}}<br></ion-label>
-        <ion-label>Quito - Ecuador<br></ion-label>
+        <ion-label>{{user?.city}} - Ecuador<br></ion-label>
         <ion-icon *ngFor="let star of [1,1,1,1,1]" style="color: darkgoldenrod;" name="star"></ion-icon>
         <ion-button *ngIf="userLogged?.role == 'CLIENT'" 
                     (click)="onContract()"
@@ -101,8 +101,8 @@
                     <ion-item>
                       <ion-label class="ion-text-wrap">Especialidades</ion-label>
                       <ion-list>
-                        <div *ngFor="let style of user.photoStyle">
-                          <ion-label *ngIf="style.isChecked" class="ion-text-wrap" slot="start">{{style.val}}</ion-label>
+                        <div *ngFor="let style of genresSelected">
+                          <ion-label class="ion-text-wrap">{{style.name}}</ion-label>
                         </div>
                       </ion-list>
                     </ion-item>

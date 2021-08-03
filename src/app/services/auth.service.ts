@@ -61,7 +61,14 @@ export class AuthService extends RoleValidator{
           this.afAuth.signOut();
         } else {
           loading.dismiss();
-          this.router.navigate(['/dashboard/app/home']);
+          this.user$.subscribe(user => {
+            console.log('FirstLogin Service', user.firstLogin);
+            if (user.firstLogin){
+              this.router.navigate(['/welcome']);
+            } else {
+              this.router.navigate(['/dashboard/app/home']);
+            }
+          });
         }
       })
       .catch(error => {
