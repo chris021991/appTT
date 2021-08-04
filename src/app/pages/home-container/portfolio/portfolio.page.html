@@ -18,8 +18,8 @@
       </ion-col>
       <ion-col class="txt-over">
         <ion-label>{{user?.displayName}}<br></ion-label>
-        <ion-label>{{user?.city}} - Ecuador<br></ion-label>
-        <ion-icon *ngFor="let star of [1,1,1,1,1]" style="color: darkgoldenrod;" name="star"></ion-icon>
+        <ion-label>{{user?.city}} - {{user.country}}<br></ion-label>
+          <ion-icon *ngFor="let rating of ratings" style="color: goldenrod;" [name]="rating.icon"></ion-icon>
         <ion-button *ngIf="userLogged?.role == 'CLIENT'" 
                     (click)="onContract()"
                     size="small" 

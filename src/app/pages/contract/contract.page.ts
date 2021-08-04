@@ -11,39 +11,6 @@ import { FirestoreService } from '../../services/firestore.service';
 })
 export class ContractPage implements OnInit {
 
-  public styles = [
-    { name: 'Bodas y compromisos',
-      des: '',
-      value: 'weeding' },
-    { name: 'Retrato',
-      des: '',
-      value: 'portrait' },
-    { name: 'Eventos',
-      des: '',
-      value: 'event' },
-    { name: 'Moda',
-      des: '',
-      value: 'fashion' },
-    { name: 'Graduación',
-      des: '',
-      value: 'graduation' },
-    { name: 'Deportes / Acción',
-      des: '',
-      value: 'sports' },
-    { name: 'Comercial / Editorial',
-      des: '',
-      value: 'comercial' },
-    { name: 'Naturaleza / Fauna salvaje',
-      des: '',
-      value: 'nature' },
-    { name: 'Bellas artes',
-      des: '',
-      value: 'art' },
-    { name: 'Fotoperiodismo',
-      des: '',
-      value: 'journalism' }
-  ];
-
   public places = [
     { name: 'Fotos en estudio',
       des: 'Seleccionalo si el trabajo debe realizarse en un estudio fotográfico.' ,

@@ -7,18 +7,30 @@
 <ion-content>
 
   <ion-list>
-    <ion-item *ngFor="let notificacion of notificaciones" 
-              (click)="viewNotification(notificacion)">
-      <ion-avatar slot="start">
-        <img *ngIf="uid === notificacion.cliente.uid" [src]="notificacion.fotografo.photoURL" />
-        <img *ngIf="uid === notificacion.fotografo.uid" [src]="notificacion.cliente.photoURL" />
-      </ion-avatar>
-      <ion-label>Solicitud del contrato
-        <p *ngIf="uid === notificacion.cliente.uid">{{notificacion.fotografo.displayName}}</p>
-        <p *ngIf="uid === notificacion.fotografo.uid">{{notificacion.cliente.displayName}}</p>
-        <p>{{notificacion.estado}}</p>
-      </ion-label>
-    </ion-item>
+    <ion-item-sliding #sliding *ngFor="let notificacion of notificaciones">
+      <ion-item  
+            (click)="viewNotification(notificacion)">
+        <ion-avatar slot="start">
+          <img *ngIf="uid === notificacion.cliente.uid" [src]="notificacion.fotografo.photoURL" />
+          <img *ngIf="uid === notificacion.fotografo.uid" [src]="notificacion.cliente.photoURL" />
+        </ion-avatar>
+        <ion-label>Solicitud del contrato
+          <p *ngIf="uid === notificacion.cliente.uid">{{notificacion.fotografo.displayName}}</p>
+          <p *ngIf="uid === notificacion.fotografo.uid">{{notificacion.cliente.displayName}}</p>
+          <p>{{notificacion.estado}}</p>
+        </ion-label>
+      </ion-item>
+
+      <ion-item-options *ngIf="notificacion.estado != 'Finalizado'" side="end">
+        <ion-item-option (click)="finalizeContract(notificacion)" color="primary">Finalizar</ion-item-option>
+      </ion-item-options>
+
+      <ion-item-options *ngIf="notificacion.estado === 'Finalizado' && uid === notificacion.cliente.uid" side="end">
+        <ion-item-option (click)="valorar(notificacion, sliding)" color="primary">Calificar</ion-item-option>
+      </ion-item-options>
+
+    </ion-item-sliding>
+
   </ion-list>
 
 </ion-content>

@@ -60,6 +60,10 @@ export interface Paquete{
     name: string;
     description: number;
     duration: number;
+    clothing: number;
+    digitalPhotos: number;
+    phisicalPhotos: number;
+    photobook: boolean;
     prices: PrecioPaquete[];
 }
 
@@ -99,4 +103,8 @@ export interface EstiloFotografico{
 export interface PrecioPaquete{
     name: 'Fotógrafo Nivel 1' | 'Fotógrafo Nivel 2' | 'Fotógrafo Nivel 3';
     val: number;
+}
+
+export interface Valoracion{
+    value: number;
 }

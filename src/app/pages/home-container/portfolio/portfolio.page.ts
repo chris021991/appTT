@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSlides, NavController, ModalController } from '@ionic/angular';
 import { AuthService } from '../../../services/auth.service';
-import { User, Photo } from '../../../models/interfaces';
+import { User, Photo, Valoracion } from '../../../models/interfaces';
 import { FirestoreService } from '../../../services/firestore.service';
 import { UIServicesService } from '../../../services/ui-services.service';
 import { PhotoPortfolioComponent } from '../../../components/photo-portfolio/photo-portfolio.component';
@@ -23,6 +23,24 @@ export class PortfolioPage implements OnInit {
   photos: Photo[];
   event: any;
   genresSelected = [];
+  valoracion: number;
+
+  ratings = [{
+    value: 1,
+    icon: 'star-outline'
+  }, {
+    value: 2,
+    icon: 'star-outline'
+  }, {
+    value: 3,
+    icon: 'star-outline'
+  }, {
+    value: 4,
+    icon: 'star-outline'
+  }, {
+    value: 5,
+    icon: 'star-outline'
+  }];
 
   constructor(private database: FirestoreService,
               private authSvc: AuthService,
@@ -50,6 +68,7 @@ export class PortfolioPage implements OnInit {
       // devuelve los estilos fotográficos
       this.getPhotoGenres();
     }
+    this.getRanking();
   }
 
    // bloqueo de slide
@@ -99,6 +118,41 @@ export class PortfolioPage implements OnInit {
       this.slideToBio();
     } else if (ev.detail.value === 'packs'){
       this.slideToPacks();
+    }
+  }
+
+  getRanking() {
+    const path = 'users/' + this.user.uid + '/valoraciones';
+    this.database.getCollectionChanges<Valoracion>(path).subscribe(val => {
+        const valoraciones = val;
+        const n = valoraciones.length;
+        let acum = 0;
+        // Suma de todas las valoraciones y calcula el promedio
+        for (let i = 0; i < n; i++) {
+          acum = Number(acum) + Number(valoraciones[i].value);
+        }
+        const prom = acum / n;
+        // Si nunca se ha valorado al usuario, el sistema le asigna 5 estrellas
+        if (isNaN(prom)){
+          this.valoracion = 5;
+          this.setRanking(this.valoracion);
+        } else {
+          this.valoracion = prom;
+          this.setRanking(this.valoracion);
+        }
+    });
+  }
+
+  // Loop para mostrar número de estrellas
+  setRanking(val: number) {
+    const rtgs = this.ratings;
+    this.valoracion = val;
+    for (let i = 0; i < rtgs.length; i++) {
+      if (i < val) {
+        rtgs[i].icon = 'star';
+      } else {
+        rtgs[i].icon = 'star-outline';
+      }
     }
   }
 
