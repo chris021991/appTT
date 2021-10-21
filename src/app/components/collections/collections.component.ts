@@ -44,6 +44,16 @@ export class CollectionsComponent implements OnInit {
     }).then(m => m.present());
   }
 
+  async presentModal() {
+    const modal = await this.modalCtrl.create({
+      component: CollectionComponent,
+      swipeToClose: true,
+      presentingElement: this.routerOutlet.nativeEl,
+      showBackdrop: true
+    });
+    return await modal.present();
+  }
+
   async deleteItems(item: Collection){
     const alert = await this.alertCtrl.create({
       header: 'ADVERTENCIA',
@@ -75,16 +85,6 @@ export class CollectionsComponent implements OnInit {
 
     await alert.present();
 }
-
-  async presentModal() {
-    const modal = await this.modalCtrl.create({
-      component: CollectionComponent,
-      swipeToClose: true,
-      presentingElement: this.routerOutlet.nativeEl,
-      showBackdrop: true
-    });
-    return await modal.present();
-  }
 
   async presentActionSheet(item: Collection) {
     const actionSheet = await this.actionSheetCtrl.create({

@@ -97,7 +97,7 @@ export class GenresPage implements OnInit {
   }
 
   addGenre() {
-    this.presentAlert('Crear género fotográfico', '');
+    this.presentAlert('Crear estilo fotográfico', '');
   }
 
   async presentAlert(header: string, message: string, genre?: any) {

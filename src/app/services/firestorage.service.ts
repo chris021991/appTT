@@ -10,8 +10,7 @@ export class FirestorageService {
   MEDIA_STORAGE_PATH = 'images';
 
   constructor(private storage: AngularFireStorage,
-              private loadingCtrl: LoadingController,
-              private alertCtrl: AlertController) { }
+              private loadingCtrl: LoadingController) { }
 
 
     async uploadImages(images: any[], path: string, name: string) {

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Collection } from '../../models/interfaces';
 import { FirestoreService } from '../../services/firestore.service';
 import { ModalController, IonRouterOutlet } from '@ionic/angular';
-import { CollectionComponent } from '../../components/collection/collection.component';
 import { NewCollectionComponent } from '../../components/collection/new-collection/new-collection.component';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from '../../../services/firestore.service';
-import { User, Photo } from '../../../models/interfaces';
+import { User } from '../../../models/interfaces';
 
 @Component({
   selector: 'app-home',

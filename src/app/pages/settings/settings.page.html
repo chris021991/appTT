@@ -22,7 +22,8 @@
   </ion-list>
 
   <!-- temporal admin y fotógrafos habilitados en opciones Administrador -->
-  <div *ngIf="user.role === 'ADMIN' || user.role === 'PHOTOGRAPHER'">
+  <!-- <div *ngIf="user.role === 'ADMIN' || user.role === 'PHOTOGRAPHER'"> -->
+  <div *ngIf="user.role === 'ADMIN'">
     <div style="margin-left: 20px;">
       <h1></h1>
       <p style="margin-bottom: 0px; ">Opciones de administrador</p>
@@ -31,7 +32,7 @@
     <ion-list lines="none">
       <ion-item [routerLink]="['/dashboard/app/settings/genres']">
         <ion-icon slot="start" name="folder-open-outline"></ion-icon>
-        <ion-label>Géneros y paquetes fotográficos</ion-label>
+        <ion-label>Estilos y paquetes fotográficos</ion-label>
       </ion-item>
     </ion-list>
   </div>
