@@ -4,7 +4,7 @@
     <ion-slide>
       <form #fWelcome1="ngForm" class="ion-padding">
 
-        <h1 class="ion-text-center">Registro de <br>fotógrafos</h1>
+        <h1 class="ion-text-center">Registro de <br>{{rolActual}}</h1>
         <p>Estamos agradecidos por tenerte aquí. Ahora vamos a configurar tu perfil.</p>
       
          <ion-grid>
@@ -69,9 +69,9 @@
       </form>
     </ion-slide>
 
-    <ion-slide>
+    <ion-slide *ngIf="role == 'PHOTOGRAPHER'">
       <div class="ion-padding">
-        <h1 class="ion-text-center">Registro de <br>fotógrafos</h1>
+        <h1 class="ion-text-center">Registro de <br>{{rolActual}}</h1>
         <p>Selecciona los estilos fotográficos con los que te identificas.</p>
 
         <ion-grid >
@@ -96,7 +96,7 @@
       <ion-grid class="ion-padding">
         <ion-row>
           <ion-col size="12">
-            <h1 class="ion-text-center">Registro de <br>fotógrafos</h1>
+            <h1 class="ion-text-center">Registro de <br>{{rolActual}}</h1>
             <p>Selecciona tu imagen de perfil.</p>
 
             <div class="flex">
@@ -134,7 +134,7 @@
 
     <ion-slide>
       <div class="ion-padding">
-        <h1 class="ion-text-center">Registro de <br>fotógrafos</h1>
+        <h1 class="ion-text-center">Registro de <br>{{rolActual}}</h1>
         <p>Selecciona tu imagen de portada.</p>
 
         <ion-grid>

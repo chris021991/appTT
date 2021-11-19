@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { FirestorageService } from 'src/app/services/firestorage.service';
 import { LocationService } from '../../../services/location.service';
-import { User } from '../../../models/interfaces';
+import { User, Roles } from '../../../models/interfaces';
 
 @Component({
   selector: 'app-welcome',
@@ -38,6 +38,8 @@ export class WelcomePage implements OnInit {
   photoURL: string;
   coverPage: string;
   firstLogin: boolean;
+  role: Roles;
+  rolActual: string;
 
   cities = [];
   photoStyles = [];
@@ -73,6 +75,8 @@ export class WelcomePage implements OnInit {
       this.photoURL = user.photoURL;
       this.coverPage = user.coverPage;
       this.firstLogin = user.firstLogin;
+      this.role = user.role;
+      this.getRole(this.role);
       // this.photoStyle = user.photoStyle;
     });
     this.getPhotoStyles();
@@ -196,6 +200,18 @@ export class WelcomePage implements OnInit {
   async uploadPhotoCoverPage(){
     const coverPage = await this.firestorage.uploadImage(this.coverPage, this.coverPagePath, this.uid);
     this.coverPage = coverPage;
+  }
+
+  getRole(role: Roles){
+    if (role === 'PHOTOGRAPHER'){
+      this.rolActual = 'fotógrafo';
+    }
+    else if (role === 'CLIENT'){
+      this.rolActual = 'cliente';
+    }
+    else{
+      this.rolActual = 'administrador';
+    }
   }
 
   async finish() {
